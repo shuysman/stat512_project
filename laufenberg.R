@@ -71,7 +71,7 @@ df <- df %>%
 ## 3186.57 9
 
 null_model <- lmer(log_growth_rt ~ 1 + (1 | unit), df)
-full_model <- lmer(log_growth_rt ~ aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA + (1 | unit), df)
+full_model <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA + (1 | unit), df)
 
 
 ## Backwards selection.  We can't use step() for mixed models
@@ -89,6 +89,11 @@ par(mar = c(3,5,6,4), mfrow = c(1,1))
 plot(subset(allSubsets_aqi, delta < 4),
      labAsExpr = TRUE)
 
+
+## This gives similar results to the paper, I think this is the way to
+## go.  Methods from Zuur et al. "Mixed Effects Models and Extensi ns
+## in Ecology with R" which is cited in the paper
+drop1(full_model,test = "Chi", k = 2, trace = TRUE)
 
 
 ### Mixed Models
