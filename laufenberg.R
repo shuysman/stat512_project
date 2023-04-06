@@ -4,6 +4,8 @@ library(lme4)
 library(effects)
 library(sf)
 library(stars)
+library(lmerTest)
+library(MuMIn)
 
 df <- read_csv('./laufenberg-df.csv')
 
@@ -56,14 +58,7 @@ df <- df %>%
 
 ### Variable Selection
 
-## Null Model from paper
-## Log(growth_rate) ~ 1 + random (Unit)
-
-## Full Model from paper
-## Log(growth_rate) ~ AET + PET + PPT + T + Micro + Comp_number + PICO + PIEN + ABLA + random (Unit)
-
-
-
+## From paper:
 ## Individual Growth Rate Models AICc K
 ## Null Model
 ## Log(growth_rate) ~ 1 + random (Unit)
@@ -76,7 +71,24 @@ df <- df %>%
 ## 3186.57 9
 
 null_model <- lmer(log_growth_rt ~ 1 + (1 | unit), df)
-full_model <- lmer(log_growth_rt ~ aet + 
+full_model <- lmer(log_growth_rt ~ aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA + (1 | unit), df)
+
+
+## Backwards selection.  We can't use step() for mixed models
+## Does not seem to give the same result as the paper
+## I don't know how to implement forward selection for mixed effects models
+lmerTest::step(full_model)
+
+## All sub-sets
+## Also does not give a similar result to the paper
+options(na.action = "na.fail") # Must be run to use dredge
+allSubsets_aqi <- dredge(full_model, rank = "AICc",
+                         m.lim = c(3,10)) #Defaults into using
+# visualize results
+par(mar = c(3,5,6,4), mfrow = c(1,1))
+plot(subset(allSubsets_aqi, delta < 4),
+     labAsExpr = TRUE)
+
 
 
 ### Mixed Models
