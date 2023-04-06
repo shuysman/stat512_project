@@ -1,1 +1,57 @@
-#RMARKdown tests
+---
+title: 'Critique of Laufenberg Paper'
+subtitle: 'Stat 512: Final Project'
+author: "Steve Huysman & Parker Levinson"
+date: "Friday, April 14, 2023"
+output:
+  bookdown::pdf_document2: default
+  html_document:
+    df_print: paged
+fontsize: 12pt
+header-includes:
+- \usepackage{setspace}
+- \usepackage{amsmath}
+indent: yes
+
+---
+```{r setup, eval=TRUE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load packages, eval = TRUE, include = FALSE}
+# load packages
+library(faraway)
+library(tidyverse)
+library(catstats)
+library(MuMIn)
+library(GGally)
+library(dplyr)
+```
+
+
+\doublespacing
+
+## Introduction
+Introduction (20 pts: rubric × 2)
+• Brief overview of the general research area and problem stated (2 pages max)
+• Question(s) of interest clearly stated and described, and are specific to what can be
+addressed with a statistical analysis. Description of simplification to the authors’
+research question and model, if necessary
+• Everything stated in the context of the research
+
+## Methods
+
+### Field Methods/Study design 
+### Statistical Procedures Used
+
+## Results/Summary of Statistical Findings
+
+## Scope of Inference
+
+## Critique
+
+## Group Work Statement
+
+## References
+
+## Appendix
