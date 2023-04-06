@@ -21,13 +21,65 @@ df %>%
     ggplot(aes(x = unit, y = aet)) +
     geom_boxplot()
 
+## Figure 10. Mean growing season PET across all units.
+df %>%
+    group_by(unit) %>%
+    mutate(pet = grow_petmean * 7) %>%
+    ggplot(aes(x = unit, y = pet)) +
+    geom_boxplot()
+
+## Figure 9. Mean annual precipitation for all units.
+## Seems that annual_p is monthly, needs to be multiplied by 12 for total precipitation per year
+df %>%
+    group_by(unit) %>%
+    mutate(p = annual_p * 12) %>%
+    ggplot(aes(x = unit, y = p)) +
+    geom_boxplot()
+
+## Figure 8. Mean annual temperatures for all units (BT = Beartooth, EC = East Centennial, WC = West Centennial, WI = Wind River, WY = West Yellowstone).
+## annual_tmean does not seem to need to be modified
+df %>%
+    group_by(unit) %>%
+    ggplot(aes(x = unit, y = annual_tmean)) +
+    geom_boxplot()
 
 df <- df %>%
     mutate(aet = grow_aetmean * 7,
-           log_growth_rt = log(growth_rt * 7, 10)) ### Growth rate is also monthly (?) - I can't find this anywhere in the paper, but it is the only way to make the plots match
+           log_growth_rt = log(growth_rt * 7, 10),
+           pet = grow_petmean * 7,
+           p = annual_p * 12) ### Growth rate is also monthly (?) - I can't find this anywhere in the paper, but it is the only way to make the plots match
                                         # Also, paper specifies they used natural log, however numbers given in log_growth_rt are from log base 10
                                         # Also, what is the purpose of the log_growth_rt column, it doesn't seem to have been used in this analysis
-# I was only able to get the plots to match (roughly) recreating log_growth_rt here
+                                        # I was only able to get the plots to match (roughly) recreating log_growth_rt here
+## also assuming other variables with grow_ are per growing season and need to be multiplied by 7 based on same reasoning
+
+
+### Variable Selection
+
+## Null Model from paper
+## Log(growth_rate) ~ 1 + random (Unit)
+
+## Full Model from paper
+## Log(growth_rate) ~ AET + PET + PPT + T + Micro + Comp_number + PICO + PIEN + ABLA + random (Unit)
+
+
+
+## Individual Growth Rate Models AICc K
+## Null Model
+## Log(growth_rate) ~ 1 + random (Unit)
+## 3225.31 3
+## Full Model
+## Log(growth_rate) ~ AET + PET + PPT + T + Micro + Comp_number + PICO + PIEN + ABLA + random (Unit)
+## 3262.92 12
+## Best Model
+## Log(growth_rate) ~ AET3 + Comp_number3 + random (Unit)
+## 3186.57 9
+
+null_model <- lmer(log_growth_rt ~ 1 + (1 | unit), df)
+full_model <- lmer(log_growth_rt ~ aet + 
+
+
+### Mixed Models
 
 #lm1 <- lmer(log_growth_rt ~ poly(aet, 3) + poly(comp_number, 3) + ( 1 | unit ) + ( 1 | site ), df)
 lm1 <- lmer(log_growth_rt ~ poly(aet, 3) + poly(comp_number, 3) + ( 1 | unit ), df)
