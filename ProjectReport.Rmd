@@ -32,19 +32,62 @@ library(dplyr)
 \doublespacing
 
 ## Introduction
-Introduction (20 pts: rubric × 2)
-• Brief overview of the general research area and problem stated (2 pages max)
-• Question(s) of interest clearly stated and described, and are specific to what can be
-addressed with a statistical analysis. Description of simplification to the authors’
-research question and model, if necessary
-• Everything stated in the context of the research
+- White bark pine is very threatened in the GYE. 
+- it's a keystone and foundational species that helps with the healthy ecosystem function in the park. 
+- recently, about half of the white bark pine in the GYE has suffered from mortality, decimating this important population
+  - higher temps
+  - drier conditions 
+  - insect pathogens which leads to disease
+- furthermore, white bark pine is the most vulnerable tree species to climate change
+  - this is because they live in high alpine and high topographic areas?
+- one way to help is to replant white bark
+- INSERT SOMETHING ABOUT ALL THE PHYSICAL REQUIREMENTS THEY NEED
+- But those physical requirements haven't been connected with replanting efforts
+- RQ: How does climate and competition related to survival of white bark plants planted? They aim to do this by looking at survival and growth rate compared with water balance and competition at the same tree level across a large environmental gradient where seedlings have been planted since 1990.
+
+- Researchers had two different research questions, but we decided to just look at how survival was related to water balance and competition at the same tree level, to simplify the problem a little bit. 
 
 ## Methods
 
 ### Field Methods/Study design 
+
+
+```{r fig1, fig.cap = "a figure", include = TRUE, fig.width= 3}
+knitr::include_graphics("Figure1.png")
+```
+
+- Over the past 40 years, US Forest Service and Park service has planted more than 1500 acres of white bark park, including in 5 study areas around the GYE (in FIGURE \@ref(fig:fig1)). Each study area has between 5 and 8 planting sites (WHAT DOES THIS MEAN?)
+
+- This study used a hierarchical study design by studying 5 study areas with a combination of 29 planting sites across them and thousands of white bark pine seedlings per planting site. 
+- Sampling took place from May 2018 to October 2018. A grid cell matrix of 10m x 10m was overlaid on the study site. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling between 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data (FIGURE 2). 
+
+- Researchers were most interested in the annual growth rate. Seedlings were too small to core to measure growth rings, so height was used as a proxy for growth rate, specifically the change in height from the year of study to the relative planted height. This was divided by the years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on growth. 
+
+- Explanatory variables are as follows: 
+  - microsite - This was a binary variable. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
+  - # of competitors
+  - competing species
+  - evapotranspiration 
+  - water deficit 
+  - elevation
+  - aspect - The direction that the slope is facing was measured and binned (0◦, 45◦, 90◦, 135◦, 180◦, 225◦, 270◦, 315◦, or flat)
+  - slope - The steepness of the slope was measured and binned (0◦, 5◦, 10◦, 15◦, 20◦, or 25◦). 
+  
+```{r rawEDA, include = FALSE, eval = TRUE}
+#NEED TO FIX LAUFENBERG SO WE CAN USE IT AS SOURCE, too many warnings and stuff. or we can create a different source document
+#source("laufenberg.R")
+#fig4
+```
+- We can visualize the growth rate of each study site (Figure \@ref(fig:rawEDA))  
+
+• Sample sizes and missing data provided/discussed
+
 ### Statistical Procedures Used
+- Mixed effects models were used to study what covariates were correlated with white bark pine performance. Fixed effects, interactions, linear and polynomial functions, and different variance structures were explored. A corrected AIC was used to compare models. Colinearity was explored and variables removed if they were more than 0.6 colinear. Authors attempted to find the most parsimonious set of water balance variables while still incorporating the bioogically relevant variables and incoporating the variables of questions (including number of competitors, age of planting, and microsite status). Everything was done use R statistical software. 
+
 
 ## Results/Summary of Statistical Findings
+
 
 ## Scope of Inference
 

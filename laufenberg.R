@@ -218,7 +218,7 @@ plot(pred, add = TRUE)
 
 ################################# Other Work from Paper
 ## Figure 4 Adjusted growth rates (cm year−1) across units
-df %>%
+fig4 <- df %>%
     group_by(unit) %>%
     ggplot(aes(x = unit, y = growth_rt)) +
     geom_boxplot()
