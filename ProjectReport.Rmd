@@ -63,6 +63,10 @@ knitr::include_graphics("Figure1.png")
 
 - Researchers were most interested in the annual growth rate. Seedlings were too small to core to measure growth rings, so height was used as a proxy for growth rate, specifically the change in height from the year of study to the relative planted height. This was divided by the years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on growth. 
 
+- The theoretical model is as follows: 
+
+$/mu{growth_rate | AET + PET + PPT + T + Micro + Comp_number + PICO + PIEN + ABLA + random (Unit)} = XXXXX$
+
 - Explanatory variables are as follows: 
   - microsite - This was a binary variable. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
   - # of competitors
@@ -72,9 +76,10 @@ knitr::include_graphics("Figure1.png")
   - elevation
   - aspect - The direction that the slope is facing was measured and binned (0◦, 45◦, 90◦, 135◦, 180◦, 225◦, 270◦, 315◦, or flat)
   - slope - The steepness of the slope was measured and binned (0◦, 5◦, 10◦, 15◦, 20◦, or 25◦). 
+  - WHAT OTHER EXPLANATORY VARIABLES GO HERE?
   
 ```{r rawEDA, include = FALSE, eval = TRUE}
-#NEED TO FIX LAUFENBERG SO WE CAN USE IT AS SOURCE, too many warnings and stuff. or we can create a different source document
+#NEED TO FIX LAUFENBERG SO WE CAN USE IT AS SOURCE, too many warnings and stuff. or we can create a different source document - PL
 #source("laufenberg.R")
 #fig4
 ```
@@ -83,18 +88,33 @@ knitr::include_graphics("Figure1.png")
 • Sample sizes and missing data provided/discussed
 
 ### Statistical Procedures Used
-- Mixed effects models were used to study what covariates were correlated with white bark pine performance. Fixed effects, interactions, linear and polynomial functions, and different variance structures were explored. A corrected AIC was used to compare models. Colinearity was explored and variables removed if they were more than 0.6 colinear. Authors attempted to find the most parsimonious set of water balance variables while still incorporating the bioogically relevant variables and incoporating the variables of questions (including number of competitors, age of planting, and microsite status). Everything was done use R statistical software. 
+- Mixed effects models were used to study what covariates were correlated with white bark pine performance. Fixed effects, interactions, linear and polynomial functions, and different variance structures were explored. A corrected AIC was used to compare models. Colinearity was explored and variables removed if they were more than 0.6 colinear. Authors attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incoporating the variables of questions (including number of competitors, age of planting, and microsite status). Everything was done use R statistical software. 
+
+- they did something with step selection, but how do you do that with mixed models? 
+
+- Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment as to cleaning methods in order to recreate numbers and graphs. This includes 
+  - creating AET which is the total evapotranspiration. To get this, we multiplied the average evapotranspiration by 7 for the 7 months of the growing season.  
+  - The same was done for PET or potential evapotranspiration. 
+  - P or the total annual precipitation: "annual precipation" was actually the monthly average precipatation so that needed to be multiplied by 12 to get the total annual precipitation
+  - growth rate was normalized via log 10 transformation
 
 
 ## Results/Summary of Statistical Findings
 
 
+
 ## Scope of Inference
+- Random sampling = inferences to large population 
+- No random treatment (because nature) = correlation/association but not causation. 
 
 ## Critique
+- no clear model selection criteria or process
+- difficult data cleaning and processing
 
 ## Group Work Statement
 
 ## References
 
 ## Appendix
+
+- Must include a compiled RMarkdown with all of our results
