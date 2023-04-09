@@ -73,11 +73,17 @@ df <- df %>%
 null_model <- lmer(log_growth_rt ~ 1 + (1 | unit), df)
 full_model <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA + (1 | unit), df)
 
-
 ## Backwards selection.  We can't use step() for mixed models
 ## Does not seem to give the same result as the paper
 ## I don't know how to implement forward selection for mixed effects models
+
 lmerTest::step(full_model)
+
+#play around with backwards selection without mixed effects
+full_lm<-step(lm(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA, df), direction = "backward")
+
+#log_growth_rt ~ poly(aet, 3) + poly(pet, 3) + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA
+
 
 ## All sub-sets
 ## Also does not give a similar result to the paper
@@ -94,6 +100,16 @@ plot(subset(allSubsets_aqi, delta < 4),
 ## go.  Methods from Zuur et al. "Mixed Effects Models and Extensi ns
 ## in Ecology with R" which is cited in the paper
 drop1(full_model,test = "Chi", k = 2, trace = TRUE)
+#drop doesn't give cAIC values
+
+#try to do step wise selection with mixed effects
+library(cAIC4)
+mixed_step <- stepcAIC(full_model,direction="backward", trace=TRUE, data=df)
+
+#this was the best model but the AIC score is so much smaller
+# Best model:
+#   ~ aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA + (1 | unit) ,
+# cAIC: 1109.161 
 
 
 ### Mixed Models
