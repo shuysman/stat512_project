@@ -103,7 +103,7 @@ $/mu{growth_rate | AET + PET + PPT + T + Micro + Comp_number + PICO + PIEN + ABL
 
 ## Results/Summary of Statistical Findings
 
-- The final model, decided with drop1, is aet^3, pet^3 + comp_number + PICO + ALBA
+- The final model, decided with drop1, is aet^3, pet^3 + comp_number^3 + PICO
 
 ## Scope of Inference
 - Random sampling = inferences to large population 
