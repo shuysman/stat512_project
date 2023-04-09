@@ -71,7 +71,9 @@ df <- df %>%
 ## 3186.57 9
 
 null_model <- lmer(log_growth_rt ~ 1 + (1 | unit), df)
-full_model <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA + (1 | unit), df)
+full_model <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA +  (1 | unit), df)
+#make everything have cubic functions
+full_cubic <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + poly(p, 3) + poly(p,2) + p + poly(annual_tmean,3) + poly(annual_tmean, 2) + annual_tmean + micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
 
 ## Backwards selection.  We can't use step() for mixed models
 ## Does not seem to give the same result as the paper
@@ -99,8 +101,10 @@ plot(subset(allSubsets_aqi, delta < 4),
 ## This gives similar results to the paper, I think this is the way to
 ## go.  Methods from Zuur et al. "Mixed Effects Models and Extensi ns
 ## in Ecology with R" which is cited in the paper
-drop1(full_model,test = "Chi", k = 2, trace = TRUE)
+drop1(full_model, test = "Chisq", k = 2, trace = TRUE)
 #drop doesn't give cAIC values
+
+drop1(full_cubic, test = "Chisq", k = 2, trace = TRUE)
 
 #try to do step wise selection with mixed effects
 library(cAIC4)
