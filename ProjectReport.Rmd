@@ -48,22 +48,22 @@ We are interested here in the first question relating to seedling growth rate.
 ### Field Methods/Study design 
 
 
-```{r fig1, fig.cap = "a figure", echo = FALSE, out.width = '50%', fig.align='center'}
+```{r fig1, fig.cap = "Map of planting units included in study in the Greater Yellowstone Ecosystem", echo = FALSE, out.width = '50%', fig.align='center'}
 knitr::include_graphics("Figure1.png")
 ```
 
-- Over the past 40 years, US Forest Service and Park service has planted more than 1500 acres of white bark park, including in 5 study areas around the GYE (in FIGURE \@ref(fig:fig1)). Each study area has between 5 and 8 planting sites (WHAT DOES THIS MEAN?)
+Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of white bark park in the GYE.  This study investigated five planting units (FIGURE \@ref(fig:fig1)) that each contained between two and eight planting sites. 
 
-- This study used a hierarchical study design by studying 5 study areas with a combination of 29 planting sites across them and thousands of white bark pine seedlings per planting site. 
+This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. 
 
 ```{r fig2, fig.cap = "Visualization of study design", echo = FALSE, out.width = '75%', fig.align='center'}
 knitr::include_graphics("Figure2.png")
 ```
-- Sampling took place from May 2018 to October 2018. A grid cell matrix of 10m x 10m was overlaid on the study site. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling between 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data (FIGURE \@ref(fig:fig2)). 
+Sampling took place from May 2018 to October 2018. A grid cell matrix of 10m x 10m was overlaid on the study site. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling between 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data (FIGURE \@ref(fig:fig2)). 
 
-- Researchers were most interested in the annual growth rate. Seedlings were too small to core to measure growth rings, so height was used as a proxy for growth rate, specifically the change in height from the year of study to the relative planted height. This was divided by the years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on growth. 
+Researchers were most interested in the annual growth rate. Seedlings were too small to core to measure growth rings, so height was used as a proxy for growth rate, specifically the change in height from the year of study to the relative planted height. This was divided by the years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on growth. 
 
-- The theoretical model is as follows: 
+The theoretical model is as follows: 
 
 $\mu${$growth_{rate} | AET + PET + PPT + T + Micro + Comp\_number + PICO + PIEN + ABLA + random (Unit)$} = XXXXX
 
