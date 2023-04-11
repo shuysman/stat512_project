@@ -52,7 +52,7 @@ We are interested here in the first question relating to seedling growth rate.
 knitr::include_graphics("Figure1.png")
 ```
 
-Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of white bark park in the GYE.  This study investigated five planting units (FIGURE \@ref(fig:fig1)) that each contained between two and eight planting sites. 
+Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of whitebark pine in the GYE.  This study investigated five planting units (FIGURE \@ref(fig:fig1)) that each contained between two and eight planting sites. 
 
 This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. 
 
