@@ -73,9 +73,9 @@ $\mu${$growth_{rate} | AET + PET + PPT + T + Micro + Comp\_number + PICO + PIEN 
   - PPT - Mean annual precipitation (mm)
   - Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
   - Comp\_number - number of competitors within a 3.59m radius
-  - PICO - Presence of *Pinus contorta* within 3.59m radius of WBP
-  - PIEN - Presence of *Pinus engelmannii* within 3.59m radius of WBP
-  - ABLA - Presence of *Abies lasiocarpa* within 3.59m radius of WBP
+  - PICO - Presence of *Pinus contorta* within 3.59m radius of WBP. 1 if PICO is present, 0 othwerise.
+  - PIEN - Presence of *Pinus engelmannii* within 3.59m radius of WBP. 1 if PIEN is present, 0 othwerise.
+  - ABLA - Presence of *Abies lasiocarpa* within 3.59m radius of WBP. 1 if ABLA is present, 0 othwerise.
   
 ```{r pairs, echo = FALSE, eval = FALSE, warnings = FALSE, fig.caption = "Pairs plot looking at log growth rate with other explanatory variables"}
 #this takes a very long time to render so not running it now
