@@ -1,6 +1,6 @@
 ---
 title: 'Critique of Laufenberg Paper'
-subtitle: 'Stat 512: Final Project'
+subtitle: 'Stat 512: Rough Draft of Final Project'
 author: "Steve Huysman & Parker Levinson"
 date: "Friday, April 14, 2023"
 output:
@@ -14,20 +14,14 @@ header-includes:
 indent: yes
 
 ---
-```{r setup, eval=TRUE, include=FALSE}
+```{r setup, eval=TRUE, include=FALSE, warnings = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-source("./Analysis.RMD")
+source("./AnalysisToTurnIn.R")
 ```
 
 
 ```{r load packages, eval = TRUE, include = FALSE}
 # load packages
-library(faraway)
-library(tidyverse)
-library(catstats)
-library(MuMIn)
-library(GGally)
-library(dplyr)
 ```
 
 
@@ -54,24 +48,28 @@ library(dplyr)
 ### Field Methods/Study design 
 
 
-```{r fig1, fig.cap = "a figure", include = TRUE, fig.width= 3}
+```{r fig1, fig.cap = "a figure", echo = FALSE, out.width = '50%', fig.align='center'}
 knitr::include_graphics("Figure1.png")
 ```
 
 - Over the past 40 years, US Forest Service and Park service has planted more than 1500 acres of white bark park, including in 5 study areas around the GYE (in FIGURE \@ref(fig:fig1)). Each study area has between 5 and 8 planting sites (WHAT DOES THIS MEAN?)
 
 - This study used a hierarchical study design by studying 5 study areas with a combination of 29 planting sites across them and thousands of white bark pine seedlings per planting site. 
-- Sampling took place from May 2018 to October 2018. A grid cell matrix of 10m x 10m was overlaid on the study site. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling between 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data (FIGURE 2). 
+
+```{r fig2, fig.cap = "Visualization of study design", echo = FALSE, out.width = '75%', fig.align='center'}
+knitr::include_graphics("Figure2.png")
+```
+- Sampling took place from May 2018 to October 2018. A grid cell matrix of 10m x 10m was overlaid on the study site. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling between 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data (FIGURE \@ref(fig:fig2)). 
 
 - Researchers were most interested in the annual growth rate. Seedlings were too small to core to measure growth rings, so height was used as a proxy for growth rate, specifically the change in height from the year of study to the relative planted height. This was divided by the years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on growth. 
 
 - The theoretical model is as follows: 
 
-$/mu{growth_rate | AET + PET + PPT + T + Micro + Comp_number + PICO + PIEN + ABLA + random (Unit)} = XXXXX$
+$\mu${$growth_{rate} | AET + PET + PPT + T + Micro + CompNnumber + PICO + PIEN + ABLA + random (Unit)$} = XXXXX
 
 - Explanatory variables are as follows: 
   - microsite - This was a binary variable. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
-  - # of competitors
+  - number of competitors
   - competing species
   - evapotranspiration 
   - water deficit 
@@ -80,10 +78,15 @@ $/mu{growth_rate | AET + PET + PPT + T + Micro + Comp_number + PICO + PIEN + ABL
   - slope - The steepness of the slope was measured and binned (0◦, 5◦, 10◦, 15◦, 20◦, or 25◦). 
   - WHAT OTHER EXPLANATORY VARIABLES GO HERE?
   
-```{r rawEDA, include = FALSE, eval = TRUE}
+```{r pairs, echo = FALSE, eval = FALSE, warnings = FALSE, fig.caption = "Pairs plot looking at log growth rate with other explanatory variables"}
+#this takes a very long time to render so not running it now
+pairs_plot
+```
+- We selected the variables of interest and looked for correlation with a pairs plot, which can be seen in Figure \@ref(fig:pairs). The highest correlation value is -0.681 between annual temperature and aet. The next highest was between aet and group. All other values were below 0.6 and were not of concern. first looked for correlation
+  
+```{r rawEDA, include = FALSE, eval = TRUE, warnings = FALSE}
 #NEED TO FIX LAUFENBERG SO WE CAN USE IT AS SOURCE, too many warnings and stuff. or we can create a different source document - PL
-#source("laufenberg.R")
-#fig4
+fig4
 ```
 - We can visualize the growth rate of each study site (Figure \@ref(fig:rawEDA))  
 
