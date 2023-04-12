@@ -29,7 +29,12 @@ df<-df_raw%>%
 
 #look for correlations within variables of question
 interested_var<-df%>%
-  select(log_growth_rt, aet, pet, comp_number, annual_tmean, micro, PICO, PIEN, ABLA)
+    select(log_growth_rt, age, annual_tmax, annual_p, spring_snow, spring_rain, grow_dmean, monthly_dmax, max_dsum, aet, pet, grow_gdd, comp_number, annual_tmean, micro, PICO, PIEN, ABLA, micro)
+## I misunderstood something here, we need to pass all variables from table 5 into the corr matrix, then select the more "biologically meaningful" variable from pairs that exceed 0.6 collinearity threshold.
+## This should just be the full model they used in the model evaluation then.  For example, we choose AET over D for IGR model because it is more biologically relevant - see discussion section for physiological basis.
+## however, many of these other columns likely have the same data cleanup issues as the other monthly/annual values.
+## DF had code to run a correlation matrix I added to this repo, but I'm not sure how to get it to run on our df
+## Not sure which column from the df is micro_pop in table 5 - SH
 
 pairs_plot<-ggpairs(data = interested_var)
 
@@ -47,6 +52,3 @@ par(mfrow=c(2,2))
 plot(full_cubic)
 # create table of model selection 
 1134.65
-
-
-
