@@ -75,11 +75,21 @@ full_model <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + pol
 #make everything have cubic functions
 full_cubic <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + poly(p, 3) + poly(p,2) + p + poly(annual_tmean,3) + poly(annual_tmean, 2) + annual_tmean + micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
 
+AICc(full_cubic) #[1] 1134.65
+
 ## Backwards selection.  We can't use step() for mixed models
 ## Does not seem to give the same result as the paper
 ## I don't know how to implement forward selection for mixed effects models
 
 lmerTest::step(full_model)
+lmerTest::step(full_cubic)
+
+#maybe model, this is the model that was selected using step from the full cubic model. it suggests leaving the lower order polynomial terms in - PL
+reduced_model<-lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + comp_number +PICO +ABLA +  (1 | unit), df)
+
+AICc(reduced_model) #[1] 1125.392
+
+lmerTest::step(reduced_model)
 
 #play around with backwards selection without mixed effects
 full_lm<-step(lm(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA, df), direction = "backward")
@@ -108,12 +118,12 @@ drop1(full_cubic, test = "Chisq", k = 2, trace = TRUE)
 
 #try to do step wise selection with mixed effects
 library(cAIC4)
-mixed_step <- stepcAIC(full_model,direction="backward", trace=TRUE, data=df)
+mixed_step <- stepcAIC(full_cubic,direction="backward", trace=TRUE, data=df)
 
 #this was the best model but the AIC score is so much smaller
 # Best model:
 #   ~ aet + pet + p + annual_tmean + micro + comp_number + PICO + PIEN + ABLA + (1 | unit) ,
-# cAIC: 1109.161 
+# cAIC: 1105.043 
 
 
 ### Mixed Models

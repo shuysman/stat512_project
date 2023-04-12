@@ -40,5 +40,14 @@ fig4 <- df %>%
   ggplot(aes(x = unit, y = growth_rt)) +
   geom_boxplot()
 
+full_cubic <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + poly(p, 3) + poly(p,2) + p + poly(annual_tmean,3) + poly(annual_tmean, 2) + annual_tmean + micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
+#aicc 1134.65
+#laufenbery got 3262.92
+
+par(mfrow=c(2,2))
+plot(full_cubic)
+# create table of model selection 
+1134.65
+
 
 
