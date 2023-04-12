@@ -63,10 +63,9 @@ Sampling took place from May 2018 to October 2018. A grid cell matrix of 10m x 1
 
 Researchers were most interested in the annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth. 
 
-Initially, we can look at a box plot of the raw data to see if growth rates may vary between planting units. Figure \@ref(fig:rawEDA) shows that there might be slight differences between the planting units, especially for the West Yellowstone (WY) unit. However, any apparent differences may be a result of a difference in the age of the seedlings. 
+Initially, we can look at a box plot of the raw data to see if growth rates may vary between planting units. Figure \@ref(fig:fig4) shows that there might be slight differences between the planting units, especially for the West Yellowstone (WY) unit. However, any apparent differences may be a result of a difference in the age of the seedlings. This plot is equivalent to Figure 4 in the original paper.
 
-```{r rawEDA, include = FALSE, eval = TRUE, warnings = FALSE}
-#NEED TO FIX LAUFENBERG SO WE CAN USE IT AS SOURCE, too many warnings and stuff. or we can create a different source document - PL
+```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE}
 fig4
 ```
 
