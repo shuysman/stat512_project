@@ -11,6 +11,7 @@ fontsize: 12pt
 header-includes:
 - \usepackage{setspace}
 - \usepackage{amsmath}
+- \usepackage{gensymb}
 indent: yes
 
 ---
@@ -69,13 +70,23 @@ Initially, we can look at a box plot of the raw data to see if growth rates may 
 fig4
 ```
 
-Researchers collected a variety of environmental variables, but for simplification purposes, we chose the most ecologically interesting variables, which are documented below. 
+At each site, data on seedling heights (used to estimate growth rate) and competeting plant species was recorded.  Water balance variables were estimated using Daymet as inputs for temperature and precipitation.  The following predictor variables were evaluated:
 
-- Explanatory variables are as follows: 
+- Predictor variables are as follows: 
+  - Age - Years since planting
+  - $T_{mean}$ - Mean annual temperature ($\degree$C)
+  - $T_{max}$ - Max monthly temperature ($\degree$C)
+  - PPT (mm) - Mean annual precipitation.
+  - Snowpack (mm) - Mean spring (March-May) snowpack
+  - $WD_{annual\_mean}$ (mm)
+  - $WD_{annual\_max}$ (mm)
+  - $WD_{month\_max}$ (mm)
   - AET - Mean actual evapotranspiration (mm) during growing season (April–October)
   - PET - Mean potential evapotranspiration (mm) during growing season (April–October)
-  - PPT - Mean annual precipitation (mm)
+  - GDD - Mean annual growing degree days (April-October)
   - Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
+  - Mico_{prop} - Proportion of WBP with a microsite at the site-level 
+  <!-- (I'm not sure sure which var this is in the df -steve) -->
   - Comp\_number - number of competitors within a 3.59m radius
   - PICO - Presence of *Pinus contorta* within 3.59m radius of WBP. 1 if PICO is present, 0 otherwise.
   - PIEN - Presence of *Pinus engelmannii* within 3.59m radius of WBP. 1 if PIEN is present, 0 otherwise.
@@ -86,7 +97,7 @@ Researchers collected a variety of environmental variables, but for simplificati
 pairs_plot
 ```
  
-Using the variables of interest, we looked for correlation with a pairs plot, which can be seen in Figure \@ref(fig:pairs). The highest correlation value is -0.681 between annual temperature and AET. The next highest was between AET and group. All other values were below 0.6 and were not of concern. We did not remove any of these variables are they are pertinent to our research question. 
+Using the variables of interest, we looked for correlation with a pairs plot, which can be seen in Figure \@ref(fig:pairs). The highest correlation value is -0.681 between annual temperature and AET. The next highest was between AET and group. All other values were below 0.6 and were not of concern. 
 
 There are only 5 units and only 29 sites within each of those units, resulting in a somewhat small sample size. However, with over 1000 seedlings within each site/unit combination, there is a of replication within each unit. 
 
