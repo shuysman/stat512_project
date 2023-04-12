@@ -85,7 +85,7 @@ At each site, data on seedling heights (used to estimate growth rate) and compet
   - PET - Mean potential evapotranspiration (mm) during growing season (April–October)
   - GDD - Mean annual growing degree days (April-October)
   - Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
-  - Mico_{prop} - Proportion of WBP with a microsite at the site-level 
+  - $Micro_{prop}$ - Proportion of WBP with a microsite at the site-level 
   <!-- (I'm not sure sure which var this is in the df -steve) -->
   - Comp\_number - number of competitors within a 3.59m radius
   - PICO - Presence of *Pinus contorta* within 3.59m radius of WBP. 1 if PICO is present, 0 otherwise.
