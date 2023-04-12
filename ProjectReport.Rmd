@@ -101,12 +101,6 @@ interested_var.cor
  
 Climate and water balance predictor variables were tested for collinearity with a cutoff of r >= +/- 0.6.  A parisimonius list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold.  This list of variables was then combined with the variables for the number of competitors, age of the planting site, and microsite presence/absence to create a list of candidate variables to evaluate in model selection.  Following this process, our list of candidate variables to evaluate in model selection is $T_{mean}$, $T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA.  This differs from the "full model" evaluated in Table 6 of Laufenberg et al. 2020 by the inclusion of $T_{max}$.
 
-- need to look at collinearity with all predictor vars, cutoff at +/- 0.6
-- for pairs of water balance variables correlated beyond cutoff, choose more biologically relevant of pair
-- add list of most parsimonoius WB variables from above and variables for age, competitors, microsite etc
-- this should be the full model that is evaluated with AICc 
-- sorry I misunderstood some of this when I made some edits- SH
-
 There are only 5 units and only 29 sites within each of those units, resulting in a somewhat small sample size. However, with over 1000 seedlings within each site/unit combination, there is a of replication within each unit. 
 
 ### Statistical Procedures Used
