@@ -38,6 +38,10 @@ interested_var<-df%>%
 
 pairs_plot<-ggpairs(data = interested_var)
 
+interested_var.cor <- interested_var %>% ungroup() %>% select(-unit) %>% cor()
+write.csv(interested_var.cor, file = "corr_matrix.csv")
+
+
 # recreate raw data visualization from paper ####
 fig4 <- df %>%
   group_by(unit) %>%
