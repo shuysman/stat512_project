@@ -99,6 +99,12 @@ pairs_plot
  
 Using the variables of interest, we looked for correlation with a pairs plot, which can be seen in Figure \@ref(fig:pairs). The highest correlation value is -0.681 between annual temperature and AET. The next highest was between AET and group. All other values were below 0.6 and were not of concern. 
 
+- need to look at collinearity with all predictor vars, cutoff at +/- 0.6
+- for pairs of water balance variables correlated beyond cutoff, choose more biologically relevant of pair
+- add list of most parsimonoius WB variables from above and variables for age, competitors, microsite etc
+- this should be the full model that is evaluated with AICc 
+- sorry I misunderstood some of this when I made some edits- SH
+
 There are only 5 units and only 29 sites within each of those units, resulting in a somewhat small sample size. However, with over 1000 seedlings within each site/unit combination, there is a of replication within each unit. 
 
 ### Statistical Procedures Used
