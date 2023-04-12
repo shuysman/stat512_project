@@ -30,7 +30,7 @@ df<-df_raw%>%
 
 #look for correlations within variables of question
 interested_var<-df%>%
-  dplyr::select(log_growth_rt, aet, pet, comp_number, annual_tmean, micro, PICO, PIEN, ABLA, unit)
+  dplyr::select(log_growth_rt, aet, pet, comp_number, annual_tmean, micro, PICO, PIEN, ABLA)
 
 pairs_plot<-ggpairs(data = interested_var)
 

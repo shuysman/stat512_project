@@ -28,9 +28,9 @@ source("./AnalysisToTurnIn.R")
 \doublespacing
 
 ## Introduction
-Whitebark pine (*Pinus albicaulis* Engelm.) is a conifer tree native to the mountains of the western United States and Canada.  It inhabits subalpine areas where it can be found growing up to the tree line, at a higher elevation than other tree species found with it.  
+Whitebark pine (*Pinus albicaulis* Engelm.) is a conifer tree native to the mountains of the western United States and Canada. It inhabits subalpine areas where it can be found growing up to the tree line, at a higher elevation than other tree species found with it.
 
-Whitebark pine is an early successional species that is often the first to establish after disturbance such as wildfire.  WPB is a keystone species of subalpine environments where it plays important ecological roles such as providing food for wildlife such as Clark's Nutcracker and the threatened Grizzly Bear.
+Whitebark pine (WBP) is an early successional species that is often the first to establish after disturbance such as wildfire.  WPB is a keystone species of subalpine environments where it plays important ecological roles such as providing food for wildlife such as Clark's Nutcracker and the threatened Grizzly Bear.
 
 Due to threats from climate change, mountain pine beetle, and the invasive white pine blister rust, Whitebark pine has undergone a rapid and widespread decline.  It was recently estimated that over half of all standing WBP in the United States are dead.  This decline has lead to its recent listing as Threatened under the Endangered Species Act.  Future climate projections indicate further deterioration of WBP's habitat.
 
@@ -39,8 +39,8 @@ Strategies to conserve this species involve planting WBP seedlings for restorati
 This study investigated USFS plantings of WBP seedlings in the Greater Yellowstone Ecosystem (GYE) to answer two research questions: 
 1) What is the relationship between climate/competition and WBP seedling establishment, measured by individual growth rate? 
 2) What is the relationship between climate/competition and WBP seedling survival, measured by density change?
-We are interested here in the first question relating to seedling growth rate.
 
+We are interested here in the first question relating to seedling growth rate.
 
 
 ## Methods
@@ -52,20 +52,25 @@ We are interested here in the first question relating to seedling growth rate.
 knitr::include_graphics("Figure1.png")
 ```
 
-Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of whitebark pine in the GYE.  This study investigated five planting units (FIGURE \@ref(fig:fig1)) that each contained between two and eight planting sites. 
+Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of whitebark pine in the GYE.  This study investigated five planting units (figure \@ref(fig:fig1)) that each contained between two and eight planting sites. 
 
-This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. 
+This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. (See figure \@ref(fig:fig2) for model design.)
 
 ```{r fig2, fig.cap = "Visualization of study design", echo = FALSE, out.width = '75%', fig.align='center'}
 knitr::include_graphics("Figure2.png")
 ```
-Sampling took place from May 2018 to October 2018. A grid cell matrix of 10m x 10m was overlaid on the study site. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling between 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data (FIGURE \@ref(fig:fig2)). 
+Sampling took place from May 2018 to October 2018. A grid cell matrix of 10m x 10m was overlaid on the study site or unit. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling between 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data. 
 
-Researchers were most interested in the annual growth rate. Seedlings were too small to core to measure growth rings, so height was used as a proxy for growth rate, specifically the change in height from the year of study to the relative planted height. This was divided by the years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on growth. 
+Researchers were most interested in the annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth. 
 
-The theoretical model is as follows: 
+Initially, we can look at a box plot of the raw data to see if growth rates may vary between planting units. Figure \@ref(fig:rawEDA) shows that there might be slight differences between the planting units, especially for the West Yellowstone (WY) unit. However, any apparent differences may be a result of a difference in the age of the seedlings. 
 
-$\mu${$growth_{rate} | AET + PET + PPT + T + Micro + Comp\_number + PICO + PIEN + ABLA + random (Unit)$} = XXXXX
+```{r rawEDA, include = FALSE, eval = TRUE, warnings = FALSE}
+#NEED TO FIX LAUFENBERG SO WE CAN USE IT AS SOURCE, too many warnings and stuff. or we can create a different source document - PL
+fig4
+```
+
+Researchers collected a variety of environmental variables, but for simplification purposes, we chose the most ecologically interesting variables, which are documented below. 
 
 - Explanatory variables are as follows: 
   - AET - Mean actual evapotranspiration (mm) during growing season (April–October)
@@ -81,15 +86,15 @@ $\mu${$growth_{rate} | AET + PET + PPT + T + Micro + Comp\_number + PICO + PIEN 
 #this takes a very long time to render so not running it now
 pairs_plot
 ```
-- We selected the variables of interest and looked for correlation with a pairs plot, which can be seen in Figure \@ref(fig:pairs). The highest correlation value is -0.681 between annual temperature and aet. The next highest was between aet and group. All other values were below 0.6 and were not of concern. first looked for correlation
-  
-```{r rawEDA, include = FALSE, eval = TRUE, warnings = FALSE}
-#NEED TO FIX LAUFENBERG SO WE CAN USE IT AS SOURCE, too many warnings and stuff. or we can create a different source document - PL
-fig4
-```
-- We can visualize the growth rate of each study site (Figure \@ref(fig:rawEDA))  
+ 
+Using the variables of interest, we looked for correlation with a pairs plot, which can be seen in Figure \@ref(fig:pairs). The highest correlation value is -0.681 between annual temperature and AET The next highest was between AET and group. All other values were below 0.6 and were not of concern. 
 
-• Sample sizes and missing data provided/discussed
+There are only 5 units and only 29 sites within each of those units, resulting in a somewhat small sample size. However, with over 1000 seedlings within each site/unit combination, there is a of replication within each unit. 
+
+The theoretical model is as follows: 
+
+$\mu${$growth_{rate} | AET + PET + PPT + T + Micro + Comp\_number + PICO + PIEN + ABLA + random (Unit)$} = XXXXX
+
 
 ### Statistical Procedures Used
 - Mixed effects models were used to study what covariates were correlated with white bark pine performance. Fixed effects, interactions, linear and polynomial functions, and different variance structures were explored. A corrected AIC was used to compare models. Colinearity was explored and variables removed if they were more than 0.6 colinear. Authors attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incoporating the variables of questions (including number of competitors, age of planting, and microsite status). Everything was done use R statistical software. 
