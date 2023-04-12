@@ -70,7 +70,7 @@ Initially, we can look at a box plot of the raw data to see if growth rates may 
 fig4
 ```
 
-At each site, data on seedling heights (used to estimate growth rate) and competeting plant species was recorded.  Water balance variables were estimated using Daymet as inputs for temperature and precipitation.  The following predictor variables were evaluated:
+At each site, data on seedling heights (used to estimate growth rate) and competeting plant species was recorded. Water balance variables were estimated using Daymet as inputs for temperature and precipitation. The following predictor variables were evaluated:
 
 - Predictor variables are as follows: 
   - Age - Years since planting
@@ -99,7 +99,7 @@ At each site, data on seedling heights (used to estimate growth rate) and compet
 interested_var.cor
 ```
  
-Climate and water balance predictor variables were tested for collinearity with a cutoff of r >= +/- 0.6.  A parisimonius list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold.  This list of variables was then combined with the variables for the number of competitors, age of the planting site, and microsite presence/absence to create a list of candidate variables to evaluate in model selection.  Following this process, our list of candidate variables to evaluate in model selection is $T_{mean}$, $T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA.  This differs from the "full model" evaluated in Table 6 of Laufenberg et al. 2020 by the inclusion of $T_{max}$.
+Climate and water balance predictor variables were tested for collinearity with a cutoff of r >= +/- 0.6. A parisimonius list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables for the number of competitors, age of the planting site, and microsite presence/absence to create a list of candidate variables to evaluate in model selection. Following this process, our list of candidate variables to evaluate in model selection is $T_{mean}$, $T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA. This differs from the "full model" evaluated in Table 6 of Laufenberg et al. 2020 by the inclusion of $T_{max}$.
 
 There are only 5 units and only 29 sites within each of those units, resulting in a somewhat small sample size. However, with over 1000 seedlings within each site/unit combination, there is a of replication within each unit. 
 
