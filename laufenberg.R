@@ -116,6 +116,9 @@ drop1(full_model, test = "Chisq", k = 2, trace = TRUE)
 
 drop1(full_cubic, test = "Chisq", k = 2, trace = TRUE)
 
+drop_model<-lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + comp_number +PICO +  (1 | unit), df)
+AICc(drop_model) #1122.347
+
 #try to do step wise selection with mixed effects
 library(cAIC4)
 mixed_step <- stepcAIC(full_cubic,direction="backward", trace=TRUE, data=df)

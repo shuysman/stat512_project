@@ -87,30 +87,31 @@ Researchers collected a variety of environmental variables, but for simplificati
 pairs_plot
 ```
  
-Using the variables of interest, we looked for correlation with a pairs plot, which can be seen in Figure \@ref(fig:pairs). The highest correlation value is -0.681 between annual temperature and AET The next highest was between AET and group. All other values were below 0.6 and were not of concern. 
+Using the variables of interest, we looked for correlation with a pairs plot, which can be seen in Figure \@ref(fig:pairs). The highest correlation value is -0.681 between annual temperature and AET. The next highest was between AET and group. All other values were below 0.6 and were not of concern. We did not remove any of these variables are they are pertinent to our research question. 
 
 There are only 5 units and only 29 sites within each of those units, resulting in a somewhat small sample size. However, with over 1000 seedlings within each site/unit combination, there is a of replication within each unit. 
 
-The theoretical model is as follows: 
+### Statistical Procedures Used
+Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We did this by modifying data in an ecologically reasonable way while comparing raw data plots to the paper. A few examples of data cleaning are:
+  - Creating AET which is the total annual evapotranspiration. To get this, we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for PET or potential evapotranspiration. 
+  - multiplying p by 12 to get the total "annual precipitation".
+  - using $log_{10}$ to transform growth rate. 
+
+Mixed effects models were used to study what covariates were correlated with white bark pine performance. Random effects were always used for the unit. A variety of interactions, linear and polynomial functions, and fixed effects were explored. A corrected AIC was used to compare models. We attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incorporating environmental variables related to the research questions (including number of competitors, age of planting, and microsite status). All analysis was done use R statistical software. 
+
+We ran the most full model below, and then refined it based on AIC score (less than 2).
 
 $\mu${$growth_{rate} | AET + PET + PPT + T + Micro + Comp\_number + PICO + PIEN + ABLA + random (Unit)$} = XXXXX
 
-
-### Statistical Procedures Used
-- Mixed effects models were used to study what covariates were correlated with white bark pine performance. Fixed effects, interactions, linear and polynomial functions, and different variance structures were explored. A corrected AIC was used to compare models. Colinearity was explored and variables removed if they were more than 0.6 colinear. Authors attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incoporating the variables of questions (including number of competitors, age of planting, and microsite status). Everything was done use R statistical software. 
-
-- they did something with step selection, but how do you do that with mixed models? 
-
-- Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment as to cleaning methods in order to recreate numbers and graphs. This includes 
-  - creating AET which is the total evapotranspiration. To get this, we multiplied the average evapotranspiration by 7 for the 7 months of the growing season.  
-  - The same was done for PET or potential evapotranspiration. 
-  - P or the total annual precipitation: "annual precipation" was actually the monthly average precipatation so that needed to be multiplied by 12 to get the total annual precipitation
-  - growth rate was normalized via log 10 transformation
-
-
 ## Results/Summary of Statistical Findings
+The initial full model, with all variables of interest, had an AICc of 1134.65. We used the step function to select the best model, and our final model has an AICc of 1122.34. 
 
-- The final model, decided with drop1, is aet^3, pet^3 + comp_number^3 + PICO
+ONLY GOT ONE DIAGNOSTIC PLOT FOR THE MODEL. 
+
+The final model is lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + comp_number +PICO +  (1 | unit), df)
+
+- The final model, decided with drop1, is aet^3, pet^3 + comp_number^3 + PICO +ALBA
+
 
 ## Scope of Inference
 - Random sampling = inferences to large population 
