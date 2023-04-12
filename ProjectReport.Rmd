@@ -92,12 +92,14 @@ At each site, data on seedling heights (used to estimate growth rate) and compet
   - PIEN - Presence of *Pinus engelmannii* within 3.59m radius of WBP. 1 if PIEN is present, 0 otherwise.
   - ABLA - Presence of *Abies lasiocarpa* within 3.59m radius of WBP. 1 if ABLA is present, 0 otherwise.
   
-```{r pairs, echo = FALSE, eval = FALSE, warnings = FALSE, fig.caption = "Pairs plot looking at log growth rate with other explanatory variables"}
-#this takes a very long time to render so not running it now
-pairs_plot
+```{r corr_matrix, echo = FALSE, eval = TRUE, warnings = FALSE, fig.caption = "Correlation matrix of predictor variables"}
+## We might not want to include this
+## Or find a better display
+## I have some code to make a graphical correlation matrix somewhere that might be nicer - SH
+interested_var.cor
 ```
  
-Using the variables of interest, we looked for correlation with a pairs plot, which can be seen in Figure \@ref(fig:pairs). The highest correlation value is -0.681 between annual temperature and AET. The next highest was between AET and group. All other values were below 0.6 and were not of concern. 
+Climate and water balance predictor variables were tested for collinearity with a cutoff of r >= +/- 0.6.  A parisimonius list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold.  This list of variables was then combined with the variables for the number of competitors, age of the planting site, and microsite presence/absence to create a list of candidate variables to evaluate in model selection.  Following this process, our list of candidate variables to evaluate in model selection is $T_{mean}$, $T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA.  This differs from the "full model" evaluated in Table 6 of Laufenberg et al. 2020 by the inclusion of $T_{max}$.
 
 - need to look at collinearity with all predictor vars, cutoff at +/- 0.6
 - for pairs of water balance variables correlated beyond cutoff, choose more biologically relevant of pair
