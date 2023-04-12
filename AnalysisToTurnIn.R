@@ -4,14 +4,13 @@
 #April 14, 2023
 
 #load required packages ####
-library(raster)
-#library(tidyverse)
+#library(raster)
+library(tidyverse)
 library(lme4)
 library(effects)
-library(sf)
+#library(sf)
 library(ggplot2)
-library(stars)
-library(dplyr)
+#library(stars)
 library(lmerTest)
 library(MuMIn)
 library(GGally)
@@ -30,7 +29,7 @@ df<-df_raw%>%
 
 #look for correlations within variables of question
 interested_var<-df%>%
-  dplyr::select(log_growth_rt, aet, pet, comp_number, annual_tmean, micro, PICO, PIEN, ABLA)
+  select(log_growth_rt, aet, pet, comp_number, annual_tmean, micro, PICO, PIEN, ABLA)
 
 pairs_plot<-ggpairs(data = interested_var)
 
