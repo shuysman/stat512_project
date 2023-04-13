@@ -10,6 +10,7 @@ library(lme4)
 library(effects)
 #library(sf)
 library(ggplot2)
+library(kableExtra)
 #library(stars)
 library(lmerTest)
 library(MuMIn)
@@ -41,6 +42,9 @@ pairs_plot<-ggpairs(data = interested_var)
 interested_var.cor <- interested_var %>% ungroup() %>% select(-unit) %>% cor()
 write.csv(interested_var.cor, file = "corr_matrix.csv")
 
+library(corrplot)
+plot1<-corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl.srt=45, sig.level = 0.6)
+
 
 # recreate raw data visualization from paper ####
 fig4 <- df %>%
@@ -48,8 +52,26 @@ fig4 <- df %>%
   ggplot(aes(x = unit, y = growth_rt)) +
   geom_boxplot()
 
-full_cubic <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + poly(p, 3) + poly(p,2) + p + poly(annual_tmean,3) + poly(annual_tmean, 2) + annual_tmean + micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
-#aicc 1134.65
+full_cubic <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + poly(annual_p, 3) + poly(annual_p) + annual_p + poly(annual_tmax,3) + poly(annual_tmax, 2) +  annual_tmax+ micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
+AICc(full_cubic)
+#aicc 1126.504
+
+drop1(full_cubic, test = "Chisq", k = 2, trace = TRUE)
+
+
+final_model<-lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + comp_number +  (1 | unit), df)
+AICc(final_model)
+#1130.444
+
+# create a pretty table of model selection ####
+models <- data.frame(model = "log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number + annual_p^3 +annual_p^2 + annual_p + annual_tmax^3 + annual_tmax^2 + annual_tmax +PICO  + PIEN +ABLA +  (1 | unit)", AICc = 1126.504 )
+
+models<-models%>%add_row(model="log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number +  (1 | unit)", AICc = AICc(final_model))
+
+modelTable<-models%>%
+  kbl(caption = "Model Suite Tested") %>%
+  kable_classic(full_width = T, html_font = "Cambria")
+
 #laufenbery got 3262.92
 
 par(mfrow=c(2,2))
