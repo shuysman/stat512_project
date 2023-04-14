@@ -41,7 +41,7 @@ interested_var<-df%>%
 pairs_plot<-ggpairs(data = interested_var, upper = "blank")
 
 interested_var.cor <- interested_var %>% cor()
-write.csv(interested_var.cor, file = "corr_matrix.csv")
+##write.csv(interested_var.cor, file = "corr_matrix.csv")
 
 library(corrplot)
 plot1<-corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl.srt=45, sig.level = 0.6)
