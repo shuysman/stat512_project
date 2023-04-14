@@ -64,8 +64,10 @@ interested_var.cor <- interested_var %>% cor()
 library(corrplot)
 corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl.srt=45, addCoef.col = "black")
 
+##$T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA
+selected_vars <- df %>% select(log_growth_rt, annual_tmax, annual_p, aet, pet, comp_number, micro, PICO, PIEN, ABLA)
 
-pairs_plot<-ggpairs(data = interested_var, upper = "blank")
+pairs_plot<-ggpairs(data = selected_vars, upper = "blank")
 
 full_cubic <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + poly(annual_p, 3) + poly(annual_p) + annual_p + poly(annual_tmax,3) + poly(annual_tmax, 2) +  annual_tmax+ micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
 
