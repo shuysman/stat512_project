@@ -126,7 +126,6 @@ corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl
 
 After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)).
 ```{r pairsEDA, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center', echo = FALSE}
-=======
 After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (\@ref(fig:pairsEDA).
 ```{r pairsEDA, echo = FALSE, eval = TRUE, message = FALSE, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center'}
 pairs_plot
@@ -139,15 +138,7 @@ Mixed effects models were used to study what covariates were correlated with whi
 We ran the saturated cubic model without interactions \@ref(eq:full), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. All analysis was done use R statistical software. 
 
 
-\begin{math}
-$$\mu \{log(growth\ rate) | AET, PET, Annual\_P, T_{max}, \\ 
-Micro , Comp\_number , PICO , 
-PIEN , ABLA , random (Unit)\} \\
-= AET^3 + PET^3 + Comp\_number^3 + annual\_P^3 + annual\_Tmax^3+ PIEN+ PICO + ABLA + Micro + (1|unit) $$ (\#eq:full)
-\end{math}
-
 *For simplicity sake, lower-order terms were not explicitly written out here but were included in model.*
-=======
 The theoretical model for our full model analyzed is as follows:
 
 ```{=latex}
