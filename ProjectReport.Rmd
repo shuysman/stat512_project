@@ -122,7 +122,6 @@ corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl
 
 ```
 
-<<<<<<< HEAD
 *Fix correlation plot with ggplot. In general, Correlation matrix of predictor variables. Larger circles and darker colors indicate a higher degree of correlation.*
 
 After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)).
@@ -130,7 +129,6 @@ After data were selected based on their correlation, we looked at linearity and 
 =======
 After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (\@ref(fig:pairsEDA).
 ```{r pairsEDA, echo = FALSE, eval = TRUE, message = FALSE, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center'}
->>>>>>> f091177 (add theoretical model for full model)
 pairs_plot
 ```
 
@@ -140,7 +138,6 @@ Mixed effects models were used to study what covariates were correlated with whi
 
 We ran the saturated cubic model without interactions \@ref(eq:full), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. All analysis was done use R statistical software. 
 
-<<<<<<< HEAD
 
 \begin{math}
 $$\mu \{log(growth\ rate) | AET, PET, Annual\_P, T_{max}, \\ 
@@ -165,7 +162,6 @@ The theoretical model for our full model analyzed is as follows:
   \end{split}
 \end{align*}
 ```
->>>>>>> f091177 (add theoretical model for full model)
 
 ## Results/Summary of Statistical Findings
 ```{r modelTable, include = FALSE, echo = FALSE, warnings = FALSE, messages = FALSE, fig.cap="Model table"}
