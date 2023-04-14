@@ -125,8 +125,6 @@ corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl
 *Fix correlation plot with ggplot. In general, Correlation matrix of predictor variables. Larger circles and darker colors indicate a higher degree of correlation.*
 
 After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)).
-```{r pairsEDA, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center', echo = FALSE}
-After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (\@ref(fig:pairsEDA).
 ```{r pairsEDA, echo = FALSE, eval = TRUE, message = FALSE, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center'}
 pairs_plot
 ```
@@ -160,10 +158,20 @@ modelTable
 ```
 Using backwards selection, the most parsimonious model is below, where $annual\_Tmax$ took on a quadratic form, and PIEN and Micro were removed. This model has an AIC score of `r round(AICc(final_cubic),2)`. 
 
-\begin{math}
-$$\mu \{log(growth\ rate) | AET, PET, Annual\_P, T_{max},\\ Comp\_number , PICO, ABLA , random (Unit)\}\\ = AET^3 + PET^3 +
-Comp\_number^3 + annual\_P^3 + annual\_Tmax^2+ PICO + ABLA +(1|unit)$$ (\#eq:final)
-\end{math}
+```{=latex}
+\begin{align*}
+  log(growth\_rate)_{ij} &= \hat{\mu}_{ij} + Unit_i + \epsilon_{ij} \\
+  Unit_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{unit}) \\
+  \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{error}) \\
+  \begin{split}
+    \hat{\mu}_{ij} &= \beta_0 + \beta_1AET^3 + \beta_2AET^2 + \beta_3AET \\
+                   &+ \beta_4PET^3 + \beta_5PET^2 + \beta_6PET \\
+                   &+ \beta_7Comp\_number^3 + \beta_8Comp\_number^2 + \beta_9Comp\_number \\
+                   &+ \beta_{10}PPT^3 + \beta_{11}PPT^2 + \beta_{12}PPT \\
+                   &+ \beta_{13}T_{max}^2 + \beta_{14}T_{max} + \beta_{15}PICO + \beta_{16}ABLA
+  \end{split}
+\end{align*}
+```
 
 The initial full model, with all variables of interest, had an AICc of `r round(AICc(full_cubic),2)`. This was a `r round(AICc(full_cubic)-AICc(final_cubic),2)` reduction in AICc value. 
 
