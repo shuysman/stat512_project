@@ -25,7 +25,8 @@ df<-df_raw%>%
   group_by(unit) %>%
   #we're not entirely sure why we have to do all these adjustements, probably because the growing season is 7 months long
   mutate(aet = grow_aetmean * 7, pet = grow_petmean * 7, p = annual_p * 12) %>%
-  ungroup()
+  ungroup()%>%
+  mutate(PICO = as.factor(PICO), micro = as.factor(micro), ABLA = as.factor(ABLA), PIEN = as.factor(PIEN))
 
 
 # Exploratory data figure ####
@@ -66,18 +67,21 @@ corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl
 
 pairs_plot<-ggpairs(data = interested_var, upper = "blank")
 
-
-
-
 full_cubic <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + poly(annual_p, 3) + poly(annual_p) + annual_p + poly(annual_tmax,3) + poly(annual_tmax, 2) +  annual_tmax+ micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
+
 AICc(full_cubic)
 #aicc 1126.504
 
 null_model <- lmer(log_growth_rt ~ 1|unit, data = df)
+AICc(null_model)
 
-drop1(full_cubic, test = "Chisq", k = 2, trace = TRUE)
-
+#backward selection on full model
 step(full_cubic, scope = formula(null_model), direction = "backward")
+
+final_cubic<-lmer(log_growth_rt ~ poly(aet, 3) + poly(pet, 3) + poly(aet, 2) + poly(pet, 2) + poly(comp_number, 3) + poly(comp_number, 2) + aet + pet + poly(annual_p, 3) + poly(annual_p) + annual_p + poly(annual_tmax, 2) + annual_tmax + comp_number + PICO + ABLA + (1 | unit), df)
+AICc(final_cubic)
+#AIC is 1111.886
+
 
 step(null_model, scope = formula(full_cubic), direction = "forward")
 
@@ -85,22 +89,23 @@ step(null_model, scope = formula(full_cubic), direction = "forward")
 #trying without cubic
 full_first <- lmer(log_growth_rt ~ aet + pet + annual_p  +  annual_tmax+ micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
 step(full_first, direction = "backward")
+#get aet + comp_number + PICO + ABLA + (1 | unit) without cubic terms
 
-test<-lmer(log_growth_rt ~ aet + comp_number + PICO + ABLA + (1 | unit), df)
-AICc(full_cubic)
-AICc(test)
-AICc(full_first_1)
-)
+AICc(lmer(log_growth_rt~aet + comp_number + PICO + ABLA + (1 | unit), df))
+#AICc: 1160.613
+
+#then, if we cube the terms, we get this.
 full_first_1<-lmer(log_growth_rt ~ poly(aet,3) + poly(comp_number,3) + PICO + ABLA + (1 | unit), df)
 step(full_first_1)
 AICc(full_cubic)
+#AICc is 1126.504 which is the same score as the full cubic, with fewer terms. 
 
 final_model<-lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + comp_number +  (1 | unit), df)
 AICc(final_model)
 #1130.444
 
 # create a pretty table of model selection ####
-models <- data.frame(model = "log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number + annual_p^3 +annual_p^2 + annual_p + annual_tmax^3 + annual_tmax^2 + annual_tmax +PICO  + PIEN +ABLA +  (1 | unit)", AICc = 1126.504 )
+models <- data.frame(model = "log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number + annual_p^3 +annual_p^2 + annual_p + annual_tmax^3 + annual_tmax^2 + annual_tmax +PICO  + PIEN +ABLA +  (1 | unit)", AICc = AICc(full_cubic) )
 
 models<-models%>%add_row(model="log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number +  (1 | unit)", AICc = AICc(final_model))
 

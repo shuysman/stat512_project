@@ -17,13 +17,16 @@ indent: yes
 ---
 ```{r setup, eval=TRUE, include=FALSE, warnings = FALSE}
 knitr::opts_chunk$set(echo = TRUE, tidy.opts=list(width.cutoff=60),tidy=TRUE)
+
+#use this to do floating figures for later
+#out.extra='style="float:right; padding:10px"'
 source("./AnalysisToTurnIn.R")
 ```
 
 
 ```{r load packages, eval = TRUE, include = FALSE}
 # load packages
-
+library(bookdown)
 ```
 
 
@@ -44,7 +47,6 @@ This study investigated USFS plantings of WBP seedlings in the Greater Yellowsto
 
 We are interested here in the first question relating to seedling growth rate.
 
-
 ## Methods
 
 ### Field Methods/Study design 
@@ -53,7 +55,7 @@ We are interested here in the first question relating to seedling growth rate.
 knitr::include_graphics("Figure1.png")
 ```
 
-Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of whitebark pine in the GYE.  This study investigated five planting units (figure \@ref(fig:fig1)) that each contained between two and eight planting sites. 
+Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of WBP in the GYE.  This study investigated five planting units (figure \@ref(fig:fig1)) that each contained between two and eight planting sites. 
 
 This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. (See figure \@ref(fig:fig2) for model design.)
 
@@ -66,7 +68,7 @@ There are only 5 units and only 29 sites within each of those units, resulting i
 
 Researchers were most interested in the annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth. 
 
-From examination of the raw data, there appears to be unequal variance in growth rate by planting unit.  This suggests that a log transformation be applied, and the variances look equal after transformation (Figure \@ref(fig:fig4)).
+From examination of the raw data, there appears to be unequal variance in growth rate by planting unit. This suggests that a log transformation be applied, and the variances look better after transformation (Figure \@ref(fig:fig4)).
 
 ```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate by unit, before and after log transformation"}
 fig4_combined
@@ -89,7 +91,6 @@ At each site, data on seedling heights (used to estimate growth rate) and compet
   - GDD - Mean annual growing degree days (April-October)
   - Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
   - $Micro_{prop}$ - Proportion of WBP with a microsite at the site-level 
-  <!-- (I'm not sure sure which var this is in the df -steve) -->
   - Comp\_number - number of competitors within a 3.59m radius
   - PICO - Presence of Lodgepole pine (*Pinus contorta*) within 3.59m radius of WBP. 1 if PICO is present, 0 otherwise.
   - PIEN - Presence of Apache pine (*Pinus engelmannii*) within 3.59m radius of WBP. 1 if PIEN is present, 0 otherwise.
@@ -98,13 +99,14 @@ At each site, data on seedling heights (used to estimate growth rate) and compet
 \doublespacing
  
 Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We did this by modifying data in an ecologically reasonable way while comparing raw data plots to the paper. A few examples of data cleaning are:
-  - creating AET which is the total annual evapotranspiration. To get this, we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for PET or potential evapotranspiration. 
-  - multiplying p by 12 to get the total "annual precipitation".
-  - using $log_{10}$ to transform growth rate. 
 
-Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (\@ref(fig:corr_matrix). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which were for the number of competitors, age of the planting site, and microsite presence/absence to create a list of candidate variables to evaluate in model selection. Following this process, our list of candidate variables to evaluate in model selection is $T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA. This differs from the "full model" evaluated in Table 6 of Laufenberg et al. 2020 by the inclusion of $T_{max}$ and the exclusion of $T_{mean}$.
+   -  creating AET which is the total annual evapotranspiration. To get this, we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for PET or potential evapotranspiration. 
+   -  multiplying p by 12 to get the total "annual precipitation".
+   -  using $log_{10}$ to transform growth rate. 
 
-```{r corr_matrix, echo = FALSE, eval = TRUE, warnings = FALSE, fig.caption = "Correlation matrix of predictor variables"}
+Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (\@ref(fig:fig5). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which were for the number of competitors, age of the planting site, and microsite presence/absence to create a list of candidate variables to evaluate in model selection. Following this process, our list of candidate variables to evaluate in model selection is $T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA. This differs from the "full model" evaluated in Table 6 of Laufenberg et al. 2020 by the inclusion of $T_{max}$ and the exclusion of $T_{mean}$.
+
+```{r fig5, echo = FALSE, eval = TRUE, warnings = FALSE, fig.caption = "Correlation matrix of predictor variables"}
 ## We might not want to include this
 ## Or find a better display
 ## I have some code to make a graphical correlation matrix somewhere that might be nicer - SH
@@ -112,10 +114,13 @@ Climate and water balance predictor variables were tested for colinearity with a
 
 #i made a visual representation of correlations, not perfect, but it should be good enough for now. except it's not displaying as a plot, probably best to save it and read it back in once we're happy with it - PL
 corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl.srt=45, sig.level = 0.6)
+
 ```
 
-After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (\@ref(fig:pairsEDA).
-```{r pairsEDA, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center'}
+*Fix correlation plot with ggplot. In general, Correlation matrix of predictor variables. Larger circles and darker colors indicate a higher degree of correlation.*
+
+After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)).
+```{r pairsEDA, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center', echo = FALSE}
 pairs_plot
 ```
 
@@ -123,29 +128,40 @@ pairs_plot
 ### Statistical Procedures Used
 Mixed effects models were used to study what covariates were correlated with white bark pine performance. Random effects were always used for the unit. A variety of linear and polynomial functions, and fixed effects were explore. Cubic forms were explored due to the biological idea that WBP seedling establishment may vary drastically depending on the conditions. In below average conditions, we expect low growth rate. We expect there to be an average growth rate in average conditions, and then for high quality conditins, we expect a much higher growth rate - therefore following a cubic form. A corrected AIC was used to compare models. We attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incorporating environmental variables related to the research questions (including number of competitors, age of planting, and microsite status). 
 
-We ran the saturated model without interactions \@ref(eq:full), and then refined it based on AIC score (less than 2). We used the $drop1()$ function to conduct backwards stepwise analysis using single term deletions following a $\chi^2$ distribution. All analysis was done use R statistical software. 
+We ran the saturated cubic model without interactions \@ref(eq:full), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. All analysis was done use R statistical software. 
 
-$$\mu \{log(growth\ rate) | AET + PET + \\ 
-PPT + T_{max} + Micro + Comp\_number + PICO + \\ 
-PIEN + ABLA + random (Unit)\} = XXXXX $$ (\#eq:full)
 
+\begin{math}
+$$\mu \{log(growth\ rate) | AET, PET, Annual\_P, T_{max}, \\ 
+Micro , Comp\_number , PICO , 
+PIEN , ABLA , random (Unit)\} \\
+= AET^3 + PET^3 + Comp\_number^3 + annual\_P^3 + annual\_Tmax^3+ PIEN+ PICO + ABLA + Micro + (1|unit) $$ (\#eq:full)
+\end{math}
+
+*For simplicity sake, lower-order terms were not explicitly written out here but were included in model.*
 
 ## Results/Summary of Statistical Findings
-```{r modelTable, echo = FALSE, warnings = FALSE, messages = FALSE, fig.cap="Model table"}
+```{r modelTable, include = FALSE, echo = FALSE, warnings = FALSE, messages = FALSE, fig.cap="Model table"}
 modelTable
 ```
+Using backwards selection, the most parsimonious model is below, where $annual\_Tmax$ took on a quadratic form, and PIEN and Micro were removed. This model has an AIC score of `r round(AICc(final_cubic),2)`. 
 
-- run initial full model with cubic functions and factors for micro, PICO, ALBA, etc. 
-- use backwards step to find final model
-- report final model in paper 
-- talk about 
-The initial full model, with all variables of interest, had an AICc of 1126.504 , and our final model has an AICc of 1122.34 (Table (\@ref(fig:modelTable))
+\begin{math}
+$$\mu \{log(growth\ rate) | AET, PET, Annual\_P, T_{max},\\ Comp\_number , PICO, ABLA , random (Unit)\}\\ = AET^3 + PET^3 +
+Comp\_number^3 + annual\_P^3 + annual\_Tmax^2+ PICO + ABLA +(1|unit)$$ (\#eq:final)
+\end{math}
 
-ONLY GOT ONE DIAGNOSTIC PLOT FOR THE MODEL. 
+The initial full model, with all variables of interest, had an AICc of `r round(AICc(full_cubic),2)`. This was a `r round(AICc(full_cubic)-AICc(final_cubic),2)` reduction in AICc value. 
 
-The final model suggests the WBP seedling growth is most correlated with the annual evapotranspiration, the potential evapotranspirtaion, and the number of competitors around the seedling, while accounting for the random effect of planting unit. The cubic forms of these variables suggest  
+The final model suggests the WBP seedling growth is most correlated with the annual evapotranspiration, the potential evapotranspirtaion, the number of competitors around the seedling, annual precipitation, and max temperature while accounting for the random effect of planting unit.
 
-- ALSO NEED TO INTERPRET COEFFICIENTS AND 95% CI
+Going forward, we would like to look into the following things:
+- We get the error "fixed-effect model matrix is rank deficient so dropping 14 columns / coefficients" and need to look at what that means. 
+- Better understand the variable selection process and why certain variables were included. 
+- Look for a more parsimonious model, perhaps dropping cubic forms. 
+- Creating diagnostic plots for mixed models
+- Interpreting the coefficients and the 95% CI in the context of WPB restoration 
+- Insert model table
 
 ## Scope of Inference
 - Random sampling of WPB = inferences to large population 
@@ -167,3 +183,4 @@ Steve spearheaded the data wrangling and analysis, while Parker took lead on the
 
 ## Appendix
 - Must include a compiled RMarkdown with all of our results
+- All code is in currently in an R script, will attach for final paper
