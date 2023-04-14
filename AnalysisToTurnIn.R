@@ -30,8 +30,8 @@ df<-df_raw%>%
 # Exploratory data figure ####
 
 #look for correlations within variables of question
-interested_var<-df%>%
-    select(log_growth_rt, annual_tmax, aet, pet, comp_number, micro, PICO, PIEN, ABLA, micro)
+interested_var<-df %>%
+        select(log_growth_rt, annual_tmax, annual_p, spring_snow, spring_rain, grow_dmean, monthly_dmax, max_dsum, aet, pet, grow_gdd, annual_tmean)
 ## I misunderstood something here, we need to pass all variables from table 5 into the corr matrix, then select the more "biologically meaningful" variable from pairs that exceed 0.6 collinearity threshold.
 ## This should just be the full model they used in the model evaluation then.  For example, we choose AET over D for IGR model because it is more biologically relevant - see discussion section for physiological basis.
 ## however, many of these other columns likely have the same data cleanup issues as the other monthly/annual values.
