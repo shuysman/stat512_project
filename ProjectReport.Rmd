@@ -71,7 +71,7 @@ Researchers were most interested in the annual growth rate. Seedlings were too s
 
 From examination of the raw data, there appears to be unequal variance in growth rate by planting unit. This suggests that a log transformation be applied, and the variances look better after transformation (Figure \@ref(fig:fig4)).
 
-```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate by unit, before and after log transformation"}
+```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate by unit, before and after log transformation", fig.height = 3}
 fig4_combined
 ```
 
@@ -107,7 +107,6 @@ Data were provided by Laufenberg, but the process of cleaning and structuring th
 
    -  creating AET which is the total annual evapotranspiration. To get this, we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for PET or potential evapotranspiration. 
    -  multiplying p by 12 to get the total "annual precipitation".
-   -  using $log_{10}$ to transform growth rate. 
 
 Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (\@ref(fig:fig5). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which were for the number of competitors, age of the planting site, and microsite presence/absence to create a list of candidate variables to evaluate in model selection. Following this process, our list of candidate variables to evaluate in model selection is $T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA. This differs from the "full model" evaluated in Table 6 of Laufenberg et al. 2020 by the inclusion of $T_{max}$ and the exclusion of $T_{mean}$.
 
