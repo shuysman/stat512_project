@@ -23,23 +23,24 @@ df_raw <- read.csv('./laufenberg-df.csv')
 df<-df_raw%>%
   group_by(unit) %>%
   #we're not entirely sure why we have to do all these adjustements, probably because the growing season is 7 months long
-  mutate(aet = grow_aetmean * 7, pet = grow_petmean * 7, p = annual_p * 12, log_growth_rt = log(growth_rt * 7, 10)) 
+  mutate(aet = grow_aetmean * 7, pet = grow_petmean * 7, p = annual_p * 12, log_growth_rt = log(growth_rt * 7, 10)) %>%
+  ungroup()
 
 
 # Exploratory data figure ####
 
 #look for correlations within variables of question
 interested_var<-df%>%
-    select(log_growth_rt, age, annual_tmax, annual_p, spring_snow, spring_rain, grow_dmean, monthly_dmax, max_dsum, aet, pet, grow_gdd, comp_number, annual_tmean, micro, PICO, PIEN, ABLA, micro)
+    select(log_growth_rt, annual_tmax, aet, pet, comp_number, micro, PICO, PIEN, ABLA, micro)
 ## I misunderstood something here, we need to pass all variables from table 5 into the corr matrix, then select the more "biologically meaningful" variable from pairs that exceed 0.6 collinearity threshold.
 ## This should just be the full model they used in the model evaluation then.  For example, we choose AET over D for IGR model because it is more biologically relevant - see discussion section for physiological basis.
 ## however, many of these other columns likely have the same data cleanup issues as the other monthly/annual values.
 ## DF had code to run a correlation matrix I added to this repo, but I'm not sure how to get it to run on our df
 ## Not sure which column from the df is micro_pop in table 5 - SH
 
-pairs_plot<-ggpairs(data = interested_var)
+pairs_plot<-ggpairs(data = interested_var, upper = "blank")
 
-interested_var.cor <- interested_var %>% ungroup() %>% select(-unit) %>% cor()
+interested_var.cor <- interested_var %>% cor()
 write.csv(interested_var.cor, file = "corr_matrix.csv")
 
 library(corrplot)
