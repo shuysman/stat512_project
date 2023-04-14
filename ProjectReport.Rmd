@@ -163,6 +163,8 @@ Going forward, we would like to look into the following things:
  - Interpreting the coefficients and the 95% CI in the context of WPB restoration  
  - Insert model table 
  - Effects plot/model estimate
+ - Random effect for sample site? 
+ - Better define initial model and which betas are important
  
 
 ## Scope of Inference
