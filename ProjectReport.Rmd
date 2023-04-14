@@ -156,12 +156,14 @@ The initial full model, with all variables of interest, had an AICc of `r round(
 The final model suggests the WBP seedling growth is most correlated with the annual evapotranspiration, the potential evapotranspirtaion, the number of competitors around the seedling, annual precipitation, and max temperature while accounting for the random effect of planting unit.
 
 Going forward, we would like to look into the following things:
-- We get the error "fixed-effect model matrix is rank deficient so dropping 14 columns / coefficients" and need to look at what that means. 
-- Better understand the variable selection process and why certain variables were included. 
-- Look for a more parsimonious model, perhaps dropping cubic forms. 
-- Creating diagnostic plots for mixed models
-- Interpreting the coefficients and the 95% CI in the context of WPB restoration 
-- Insert model table
+ - We get the error "fixed-effect model matrix is rank deficient so dropping 14 columns / coefficients" and need to look at what that means.  
+ - Better understand the variable selection process and why certain variables were included.  
+ - Look for a more parsimonious model, perhaps dropping cubic forms.  
+ - Creating diagnostic plots for mixed models 
+ - Interpreting the coefficients and the 95% CI in the context of WPB restoration  
+ - Insert model table 
+ - Effects plot/model estimate
+ 
 
 ## Scope of Inference
 - Random sampling of WPB = inferences to large population 
