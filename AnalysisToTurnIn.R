@@ -15,6 +15,7 @@ library(kableExtra)
 library(lmerTest)
 library(MuMIn)
 library(GGally)
+library(ggpubr)
 
 #read the dataframe ####
 df_raw <- read.csv('./laufenberg-df.csv')
@@ -23,11 +24,29 @@ df_raw <- read.csv('./laufenberg-df.csv')
 df<-df_raw%>%
   group_by(unit) %>%
   #we're not entirely sure why we have to do all these adjustements, probably because the growing season is 7 months long
-  mutate(aet = grow_aetmean * 7, pet = grow_petmean * 7, p = annual_p * 12, log_growth_rt = log(growth_rt * 7, 10)) %>%
+  mutate(aet = grow_aetmean * 7, pet = grow_petmean * 7, p = annual_p * 12) %>%
   ungroup()
 
 
 # Exploratory data figure ####
+
+## recreate raw data visualization from paper ####
+## why do we need to log growth_rt?
+## variances look unequal, look better after logging
+fig4 <- df %>%
+    group_by(unit) %>%
+    ggplot(aes(x = unit, y = growth_rt)) +
+    geom_boxplot()
+
+fig4_logged <- df %>%
+    group_by(unit) %>%
+    ggplot(aes(x = unit, y = log_growth_rt)) +
+    geom_boxplot()
+
+fig4_combined <- ggarrange(fig4, fig4_logged)
+
+
+
 
 #look for correlations within variables of question
 interested_var<-df %>%
@@ -38,8 +57,6 @@ interested_var<-df %>%
 ## DF had code to run a correlation matrix I added to this repo, but I'm not sure how to get it to run on our df
 ## Not sure which column from the df is micro_pop in table 5 - SH
 
-pairs_plot<-ggpairs(data = interested_var, upper = "blank")
-
 interested_var.cor <- interested_var %>% cor()
 ##write.csv(interested_var.cor, file = "corr_matrix.csv")
 
@@ -47,17 +64,22 @@ library(corrplot)
 corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl.srt=45, addCoef.col = "black")
 
 
-# recreate raw data visualization from paper ####
-fig4 <- df %>%
-  group_by(unit) %>%
-  ggplot(aes(x = unit, y = growth_rt)) +
-  geom_boxplot()
+pairs_plot<-ggpairs(data = interested_var, upper = "blank")
+
+
+
 
 full_cubic <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + poly(annual_p, 3) + poly(annual_p) + annual_p + poly(annual_tmax,3) + poly(annual_tmax, 2) +  annual_tmax+ micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
 AICc(full_cubic)
 #aicc 1126.504
 
+null_model <- lmer(log_growth_rt ~ 1|unit, data = df)
+
 drop1(full_cubic, test = "Chisq", k = 2, trace = TRUE)
+
+step(full_cubic, scope = formula(null_model), direction = "backward")
+
+step(null_model, scope = formula(full_cubic), direction = "forward")
 
 
 final_model<-lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + comp_number +  (1 | unit), df)

@@ -66,10 +66,10 @@ There are only 5 units and only 29 sites within each of those units, resulting i
 
 Researchers were most interested in the annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth. 
 
-Initially, we can look at a box plot of the raw data to see if growth rates may vary between planting units. Figure \@ref(fig:fig4) shows that there might be slight differences between the planting units, especially for the West Yellowstone (WY) unit. However, any apparent differences may be a result of a difference in the age of the seedlings. This plot is equivalent to Figure 4 in the original paper.
+From examination of the raw data, there appears to be unequal variance in growth rate by planting unit.  This suggests that a log transformation be applied, and the variances look equal after transformation (Figure \@ref(fig:fig4)).
 
-```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate by unit"}
-fig4
+```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate by unit, before and after log transformation"}
+fig4_combined
 ```
 
 At each site, data on seedling heights (used to estimate growth rate) and competing plant species was recorded. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. The following predictor variables were evaluated:
