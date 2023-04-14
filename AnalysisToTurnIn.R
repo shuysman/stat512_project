@@ -60,6 +60,19 @@ AICc(full_cubic)
 drop1(full_cubic, test = "Chisq", k = 2, trace = TRUE)
 
 
+#trying without cubic
+full_first <- lmer(log_growth_rt ~ aet + pet + annual_p  +  annual_tmax+ micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
+step(full_first, direction = "backward")
+
+test<-lmer(log_growth_rt ~ aet + comp_number + PICO + ABLA + (1 | unit), df)
+AICc(full_cubic)
+AICc(test)
+AICc(full_first_1)
+)
+full_first_1<-lmer(log_growth_rt ~ poly(aet,3) + poly(comp_number,3) + PICO + ABLA + (1 | unit), df)
+step(full_first_1)
+AICc(full_cubic)
+
 final_model<-lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + comp_number +  (1 | unit), df)
 AICc(final_model)
 #1130.444

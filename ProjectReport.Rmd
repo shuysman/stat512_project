@@ -121,7 +121,7 @@ pairs_plot
 
 
 ### Statistical Procedures Used
-Mixed effects models were used to study what covariates were correlated with white bark pine performance. Random effects were always used for the unit. A variety of linear and polynomial functions, and fixed effects were explore. A corrected AIC was used to compare models. We attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incorporating environmental variables related to the research questions (including number of competitors, age of planting, and microsite status). 
+Mixed effects models were used to study what covariates were correlated with white bark pine performance. Random effects were always used for the unit. A variety of linear and polynomial functions, and fixed effects were explore. Cubic forms were explored due to the biological idea that WBP seedling establishment may vary drastically depending on the conditions. In below average conditions, we expect low growth rate. We expect there to be an average growth rate in average conditions, and then for high quality conditins, we expect a much higher growth rate - therefore following a cubic form. A corrected AIC was used to compare models. We attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incorporating environmental variables related to the research questions (including number of competitors, age of planting, and microsite status). 
 
 We ran the saturated model without interactions \@ref(eq:full), and then refined it based on AIC score (less than 2). We used the $drop1()$ function to conduct backwards stepwise analysis using single term deletions following a $\chi^2$ distribution. All analysis was done use R statistical software. 
 
@@ -135,11 +135,15 @@ PIEN + ABLA + random (Unit)\} = XXXXX $$ (\#eq:full)
 modelTable
 ```
 
+- run initial full model with cubic functions and factors for micro, PICO, ALBA, etc. 
+- use backwards step to find final model
+- report final model in paper 
+- talk about 
 The initial full model, with all variables of interest, had an AICc of 1126.504 , and our final model has an AICc of 1122.34 (Table (\@ref(fig:modelTable))
 
 ONLY GOT ONE DIAGNOSTIC PLOT FOR THE MODEL. 
 
-The final model suggests the WBP seedling growth is most correlated with the annual evapotranspiration, the potential evapotranspirtaion, and the number of competitors around the seedling, while accounting for the random effect of planting unit. The cubic forms of these variables suggest WHAT DOES THE CUBIC FORM MEAN. 
+The final model suggests the WBP seedling growth is most correlated with the annual evapotranspiration, the potential evapotranspirtaion, and the number of competitors around the seedling, while accounting for the random effect of planting unit. The cubic forms of these variables suggest  
 
 - ALSO NEED TO INTERPRET COEFFICIENTS AND 95% CI
 
@@ -153,6 +157,7 @@ The final model suggests the WBP seedling growth is most correlated with the ann
 - unfamiliar with drop1() technique for model selection, so hard to critique that with what we are used to, but struggled using step selection with random effects
 - reason for cubic form is unclear
 - no mention of what made something more biologically relevant during variable selection looking at correlation
+- paper fishing for explanation
 
 ## Group Work Statement
 Steve spearheaded the data wrangling and analysis, while Parker took lead on the write-up and formatting. Both people contributed to the interpretation, discussion, and critique. 
