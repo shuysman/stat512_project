@@ -74,7 +74,11 @@ From examination of the raw data, there appears to be unequal variance in growth
 fig4_combined
 ```
 
-At each site, data on seedling heights (used to estimate growth rate) and competing plant species was recorded. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. The following predictor variables were evaluated:
+At each site, data on seedling heights (used to estimate growth rate) and competing plant species was recorded. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. 
+
+Our reponse variable is `log_growth_rt`.  This is the log of the annual growth rate, determined by measuring seedlings and dividing by the number years since planting.
+
+The following predictor variables were evaluated:
 
 \singlespacing
 - Predictor variables are as follows: 
