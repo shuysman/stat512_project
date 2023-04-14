@@ -12,6 +12,7 @@ header-includes:
 - \usepackage{setspace}
 - \usepackage{amsmath}
 - \usepackage{gensymb}
+- \usepackage{tabu}
 indent: yes
 
 ---
@@ -121,10 +122,15 @@ corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl
 
 ```
 
+<<<<<<< HEAD
 *Fix correlation plot with ggplot. In general, Correlation matrix of predictor variables. Larger circles and darker colors indicate a higher degree of correlation.*
 
 After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)).
 ```{r pairsEDA, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center', echo = FALSE}
+=======
+After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (\@ref(fig:pairsEDA).
+```{r pairsEDA, echo = FALSE, eval = TRUE, message = FALSE, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center'}
+>>>>>>> f091177 (add theoretical model for full model)
 pairs_plot
 ```
 
@@ -134,6 +140,7 @@ Mixed effects models were used to study what covariates were correlated with whi
 
 We ran the saturated cubic model without interactions \@ref(eq:full), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. All analysis was done use R statistical software. 
 
+<<<<<<< HEAD
 
 \begin{math}
 $$\mu \{log(growth\ rate) | AET, PET, Annual\_P, T_{max}, \\ 
@@ -143,6 +150,22 @@ PIEN , ABLA , random (Unit)\} \\
 \end{math}
 
 *For simplicity sake, lower-order terms were not explicitly written out here but were included in model.*
+=======
+The theoretical model for our full model analyzed is as follows:
+
+```{=latex}
+\begin{align*}
+  log(growth\_rate)_{ij} &= \hat{\mu}_{ij} + Unit_i + \epsilon_{ij} \\
+  Unit_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{unit}) \\
+  \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{error}) \\
+  \begin{split}
+    \hat{\mu}_{ij} &= \beta_0 + \beta_1AET + \beta_2T_{max} + \beta_3PPT + \beta_4PET \\
+    &+ \beta_5Comp\_number + \beta_6Micro + \beta_7PICO \\
+    &+ \beta_8PIEN + \beta_9ABLA
+  \end{split}
+\end{align*}
+```
+>>>>>>> f091177 (add theoretical model for full model)
 
 ## Results/Summary of Statistical Findings
 ```{r modelTable, include = FALSE, echo = FALSE, warnings = FALSE, messages = FALSE, fig.cap="Model table"}
