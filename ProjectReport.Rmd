@@ -34,7 +34,7 @@ library(bookdown)
 \doublespacing
 
 ## Introduction
-Whitebark pine (*Pinus albicaulis* Engelm.) is a conifer tree native to the mountains of the western United States and Canada. It inhabits subalpine areas where it can be found growing up to the tree line, at a higher elevation than other tree species found with it.
+Whitebark pine (*Pinus albicaulis* Engelm.; abbreviation: WBP) is a conifer tree native to the mountains of the western United States and Canada. It inhabits subalpine areas where it can be found growing up to the tree line, at a higher elevation than other tree species found with it.
 
 Whitebark pine (WBP) is an early successional species that is often the first to establish after disturbance such as wildfire.  WPB is a keystone species of subalpine environments where it plays important ecological roles such as providing food for wildlife such as Clark's Nutcracker and the threatened Grizzly Bear.
 
