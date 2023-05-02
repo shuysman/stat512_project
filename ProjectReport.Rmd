@@ -48,24 +48,39 @@ However, we chose to focus on a different question. We are interested in how ann
 
 ### Field Methods/Study design 
 
-```{r fig1, fig.cap = "Map of planting units included in study in the Greater Yellowstone Ecosystem. Yellowstone National Park is outlined in purple, the greater yelowstone ecosystem is outlined in red, and the five white bark pine planting units run by the Forest Service and National Park service are circled in red. The two-letter abbreviation denotes the name: BT = Beartooth, EC = East Centennial, WC = West Centennial, WI =Wind River, WY =West Yellowstone", echo = FALSE, out.width = '50%', fig.align='center'}
+```{r fig1, fig.cap = "Map of planting units included in study in the Greater Yellowstone Ecosystem. Yellowstone National Park is outlined in purple, the greater yelowstone ecosystem is outlined in red, and the five white bark pine planting units run by the Forest Service and National Park service are circled in red. The two-letter abbreviation denotes the name: BT = Beartooth, EC = East Centennial, WC = West Centennial, WI =Wind River, WY =West Yellowstone", echo = FALSE, out.width = '75%', fig.align='center'}
 knitr::include_graphics("Figure1.png")
 ```
 
-Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of WBP in the GYE.  This study investigated five planting units (figure \@ref(fig:fig1)) that each contained between two and eight planting sites. 
-
-This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. (See figure \@ref(fig:fig2) for model design.)
+Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of WBP in the GYE.  This study investigated five planting units (Figure \@ref(fig:fig1)) that each contained between two and eight planting sites. This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. (See Figure \@ref(fig:fig2) for model design.)
 
 ```{r fig2, fig.cap = "Visualization of study design", echo = FALSE, out.width = '75%', fig.align='center'}
 knitr::include_graphics("Figure2.png")
 ```
-Sampling took place from May 2018 to October 2018. A grid cell matrix of 10m x 10m was overlaid on the study site or unit. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling between 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data. 
+In the 5 larger planting units, no data aside from name of the unit, were collected. For the 29 sites scattered across those planting units (an unbalanced design), larger climatic data were recorded such as average annual temperature and average annual precipitation. (For a full list of data collected at each location, see Figure \@ref(fig:fig2). Then, seedlings within that site were sampled for annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth.
 
-There are only 5 units and only 29 sites within each of those units, resulting in a somewhat small sample size. However, with over 1000 seedlings within each site/unit combination, there is a of replication within each unit. 
+Sampling individual seedling growth occurred from May 2018 to October 2018. A grid cell matrix of 10m x 10m was overlaid on the study site or unit.  A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling WBP in between 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data. At each site, seedling heights (used to estimate growth rate) were collected as well as local climate data like elevation, aspect, water deficit, number of competitors, and amount of evapotranspiration. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. A more in-depth description of data recorded is below:
+
+The following predictor variables were evaluated:
+
+\singlespacing
+- Predictor variables are as follows: 
+  - Age - Years since original seedling was planting
+  - $T_{mean}$ - Mean annual temperature ($\degree$C)
+  - $T_{max}$ - Max monthly temperature ($\degree$C)
+  - PPT (mm) - Mean annual precipitation.
+  - Snowpack (mm) - Mean spring (March-May) snowpack
+  - $WD_{annual\_mean}$ - water deficit (mm), which is the amount of additional water a plant could use if it were available
+  - AET - Mean actual evapotranspiration (mm) during growing season (April–October)
+  - PET - Mean potential evapotranspiration (mm) during growing season (April–October)
+  - GDD - Mean annual growing degree days (April-October)
+  - Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
+
+\doublespacing
 
 Researchers were most interested in the annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth. 
 
-From examination of the raw data, there appears to be unequal variance in growth rate by planting unit. This suggests that a log transformation be applied, and the variances look better after transformation (Figure \@ref(fig:fig4)).
+From examination of the raw data, growth rate appears to be similar across each planting unit, suggesting that no transformation is needed (Figure \@ref(fig:fig4)).
 
 ```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate by unit, before and after log transformation", fig.height = 3}
 fig4_combined
@@ -73,40 +88,11 @@ fig4_combined
 
 At each site, data on seedling heights (used to estimate growth rate) and competing plant species was recorded. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. 
 
-Our reponse variable is `log_growth_rt`.  This is the log of the annual growth rate, determined by measuring seedlings and dividing by the number years since planting.
+Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We ultimately decided to create an annual evapotranspiration rate, given that it is extremely pertinent to our research question. To get this annual evapotranspiration (AET), we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for PET or potential evapotranspiration. 
 
-The following predictor variables were evaluated:
+Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (\@ref(fig:corr). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which are $AET$ and $WD$. Following this process, our list of environmental components we would like to account for in the model are comp_number and microsite status. 
 
-\singlespacing
-- Predictor variables are as follows: 
-  - Age - Years since planting
-  - $T_{mean}$ - Mean annual temperature ($\degree$C)
-  - $T_{max}$ - Max monthly temperature ($\degree$C)
-  - PPT (mm) - Mean annual precipitation.
-  - Snowpack (mm) - Mean spring (March-May) snowpack
-  - $WD_{annual\_mean}$ (mm)
-  - $WD_{annual\_max}$ (mm)
-  - $WD_{month\_max}$ (mm)
-  - AET - Mean actual evapotranspiration (mm) during growing season (April–October)
-  - PET - Mean potential evapotranspiration (mm) during growing season (April–October)
-  - GDD - Mean annual growing degree days (April-October)
-  - Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
-  - $Micro_{prop}$ - Proportion of WBP with a microsite at the site-level 
-  - Comp\_number - number of competitors within a 3.59m radius
-  - PICO - Presence of Lodgepole pine (*Pinus contorta*) within 3.59m radius of WBP. 1 if PICO is present, 0 otherwise.
-  - PIEN - Presence of Apache pine (*Pinus engelmannii*) within 3.59m radius of WBP. 1 if PIEN is present, 0 otherwise.
-  - ABLA - Presence of subalpine fir (*Abies lasiocarpa*) within 3.59m radius of WBP. 1 if ABLA is present, 0 otherwise.
-
-\doublespacing
- 
-Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We did this by modifying data in an ecologically reasonable way while comparing raw data plots to the paper. A few examples of data cleaning are:
-
-   -  creating AET which is the total annual evapotranspiration. To get this, we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for PET or potential evapotranspiration. 
-   -  multiplying p by 12 to get the total "annual precipitation".
-
-Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (\@ref(fig:fig5). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which were for the number of competitors, age of the planting site, and microsite presence/absence to create a list of candidate variables to evaluate in model selection. Following this process, our list of candidate variables to evaluate in model selection is $T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA. This differs from the "full model" evaluated in Table 6 of Laufenberg et al. 2020 by the inclusion of $T_{max}$ and the exclusion of $T_{mean}$.
-
-```{r fig5, echo = FALSE, eval = TRUE, warnings = FALSE, fig.caption = "Correlation matrix of predictor variables"}
+```{r corr, echo = FALSE, eval = TRUE, warnings = FALSE, fig.caption = "Correlation matrix of predictor variables"}
 ## We might not want to include this
 ## Or find a better display
 ## I have some code to make a graphical correlation matrix somewhere that might be nicer - SH
@@ -117,9 +103,9 @@ corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl
 
 ```
 
-*Fix correlation plot with ggplot. In general, Correlation matrix of predictor variables. Larger circles and darker colors indicate a higher degree of correlation.*
 
-After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)).
+After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)). From examination of the raw data, there is a little variance in growth rate by planting unit, which we will account for with a fixed effect of unit.
+
 ```{r pairsEDA, echo = FALSE, eval = TRUE, message = FALSE, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center'}
 pairs_plot
 ```
