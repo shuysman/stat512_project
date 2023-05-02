@@ -46,8 +46,18 @@ fig4_logged <- df %>%
 
 fig4_combined <- ggarrange(fig4, fig4_logged)
 
-
-
+### From Katie's comments, the above graph reproducing fig4 is not the
+### right raw data plot to include there is no reason to visualize by
+### planting unit.  Since we are including site in the model as a
+### fixed effect, I think we should include of a plot of aet x growth
+### rate, visualized by planting site.  We can do this either by
+### faceting on site or col = site in the aes(), both are visually
+### noisy but the facet_wrap seems easier to read.  from this plot, I
+### can't see any reason to log transform growth rate.
+aet_x_growthrt <- df %>%
+    ggplot(aes(x = aet, y = growth_rt)) +
+    geom_point() +
+    facet_wrap(~site)
 
 #look for correlations within variables of question
 interested_var<-df %>%
