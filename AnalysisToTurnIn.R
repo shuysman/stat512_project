@@ -24,7 +24,10 @@ df_raw <- read.csv('./laufenberg-df.csv')
 df<-df_raw%>%
   group_by(unit) %>%
   #we're not entirely sure why we have to do all these adjustements, probably because the growing season is 7 months long
-  mutate(aet = grow_aetmean * 7, pet = grow_petmean * 7, p = annual_p * 12) %>%
+    mutate(aet = grow_aetmean * 7,
+           cwd = grow_dmean * 7,
+           pet = grow_petmean * 7,
+           p = annual_p * 12) %>%
   ungroup()%>%
   mutate(PICO = as.factor(PICO), micro = as.factor(micro), ABLA = as.factor(ABLA), PIEN = as.factor(PIEN))
 
