@@ -34,19 +34,15 @@ library(bookdown)
 \doublespacing
 
 ## Introduction
-Whitebark pine (*Pinus albicaulis* Engelm.; abbreviation: WBP) is a conifer tree native to the mountains of the western United States and Canada. It inhabits subalpine areas where it can be found growing up to the tree line, at a higher elevation than other tree species found with it.
+Whitebark pine (*Pinus albicaulis* Engelm.; abbreviation: WBP) is a conifer tree native to the mountains of the western United States and Canada. It inhabits subalpine areas where it can be found growing up to the tree line, at a higher elevation than other tree species found with it. Whitebark pine is an early successional species that is often the first to establish after disturbance such as wildfire.  WPB is a keystone species of subalpine environments where it plays important ecological roles such as providing food for wildlife such as Clark's Nutcracker and the threatened Grizzly Bear.
 
-Whitebark pine (WBP) is an early successional species that is often the first to establish after disturbance such as wildfire.  WPB is a keystone species of subalpine environments where it plays important ecological roles such as providing food for wildlife such as Clark's Nutcracker and the threatened Grizzly Bear.
+Due to threats from climate change, mountain pine beetle, and the invasive white pine blister rust, Whitebark pine has undergone a rapid and widespread decline.  It was recently estimated that over half of all standing WBP in the United States are dead.  This decline has lead to its recent listing as Threatened under the Endangered Species Act.  Future climate projections indicate further deterioration of WBP's habitat. Strategies to conserve this species involve planting WBP seedlings for restoration of high-elevation forests.  Successful plantings in the face of climate change require an understanding of the relationship between climate and seedling establishment and growth in this species. Competition from other tree species also plays a role in seedling establishment and was investigated here.
 
-Due to threats from climate change, mountain pine beetle, and the invasive white pine blister rust, Whitebark pine has undergone a rapid and widespread decline.  It was recently estimated that over half of all standing WBP in the United States are dead.  This decline has lead to its recent listing as Threatened under the Endangered Species Act.  Future climate projections indicate further deterioration of WBP's habitat.
-
-Strategies to conserve this species involve planting WBP seedlings for restoration of high-elevation forests.  Successful plantings in the face of climate change require an understanding of the relationship between climate and seedling establishment and growth in this species. Competition from other tree species also plays a role in seedling establishment and was investigated here.
-
-This study investigated USFS plantings of WBP seedlings in the Greater Yellowstone Ecosystem (GYE) to answer two research questions:    
+Laufenberg et al. (2020) investigated USFS plantings of WBP seedlings in the Greater Yellowstone Ecosystem (GYE) to answer two research questions:    
 1) What is the relationship between climate/competition and WBP seedling establishment, measured by individual growth rate?    
 2) What is the relationship between climate/competition and WBP seedling survival, measured by density change?    
 
-We are interested here in the first question relating to seedling growth rate.
+However, we chose to focus on a different question. We are interested in how annual evapotranspiration and water availability affect planted whitebark pine seedling growth after accounting for location and competition.
 
 ## Methods
 
