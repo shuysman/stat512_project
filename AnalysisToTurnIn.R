@@ -134,3 +134,39 @@ par(mfrow=c(2,2))
 plot(full_cubic)
 # create table of model selection 
 1134.65
+
+
+
+
+
+#### Assuming we are skipping model selection, re: Katie's comments,
+#### and proceeding with a model based on our RQ Our RQ could be
+#### something like: what is the relationship between growth rate and
+#### cwd/aet after accounting for comp number, unit, and site-to-site
+#### variability?  It makes sense to me to include both aet/cwd if we
+#### are asking a directed question, as they are typically treated as
+#### a pair.  Can cite Stephenson 1998 for reasoning behind this.
+m1 <- lmer(growth_rt ~ poly(aet,3) + poly(aet,2) + aet + poly(cwd,3) + poly(cwd,2) + cwd + comp_number + unit + (1|site), data = df)
+summary(m1)
+
+std_epsilon <- sigma(m1)
+std_site <- VarCorr(m1)[[1]][1]
+
+icc <- std_site**2 / (std_site**2 + std_epsilon**2)
+### icc seems really low... (=0.05)
+
+## likelihood ratio test for site RE
+m1_remove_site <- lm(growth_rt ~ poly(aet,3) + poly(aet,2) + aet + poly(cwd,3) + poly(cwd,2) + cwd + comp_number + unit, data = df)
+anova(m1, m1_remove_site)
+### p = 1.417e-06, we conclude there is site-to-site variability
+
+## Test if unit should be included
+m1_remove_unit <- lmer(growth_rt ~ poly(aet,3) + poly(aet,2) + aet + poly(cwd,3) + poly(cwd,2) + cwd + comp_number +(1|site), data = df)
+anova(m1, m1_remove_unit) ### indicates we should keep unit - still not sure it makes sense as a FE over RE to mean
+
+
+## Effects plot
+plot(effect(c("comp_number"), m1))
+### > Error in mod.matrix %*% scoef : non-conformable arguments
+### related to warning "fixed-effect model matrix is rank deficient so
+### dropping 6 columns / coefficients" when fitting model?
