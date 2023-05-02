@@ -16,6 +16,8 @@ library(lmerTest)
 library(MuMIn)
 library(GGally)
 library(ggpubr)
+library(ggcorrplot)
+
 
 #read the dataframe ####
 df_raw <- read.csv('./laufenberg-df.csv')
@@ -74,8 +76,7 @@ interested_var<-df %>%
 interested_var.cor <- interested_var %>% cor()
 ##write.csv(interested_var.cor, file = "corr_matrix.csv")
 
-library(corrplot)
-corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl.srt=45, addCoef.col = "black")
+corr_plot<-ggcorrplot(interested_var.cor, hc.order = TRUE, outline.col = "white", type = "lower", lab = TRUE, lab_size = 3, digits = 1, colors = c("#6D9EC1", "white", "maroon"),  ggtheme = ggplot2::theme_bw)
 
 ##$T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA
 selected_vars <- df %>% select(log_growth_rt, annual_tmax, annual_p, aet, pet, comp_number, micro, PICO, PIEN, ABLA)

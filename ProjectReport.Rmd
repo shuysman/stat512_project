@@ -92,14 +92,8 @@ Data were provided by Laufenberg, but the process of cleaning and structuring th
 
 Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (\@ref(fig:corr). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which are $AET$ and $WD$. Following this process, our list of environmental components we would like to account for in the model are comp_number and microsite status. 
 
-```{r corr, echo = FALSE, eval = TRUE, warnings = FALSE, fig.caption = "Correlation matrix of predictor variables"}
-## We might not want to include this
-## Or find a better display
-## I have some code to make a graphical correlation matrix somewhere that might be nicer - SH
-#interested_var.cor
-
-#i made a visual representation of correlations, not perfect, but it should be good enough for now. except it's not displaying as a plot, probably best to save it and read it back in once we're happy with it - PL
-corrplot(interested_var.cor, method="circle", type = "upper", tl.col="black", tl.srt=45, sig.level = 0.6)
+```{r corr, echo = FALSE, eval = TRUE, warnings = FALSE, fig.caption = "Correlation matrix of predictor variables. Darker squares indicate a higher degree of correlation. For variables that were at least 0.6 correlated, the most ecologically relevant one was selected"}
+corr_plot
 
 ```
 
