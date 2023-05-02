@@ -48,7 +48,7 @@ However, we chose to focus on a different question. We are interested in how ann
 
 ### Field Methods/Study design 
 
-```{r fig1, fig.cap = "Map of planting units included in study in the Greater Yellowstone Ecosystem", echo = FALSE, out.width = '50%', fig.align='center'}
+```{r fig1, fig.cap = "Map of planting units included in study in the Greater Yellowstone Ecosystem. Yellowstone National Park is outlined in purple, the greater yelowstone ecosystem is outlined in red, and the five white bark pine planting units run by the Forest Service and National Park service are circled in red. The two-letter abbreviation denotes the name: BT = Beartooth, EC = East Centennial, WC = West Centennial, WI =Wind River, WY =West Yellowstone", echo = FALSE, out.width = '50%', fig.align='center'}
 knitr::include_graphics("Figure1.png")
 ```
 
