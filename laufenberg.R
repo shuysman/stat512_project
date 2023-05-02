@@ -45,6 +45,15 @@ df %>%
     ggplot(aes(x = unit, y = annual_tmean)) +
     geom_boxplot()
 
+
+## Figure 12 (Thesis) Growing season WD
+## grow_dmean Needs to be multiplied by 7 to match plot
+df %>%
+    group_by(unit) %>%
+    mutate(cwd = grow_dmean * 7) %>%
+    ggplot(aes(x = unit, y = cwd)) +
+    geom_boxplot()
+
 df <- df %>%
     mutate(aet = grow_aetmean * 7,
            log_growth_rt = log(growth_rt * 7, 10),
