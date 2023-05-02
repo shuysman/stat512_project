@@ -42,7 +42,7 @@ Laufenberg et al. (2020) investigated USFS plantings of WBP seedlings in the Gre
 1) What is the relationship between climate/competition and WBP seedling establishment, measured by individual growth rate?    
 2) What is the relationship between climate/competition and WBP seedling survival, measured by density change?    
 
-However, we chose to focus on a different question. We are interested in how annual evapotranspiration and water availability affect planted whitebark pine seedling growth after accounting for location and competition.
+However, we chose to focus on a simplified question. We are interested in how annual evapotranspiration and water availability affect planted whitebark pine seedling growth after accounting for location, age, and competition.
 
 ## Methods
 
