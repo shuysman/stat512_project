@@ -184,7 +184,7 @@ anova(m1, m1_remove_unit) ### indicates we should keep unit - still not sure it 
 
 
 ## Effects plot
-plot(effect(c("comp_number"), m1))
+##plot(effect(c("comp_number"), m1))
 ### > Error in mod.matrix %*% scoef : non-conformable arguments
 ### related to warning "fixed-effect model matrix is rank deficient so
 ### dropping 6 columns / coefficients" when fitting model?
