@@ -98,8 +98,15 @@ final_cubic<-lmer(log_growth_rt ~ poly(aet, 3) + poly(pet, 3) + poly(aet, 2) + p
 AICc(final_cubic)
 #AIC is 1111.886
 
+
+#model selection with simplified model####
 #I think this is the model we are most interested in, depends on what variable we want to use for water deficiet 
-model_of_interest <-lmer(growth_rt ~ aet +age + comp_number +unit + ggd + (1 | site), df)
+model_of_interest <-lmer(growth_rt ~ aet +age + cwd+ comp_number +unit+annual_p+annual_tmax  + (1 | site), df)
+null_interest<-lmer(growth_rt ~ aet +unit  + (1 | site), df)
+step(model_of_interest, direction = "backwards")
+
+#final model includes site, comp_number and unit
+
 
 
 step(null_model, scope = formula(full_cubic), direction = "forward")
