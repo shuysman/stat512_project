@@ -105,7 +105,14 @@ model_of_interest <-lmer(growth_rt ~ aet +age + cwd+ comp_number +unit+annual_p+
 null_interest<-lmer(growth_rt ~ aet +unit  + (1 | site), df)
 step(model_of_interest, direction = "backwards")
 
-#final model includes site, comp_number and unit
+#final model includes site and unit, very strongly, and then age, aet, cwd and comp number with a little less strength
+
+AICc(model_of_interest) #AICc  7367.422
+AICc(null_interest) #AICc 7354.993
+
+#diagnostic plots####
+library(predictmeans)
+diagnostic_plot<-residplot(model_of_interest, newwd=F)
 
 
 
