@@ -52,7 +52,7 @@ However, we chose to focus on a simplified question. We are interested in how an
 knitr::include_graphics("Figure1.png")
 ```
 
-Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of WBP in the GYE.  This study investigated five planting units (Figure \@ref(fig:fig1)) that each contained between two and eight planting sites. This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. (See Figure \@ref(fig:fig2) for model design.)
+Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of WBP in the GYE. This study investigated five planting units (Figure \@ref(fig:fig1)) that each contained between two and eight planting sites. This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. (See Figure \@ref(fig:fig2) for model design.)
 
 ```{r fig2, fig.cap = "Visualization of study design", echo = FALSE, out.width = '75%', fig.align='center'}
 knitr::include_graphics("Figure2.png")
@@ -88,7 +88,7 @@ fig4_combined
 
 At each site, data on seedling heights (used to estimate growth rate) and competing plant species was recorded. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. 
 
-Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We ultimately decided to create an annual evapotranspiration rate, given that it is extremely pertinent to our research question. To get this annual evapotranspiration (AET), we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for PET or potential evapotranspiration. 
+Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We ultimately decided to create an annual evapotranspiration rate, given that it is extremely pertinent to our research question. To get this annual evapotranspiration (AET), we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for mean water deficit (grow_dmean) to get climatic water deficit (CWD). 
 
 Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (\@ref(fig:corr). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which are $AET$ and $WD$. Following this process, our list of environmental components we would like to account for in the model are comp_number and microsite status. 
 
