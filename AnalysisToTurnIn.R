@@ -17,6 +17,10 @@ library(MuMIn)
 library(GGally)
 library(ggpubr)
 library(ggcorrplot)
+library(predictmeans)
+library(lattice)
+
+
 
 
 #read the dataframe ####
@@ -101,22 +105,24 @@ AICc(final_cubic)
 
 #model selection with simplified model####
 #I think this is the model we are most interested in, depends on what variable we want to use for water deficit 
-model_of_interest <-lmer(growth_rt ~ (aet) +age + cwd+comp_number + unit +annual_p+annual_tmax  + (1 | site), df[-1231,])
+model_of_interest <-lmer(log_growth_rt ~ aet +age + cwd+comp_number + unit +annual_p+annual_tmax+PICO+ABLA+PIEN +micro+ (1 | site), df)
 null_interest<-lmer(growth_rt ~ aet +unit  + (1 | site), df)
 step(model_of_interest, direction = "backwards")
 
-#final model includes site and unit, very strongly, and then age, aet, cwd and comp number with a little less strength
+#final model includes site, unit, AET, and comp_number
 
-AICc(model_of_interest) #AICc  7367.422
-AICc(null_interest) #AICc 7354.993
+AICc(model_of_interest) #AICc  1195.074
+
+#no indication for CWD but must keep in model because it's our research question
+reduced_model_of_interest <-lmer(log_growth_rt ~ aet + cwd+comp_number + unit + (1 | site), df)
+
+AICc(reduced_model_of_interest) #AICc 1148.384
 
 #diagnostic plots####
-library(predictmeans)
 residplot(model_of_interest, newwd=F)
 #CookD(model_of_interest, newwd=T) # this won't run on the model
 #this is a slow function so commented out for now, point 1231, 1157, and 848 are major outliers
 
-library(lattice)
 dotplot(ranef(model_of_interest, condVar = T)) #looks relatively linear here, i don't think we should transform
 
 
