@@ -54,8 +54,8 @@ knitr::include_graphics("Figure1.png")
 
 Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of WBP in the GYE. This study investigated five planting units (Figure \@ref(fig:fig1)) that each contained between two and eight planting sites. This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. (See Figure \@ref(fig:fig2) for model design.)
 
-```{r fig2, fig.cap = "Visualization of study design", echo = FALSE, out.width = '75%', fig.align='center'}
-knitr::include_graphics("Figure2.png")
+```{r fig2, fig.cap = "Hierarchical study design with fixed and random effects.", echo = FALSE, out.width = '75%', fig.align='center'}
+knitr::include_graphics("measurement_structure_diagram.png")
 ```
 In the 5 larger planting units, no data aside from name of the unit, were collected. For the 29 sites scattered across those planting units (an unbalanced design), larger climatic data were recorded such as average annual temperature and average annual precipitation. (For a full list of data collected at each location, see Figure \@ref(fig:fig2). Then, seedlings within that site were sampled for annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth.
 
