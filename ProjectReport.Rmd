@@ -82,8 +82,9 @@ Researchers were most interested in the annual growth rate. Seedlings were too s
 
 From examination of the raw data, growth rate appears to be similar across each planting unit, suggesting that no transformation is needed (Figure \@ref(fig:fig4)).
 
-```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate by unit, before and after log transformation", fig.height = 3}
-fig4_combined
+```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate by unit", fig.height = 3}
+#need to make a different raw data visualization plot, if we want to include it
+fig4
 ```
 
 At each site, data on seedling heights (used to estimate growth rate) and competing plant species was recorded. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. 
@@ -129,6 +130,22 @@ The theoretical model for our full model analyzed is as follows:
 ```{r modelTable, include = FALSE, echo = FALSE, warnings = FALSE, messages = FALSE, fig.cap="Model table"}
 modelTable
 ```
+
+Description  Full            AICc    
+------------ ------          -----
+full         $growth_{rate}$ 2341
+
++---------------+----------------------------------------------------------------------------+-----------------------------+
+| Description   | Full                                                                       | AICc                        |
++===============+============================================================================+=============================+
+| Full          | $growth\_rate = aet^3 + comp\_{number}^3 + CWD + unit + (1 | site)$        | `r AICc(model_of_interest)` |
+|               |               | - bright color     |
++---------------+---------------+--------------------+
+| Reduced       | $2.10         | - cures scurvy     |
+|               |               | - tasty            |
++---------------+---------------+--------------------+
+
+
 Using backwards selection, the most parsimonious model is below, where $annual\_Tmax$ took on a quadratic form, and PIEN and Micro were removed. This model has an AIC score of `r round(AICc(final_cubic),2)`. 
 
 ```{=latex}
