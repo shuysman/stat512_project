@@ -54,7 +54,7 @@ knitr::include_graphics("Figure1.png")
 
 Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of WBP in the GYE. This study investigated five planting units (Figure \@ref(fig:fig1)) that each contained between two and eight planting sites. This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of white bark pine seedlings per planting site. (See Figure \@ref(fig:fig2) for model design.)
 
-```{r fig2, fig.cap = "Hierarchical study design with fixed and random effects.", echo = FALSE, out.width = '75%', fig.align='center'}
+```{r fig2, fig.cap = "Hierarchical study design with fixed and random effects.", echo = FALSE, out.width = '100%', fig.align='center'}
 knitr::include_graphics("measurement_structure_diagram.png")
 ```
 In the 5 larger planting units, no data aside from name of the unit, were collected. For the 29 sites scattered across those planting units (an unbalanced design), larger climatic data were recorded such as average annual temperature and average annual precipitation. (For a full list of data collected at each location, see Figure \@ref(fig:fig2). Then, seedlings within that site were sampled for annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth.
@@ -77,7 +77,6 @@ The following predictor variables were evaluated:
   - Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
 
 \doublespacing
-
 Researchers were most interested in the annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth. 
 
 From examination of the raw data, growth rate appears to be similar across each planting unit, suggesting that no transformation is needed (Figure \@ref(fig:fig4)).
@@ -108,7 +107,7 @@ pairs_plot
 ### Statistical Procedures Used
 Mixed effects models were used to study what covariates were correlated with white bark pine performance. Random effects were always used for the unit. A variety of linear and polynomial functions, and fixed effects were explore. Cubic forms were explored due to the biological idea that WBP seedling establishment may vary drastically depending on the conditions. In below average conditions, we expect low growth rate. We expect there to be an average growth rate in average conditions, and then for high quality conditins, we expect a much higher growth rate - therefore following a cubic form. A corrected AIC was used to compare models. We attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incorporating environmental variables related to the research questions (including number of competitors, age of planting, and microsite status). 
 
-We ran the saturated cubic model without interactions \@ref(eq:full), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. All analysis was done use R statistical software. 
+We ran the saturated cubic model without interactions \@ref(eq:full), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
 
 The theoretical model for our full model analyzed is as follows:
 
@@ -160,22 +159,22 @@ Going forward, we would like to look into the following things:
  
 
 ## Scope of Inference
-- Random sampling of WPB = inferences to large population 
-- No random treatment (because nature) = correlation/association but not causation. 
+Because there was random sampling of the WPB within each site, the inferences can be applied to the larger WBP population at that site, but because the sites and units were not randomly selected, no further inferences can be drawn. Furthermore, there was no treatment applied since this was an observational study, so inferences are only correlative, not causative.
 
 ## Critique
-- paper had no clear model selection criteria or process
-- difficult data cleaning and processing without instruction
-- unfamiliar with drop1() technique for model selection, so hard to critique that with what we are used to, but struggled using step selection with random effects
-- reason for cubic form is unclear
-- no mention of what made something more biologically relevant during variable selection looking at correlation
-- paper fishing for explanation
+Trying to follow and reproduce what Laufenberg et al. 2020 did in the paper proved to be extremely complicated. There appeared to have been extensive data cleaning and manipulation, which was not communicated in the paper. We know that they chose the "more ecologically relevant" variable when looking at correlation, but there was no clear instructions on what that was. Furthermore, the paper had no clear model selection processes, making it difficult to reproduce. Many of their choices, such as using a cubic form for AET or log transforming growth rate, were not explained and the reasoning behind was unclear. The paper itself is fishing for an explanation. 
+
+After trying and failing to reproduce the results from the paper, we streamline our research question and attempted to just use the data collected to answer what we were interested in. However, even that proved to be challenging. 
 
 ## Group Work Statement
 Steve spearheaded the data wrangling and analysis, while Parker took lead on the write-up and formatting. Both people contributed to the interpretation, discussion, and critique. 
 
 ## References
 - Laufenberg, David, et al. "Biophysical gradients and performance of whitebark pine plantings in the Greater Yellowstone Ecosystem." Forests 11.1 (2020): 119.
+- R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+- H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+- Douglas Bates, Martin Maechler, Ben Bolker, Steve Walker (2015). Fitting Linear  Mixed-Effects Models Using lme4. Journal of Statistical Software, 67(1), 1-48. doi:10.18637/jss.v067.i01.
+
 
 ## Appendix
 - Must include a compiled RMarkdown with all of our results
