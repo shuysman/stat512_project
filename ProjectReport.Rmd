@@ -110,8 +110,6 @@ Mixed effects models were used to study what covariates were correlated with whi
 
 We ran the saturated cubic model without interactions \@ref(eq:full), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. All analysis was done use R statistical software. 
 
-
-*For simplicity sake, lower-order terms were not explicitly written out here but were included in model.*
 The theoretical model for our full model analyzed is as follows:
 
 ```{=latex}
