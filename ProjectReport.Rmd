@@ -82,9 +82,8 @@ Researchers were most interested in the annual growth rate. Seedlings were too s
 
 From examination of the raw data, growth rate appears to be similar across each planting unit, suggesting that no transformation is needed (Figure \@ref(fig:fig4)).
 
-```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate by unit", fig.height = 3}
-#need to make a different raw data visualization plot, if we want to include it
-fig4
+```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate compared with AET by each site", fig.height = 3}
+aet_x_growthrt
 ```
 
 At each site, data on seedling heights (used to estimate growth rate) and competing plant species was recorded. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. 
