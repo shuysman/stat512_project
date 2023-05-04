@@ -147,11 +147,11 @@ models <- data.frame("model" = "log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet
 
 models<-models%>%add_row("model"=c("a = $\\frac{1}{2}$", "b = $\\frac{2}{3}$"), AICc = AICc(model_of_interest))
 
-modelTable<-models%>%
-  kable('latex')%>%
-  kable_styling(latex_options = "hold_position", full_width = F) %>%
-  kbl(caption = "Model Suite Tested") %>%
-  kable_classic(full_width = T)
+# modelTable<-models%>%
+#   kable('latex')%>%
+#   kable_styling(latex_options = "hold_position", full_width = F) %>%
+#   kbl(caption = "Model Suite Tested") %>%
+#   kable_classic(full_width = T)
 
 
 

@@ -75,8 +75,9 @@ The following predictor variables were evaluated:
   - PET - Mean potential evapotranspiration (mm) during growing season (April–October)
   - GDD - Mean annual growing degree days (April-October)
   - Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
-
+  
 \doublespacing
+
 Researchers were most interested in the annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth. 
 
 From examination of the raw data, growth rate appears to be similar across each planting unit, suggesting that no transformation is needed (Figure \@ref(fig:fig4)).
@@ -89,11 +90,10 @@ At each site, data on seedling heights (used to estimate growth rate) and compet
 
 Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We ultimately decided to create an annual evapotranspiration rate, given that it is extremely pertinent to our research question. To get this annual evapotranspiration (AET), we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for mean water deficit (grow_dmean) to get climatic water deficit (CWD). 
 
-Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (\@ref(fig:corr). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which are $AET$ and $WD$. Following this process, our list of environmental components we would like to account for in the model are comp_number and microsite status. 
+Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (Figure \@ref(fig:corr). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which are $AET$ and $WD$. Following this process, our list of environmental components we would like to account for in the model are comp_number and microsite status. 
 
 ```{r corr, echo = FALSE, eval = TRUE, warnings = FALSE, fig.caption = "Correlation matrix of predictor variables. Darker squares indicate a higher degree of correlation. For variables that were at least 0.6 correlated, the most ecologically relevant one was selected"}
 corr_plot
-
 ```
 
 
@@ -105,14 +105,14 @@ pairs_plot
 
 
 ### Statistical Procedures Used
-Mixed effects models were used to study what covariates were correlated with white bark pine performance. Random effects were always used for the unit. A variety of linear and polynomial functions, and fixed effects were explore. Cubic forms were explored due to the biological idea that WBP seedling establishment may vary drastically depending on the conditions. In below average conditions, we expect low growth rate. We expect there to be an average growth rate in average conditions, and then for high quality conditins, we expect a much higher growth rate - therefore following a cubic form. A corrected AIC was used to compare models. We attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incorporating environmental variables related to the research questions (including number of competitors, age of planting, and microsite status). 
+Mixed effects models were used to study what covariates were correlated with white bark pine performance. Random effects were always used for the unit. A variety of linear and polynomial functions, and fixed effects were explore. Cubic forms were explored due to the biological idea that WBP seedling establishment may vary drastically depending on the conditions. In below average conditions, we expect low growth rate. We expect there to be an average growth rate in average conditions, and then for high quality conditions, we expect a much higher growth rate - therefore following a cubic form. A corrected AIC was used to compare models. We attempted to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incorporating environmental variables related to the research questions (including number of competitors, age of planting, and microsite status). 
 
 We ran the saturated cubic model without interactions \@ref(eq:full), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
 
 The theoretical model for our full model analyzed is as follows:
 
 ```{=latex}
-\begin{align*}
+\begin{align}
   log(growth\_rate)_{ij} &= \hat{\mu}_{ij} + Unit_i + \epsilon_{ij} \\
   Unit_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{unit}) \\
   \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{error}) \\
@@ -121,7 +121,7 @@ The theoretical model for our full model analyzed is as follows:
     &+ \beta_5Comp\_number + \beta_6Micro + \beta_7PICO \\
     &+ \beta_8PIEN + \beta_9ABLA
   \end{split}
-\end{align*}
+\end{align}
 ```
 
 ## Results/Summary of Statistical Findings
@@ -167,7 +167,7 @@ Trying to follow and reproduce what Laufenberg et al. 2020 did in the paper prov
 After trying and failing to reproduce the results from the paper, we streamline our research question and attempted to just use the data collected to answer what we were interested in. However, even that proved to be challenging. 
 
 ## Group Work Statement
-Steve spearheaded the data wrangling and analysis, while Parker took lead on the write-up and formatting. Both people contributed to the interpretation, discussion, and critique. 
+Steve spearheaded the data wrangling and analysis, while Parker took lead on the write-up and formatting. Both people contributed to the model selection, interpretation, discussion, and critique. 
 
 ## References
 - Laufenberg, David, et al. "Biophysical gradients and performance of whitebark pine plantings in the Greater Yellowstone Ecosystem." Forests 11.1 (2020): 119.
