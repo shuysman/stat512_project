@@ -138,13 +138,17 @@ AICc(final_model)
 #1130.444
 
 # create a pretty table of model selection ####
-models <- data.frame(model = "log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number + annual_p^3 +annual_p^2 + annual_p + annual_tmax^3 + annual_tmax^2 + annual_tmax +PICO  + PIEN +ABLA +  (1 | unit)", AICc = AICc(model_of_interest))
+models <- data.frame("model" = "log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number + annual_p^3 +annual_p^2 + annual_p + annual_tmax^3 + annual_tmax^2 + annual_tmax +PICO  + PIEN +ABLA +  (1 | unit)", AICc = AICc(model_of_interest))
 
-models<-models%>%add_row(model="log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number +  (1 | unit)", AICc = AICc(model_of_interest))
+models<-models%>%add_row("model"=c("a = $\\frac{1}{2}$", "b = $\\frac{2}{3}$"), AICc = AICc(model_of_interest))
 
 modelTable<-models%>%
+  kable('latex')%>%
+  kable_styling(latex_options = "hold_position", full_width = F) %>%
   kbl(caption = "Model Suite Tested") %>%
-  kable_classic(full_width = T, html_font = "Cambria")
+  kable_classic(full_width = T)
+
+
 
 #laufenbery got 3262.92
 
