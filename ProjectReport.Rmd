@@ -1,8 +1,8 @@
 ---
 title: 'Critique of Laufenberg Paper'
-subtitle: 'Stat 512: Rough Draft of Final Project'
+subtitle: 'Stat 512:Final Project'
 author: "Steve Huysman & Parker Levinson"
-date: "Friday, April 14, 2023"
+date: "Friday, May 5, 2023"
 output:
   bookdown::pdf_document2: default
   html_document:
