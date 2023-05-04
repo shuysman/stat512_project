@@ -99,11 +99,11 @@ The theoretical model for our full model analyzed is as follows:
 ```{=latex}
 \begin{align}
   log(growth\_rate)_{ij} &= \mu_{ij} + Site_i + \epsilon_{ij} \\
-  Unit_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{Site}) \\
+  Site_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{Site}) \\
   \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{error}) \\
   \begin{split}
-    \mu_{ij} &= \beta_0 + \beta_1*AET + \beta_2* CWD + \beta_3 * I_{Unit = WC} + \beta_4*I_{Unit = EC} \\
-    &+ \beta_5*I_{Unit = WI} + \beta_6*I_{Unit = BT} + ....\beta_i*climate\ variables
+    \mu_{ij} &= \beta_0 + \beta_1*AET + \beta_2* CWD + \beta_3 * I_{Unit = EC} + \beta_4*I_{Unit = WC} \\
+    &+ \beta_5*I_{Unit = WI} + \beta_6*I_{Unit = WY} + ....\beta_i*climate\ variables
   \end{split}
   (\#eq:full)
 \end{align}
@@ -125,35 +125,36 @@ The theoretical model for our full model analyzed is as follows:
       1, & \text{if}\ unit = Wind River \\
       0, & \text{otherwise}
     \end{cases}
-    I_{unit =BT} =
+    I_{unit = WY} =
     \begin{cases}
-      1, & \text{if}\ unit = Beartooth \\
+      1, & \text{if}\ unit = West Yellowstone \\
       0, & \text{otherwise}
     \end{cases}
 \end{align}
 ```
 
-We ran the saturated cubic model without interactions (Equation \@ref(eq:full)), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. After running the model initially, we found that the residuals had a lot of funneling. Because of this, we chose to log transform the response variable ($growth\_rate$) to reduce this skew. However, log transforming does result in a non-random distribution of residuals. All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
+We ran the saturated cubic model without interactions (Equation \@ref(eq:full)), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. After running the model initially, we found that the residuals had a lot of funneling (Figure \@ref(fig:diagnostics)), and we found that log transforming the response variable ($growth\_rate$) reduced this skew. However, log transforming does result in a non-random distribution of residuals, so we tried a variety of different functional transformations to both the response and predictor variables but were unable to reduce this violation. All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
+
+```{r diagnostics, fig.cap="Diagnostic plots for saturated model before and after log transformation of response variable"}
+diagnostic_combined
+```
 
 ## Results/Summary of Statistical Findings
-Using backwards selection, the most parsimonious model is below, where $annual\_Tmax$ took on a quadratic form, and PIEN and Micro were removed. This model has an AIC score of `r round(AICc(final_cubic),2)`. 
+Using backwards selection, the most parsimonious model included a random effect of site and fixed effects for unit, aet, and number of competitors. Although water deficit was not selected, we included it as it directly helps us answer our research question. The select model had an AICc of `r round(AICc(reduced_model_of_interest ),2)`. The full estimation is below: 
 
 ```{=latex}
 \begin{align*}
-  log(growth\_rate)_{ij} &= \hat{\mu}_{ij} + Unit_i + \epsilon_{ij} \\
-  Unit_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{unit}) \\
+  log(growth\_rate)_{ij} &= \hat{\mu}_{ij} + Site_i + \epsilon_{ij} \\
+  Site_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{Site}) \\
   \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{error}) \\
   \begin{split}
-    \hat{\mu}_{ij} &= \beta_0 + \beta_1AET^3 + \beta_2AET^2 + \beta_3AET \\
-                   &+ \beta_4PET^3 + \beta_5PET^2 + \beta_6PET \\
-                   &+ \beta_7Comp\_number^3 + \beta_8Comp\_number^2 + \beta_9Comp\_number \\
-                   &+ \beta_{10}PPT^3 + \beta_{11}PPT^2 + \beta_{12}PPT \\
-                   &+ \beta_{13}T_{max}^2 + \beta_{14}T_{max} + \beta_{15}PICO + \beta_{16}ABLA
+    \mu_{ij} &= 0.22 + 0.0014*AET - 0.000094* CWD + 0.15 * I_{Unit = EC} + 0.14*I_{Unit = WC} \\
+    &+ 0.18*I_{Unit = WI} + 0.36*I_{Unit = WY} + 0.0084 * comp\_number
   \end{split}
 \end{align*}
 ```
 
-The initial full model, with all variables of interest, had an AICc of `r round(AICc(full_cubic),2)`. This was a `r round(AICc(full_cubic)-AICc(final_cubic),2)` reduction in AICc value. 
+After accounting for AET, water deficit, and number of competitors, the estimated correlation between any two seedlings in the same site $\hat{ICC}$ = `r round(0.1019/(0.1019 +0.3679),3)`.
 
 The final model suggests the WBP seedling growth is most correlated with the annual evapotranspiration, the potential evapotranspirtaion, the number of competitors around the seedling, annual precipitation, and max temperature while accounting for the random effect of planting unit.
 

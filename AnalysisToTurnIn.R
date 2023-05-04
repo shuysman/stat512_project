@@ -118,8 +118,14 @@ reduced_model_of_interest <-lmer(log_growth_rt ~ aet + cwd+comp_number + unit + 
 
 AICc(reduced_model_of_interest) #AICc 1148.384
 
+
+model_no_log <-lmer(growth_rt ~ aet +age + cwd+comp_number + unit +annual_p+annual_tmax+PICO+ABLA+PIEN +micro+ (1 | site), df)
+
 #diagnostic plots####
-residplot(model_of_interest, newwd=F)
+diagnostic_log<-residplot(model_of_interest, newwd=F)
+diagnostic<-residplot(model_no_long, newwd=F)
+diagnostic_combined <- ggarrange(diagnostic, diagnostic_log)
+
 #CookD(model_of_interest, newwd=T) # this won't run on the model
 #this is a slow function so commented out for now, point 1231, 1157, and 848 are major outliers
 
