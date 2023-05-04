@@ -100,8 +100,8 @@ AICc(final_cubic)
 
 
 #model selection with simplified model####
-#I think this is the model we are most interested in, depends on what variable we want to use for water deficiet 
-model_of_interest <-lmer(growth_rt ~ poly(aet,3) +age + cwd+poly(comp_number,3) + unit +annual_p+annual_tmax  + (1 | site), df)
+#I think this is the model we are most interested in, depends on what variable we want to use for water deficit 
+model_of_interest <-lmer(growth_rt ~ (aet) +age + cwd+comp_number + unit +annual_p+annual_tmax  + (1 | site), df[-1231,])
 null_interest<-lmer(growth_rt ~ aet +unit  + (1 | site), df)
 step(model_of_interest, direction = "backwards")
 
@@ -113,6 +113,11 @@ AICc(null_interest) #AICc 7354.993
 #diagnostic plots####
 library(predictmeans)
 residplot(model_of_interest, newwd=F)
+#CookD(model_of_interest, newwd=T) # this won't run on the model
+#this is a slow function so commented out for now, point 1231, 1157, and 848 are major outliers
+
+library(lattice)
+dotplot(ranef(model_of_interest, condVar = T)) #looks relatively linear here, i don't think we should transform
 
 
 
