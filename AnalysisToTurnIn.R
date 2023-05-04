@@ -138,9 +138,9 @@ AICc(final_model)
 #1130.444
 
 # create a pretty table of model selection ####
-models <- data.frame(model = "log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number + annual_p^3 +annual_p^2 + annual_p + annual_tmax^3 + annual_tmax^2 + annual_tmax +PICO  + PIEN +ABLA +  (1 | unit)", AICc = AICc(full_cubic) )
+models <- data.frame(model = "log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number + annual_p^3 +annual_p^2 + annual_p + annual_tmax^3 + annual_tmax^2 + annual_tmax +PICO  + PIEN +ABLA +  (1 | unit)", AICc = AICc(model_of_interest))
 
-models<-models%>%add_row(model="log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number +  (1 | unit)", AICc = AICc(final_model))
+models<-models%>%add_row(model="log_growth_rt ~ aet^3 + aet^2 + aet + pet^3+ pet^2 + pet + comp_number^3 + comp_number^2 + comp_number +  (1 | unit)", AICc = AICc(model_of_interest))
 
 modelTable<-models%>%
   kbl(caption = "Model Suite Tested") %>%
