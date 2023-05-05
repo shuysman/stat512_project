@@ -163,7 +163,7 @@ Using backwards selection, the most parsimonious model included a random effect 
 \end{align*}
 ```
 
-The final model suggests that WBP seedling growth is most correlated with the annual evapotranspiration and the number of competitors around the seedling. For a one mm change in AET, there is a multiplicative change in the median seedling growth rate by `r 10^(0.001446)` mm (95% CI: -2.64e-05 to 2.94e-03, profile-likelihood CI **NEED TO UPDATE TO 10^)** and for a one mm change in CWD, there is a multiplicative change in the median seedling growth rate by `r 10^(-9.446e-05)` mm (95% CI: -5.25e-04 to 3.373e-04, profile-likelihood CI), after accounting for number of competitors, unit, and a random effect of site. 
+The final model suggests that WBP seedling growth is most correlated with the annual evapotranspiration and the number of competitors around the seedling. For a one mm change in AET, there is a multiplicative change in the median seedling growth rate by `r 10^(0.001446)` cm/year (95% CI: 1.000 to 1.007 cm/year, profile-likelihood CI)** and for a one mm change in CWD, there is a multiplicative change in the median seedling growth rate by `r 10^(-9.446e-05)` cm/year (95% CI: 0.999 to 1.001 cm/year, profile-likelihood CI), after accounting for number of competitors, unit, and a random effect of site. 
 ```{r effects, fig.caption = "Mean log growth on effects"}
 effect_plot
 ```
