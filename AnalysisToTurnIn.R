@@ -19,7 +19,7 @@ library(ggpubr)
 library(ggcorrplot)
 library(predictmeans)
 library(lattice)
-
+library(cowplot)
 
 #read the dataframe ####
 df_raw <- read.csv('./laufenberg-df.csv')
@@ -61,11 +61,18 @@ fig4_combined <- ggarrange(fig4, fig4_logged)
 ### faceting on site or col = site in the aes(), both are visually
 ### noisy but the facet_wrap seems easier to read.  from this plot, I
 ### can't see any reason to log transform growth rate.
-aet_x_growthrt <- df %>%
-    ggplot(aes(x = aet, y = growth_rt)) +
-    geom_point() +
-    facet_wrap(~site)+
-    theme_bw()
+## title <- ggplot() +
+##     labs(title = "AET (mm) vs Growth Rate (cm/year) for all study sites by planting unit") +
+##     theme_bw()
+gridded <- df %>%
+    group_split(unit) %>%
+    map(
+        ~ggplot(., aes(x = aet, y = growth_rt, col = site)) +
+            geom_point() +
+            theme_bw() +
+            ggtitle(.$unit)
+    ) %>% plot_grid(plotlist = ., align = 'hv', ncol = 2)
+aet_x_growthrt <- plot_grid(gridded, ncol = 1,  rel_heights = c(0.1, 1))
 
 #look for correlations within variables of question
 interested_var<-df %>%
