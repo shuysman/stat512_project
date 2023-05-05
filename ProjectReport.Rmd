@@ -53,11 +53,11 @@ knitr::include_graphics("Figure1.png")
 
 Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of WBP in the GYE. This study investigated five planting units (Figure \@ref(fig:fig1)) that each contained between two and eight planting sites. This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of whitebark pine seedlings planted at each planting site, from which a proprionate number of tree seedlings was sampled based on planting site size. (See Figure \@ref(fig:fig2) for model design.)
 
-```{r fig2, fig.cap = "Hierarchical study design with fixed and random effects.", echo = FALSE, out.width = '100%', fig.align='center'}
+```{r fig2, fig.cap = "Hierarchical study design with fixed and random effects.  Only variables included in our reserach question are addressed here.  The original study collected additional data, see original paper for details (Laufenberg et al. 2020)", echo = FALSE, out.width = '100%', fig.align='center'}
 knitr::include_graphics("measurement_structure_diagram.png")
 ```
 
-For the 5 larger planting units, name of unit was recorded.  The 29 sites sampled were unevenly spread across those units, in an unbalanced study design.  For each site, a historical gridded daily climate data set (Daymet, Thornton et al. 2016) was used to estimate temperature and precipitation values, which were aggregated into season and annual averages (annual_tmax, annual_tmean, spring_snow, spring_rain).  
+For the 5 larger planting units, name of unit was recorded.  Due to The 29 sites sampled were unevenly spread across those units, in an unbalanced study design.  For each site, a historical gridded daily climate data set (Daymet, Thornton et al. 2016) was used to estimate temperature and precipitation values, which were aggregated into season and annual averages (annual_tmax, annual_tmean, spring_snow, spring_rain).  
 
 Seedlings within each sample site were then sampled for annual growth rate.  A grid cell matrix of 10 meters x 10 meters was overlaid on the study site or unit. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling WBP in 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth.
 
@@ -147,7 +147,7 @@ residplot(model_no_log, newwd=F)
 residplot(model_of_interest, newwd=F)
 ```
 
-After running the model initially, we found that the residuals had a lot of funneling (Figure \@ref(fig:diagnostics)), and we found that log transforming the response variable ($growth\_rate$) reduced this skew. However, log transforming does result in a non-random distribution of residuals, so we tried a variety of different functional transformations to both the response and predictor variables but were unable to reduce this violation. All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
+After running the model initially, we found that the residuals had a lot of funneling (Figure \@ref(fig:diagnostics)), and we found that log transforming the response variable ($growth\_rate$) reduced this skew. However, log transforming does result in a non-random distribution of residuals, so we tried a variety of different functional transformations to both the response and predictor variables but were unable to reduce this violation. Following the original study (Laufenberg et al. 2020), log transformations were performed with base 10.  All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
 
 ## Results/Summary of Statistical Findings
 Using backwards selection, the most parsimonious model included a random effect of site and fixed effects for unit, aet, and number of competitors. Although water deficit was not selected, we included it as it directly helps us answer our research question. The select model had an AICc of `r round(AICc(reduced_model_of_interest ),2)`. The full estimation is below: 
@@ -163,7 +163,7 @@ Using backwards selection, the most parsimonious model included a random effect 
 \end{align*}
 ```
 
-The final model suggests that WBP seedling growth is most correlated with the annual evapotranspiration and the number of competitors around the seedling. For a one **UNIT** change in AET, there is a multiplicative change in the median seedling growth rate by `r 10^(0.001446)` **UNIT** (95% CI: -2.64e-05 to 2.94e-03, profile-likelihood CI **NEED TO UPDATE TO 10^)** and for a one **UNIT** change in CWD, there is a multiplicative change in the median seedling growth rate by `r 10^(-9.446e-05)` **UNIT** (95% CI: -5.25e-04 to 3.373e-04, profile-likelihood CI), after accounting for number of competitors, unit, and a random effect of site. 
+The final model suggests that WBP seedling growth is most correlated with the annual evapotranspiration and the number of competitors around the seedling. For a one mm change in AET, there is a multiplicative change in the median seedling growth rate by `r 10^(0.001446)` mm (95% CI: -2.64e-05 to 2.94e-03, profile-likelihood CI **NEED TO UPDATE TO 10^)** and for a one mm change in CWD, there is a multiplicative change in the median seedling growth rate by `r 10^(-9.446e-05)` mm (95% CI: -5.25e-04 to 3.373e-04, profile-likelihood CI), after accounting for number of competitors, unit, and a random effect of site. 
 ```{r effects, fig.caption = "Mean log growth on effects"}
 effect_plot
 ```
