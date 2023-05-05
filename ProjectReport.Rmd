@@ -96,39 +96,40 @@ Mixed effects models were used to study what covariates were correlated with WBP
 The theoretical model for our full model analyzed is as follows:
 ```{=latex}
 \begin{align}
-  log(growth\_rate)_{ij} &= \mu_{ij} + Site_i + \epsilon_{ij} \\
-  Site_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{Site}) \\
-  \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{error}) \\
+  log(growth\_rate)_{ij} &= \mu_{ij} + Site_i + \epsilon_{ij}    (\#eq:full)
+\\
+  Site_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{Site}) \nonumber\\
+  \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{error})  \nonumber \\
   \begin{split}
-    \mu_{ij} &= \beta_0 + \beta_1*AET + \beta_2* CWD + \beta_3 * I_{Unit = EC} + \beta_4*I_{Unit = WC} \\
-    &+ \beta_5*I_{Unit = WI} + \beta_6*I_{Unit = WY} + ....\beta_i*climate\ variables
+    \mu_{ij} &= \beta_0 + \beta_1*AET + \beta_2* CWD + \beta_3 * I_{Unit = EC} + \beta_4*I_{Unit = WC} \nonumber \\
+    &+ \beta_5*I_{Unit = WI} + \beta_6*I_{Unit = WY} + ....\beta_i*climate\ variables \nonumber
   \end{split}
-  (\#eq:full)
 \end{align}
 \begin{align}
-    I_{unit =WC} =
+    I_{unit =WC} = \nonumber
     \begin{cases}
-      1, & \text{if}\ unit = West\ Centennial \\
-      0, & \text{otherwise}
+      1, & \text{if}\ unit = West\ Centennial  \nonumber\\
+      0, & \text{otherwise} \nonumber
     \end{cases}
-     I_{unit =EC} =
+     I_{unit =EC} = \nonumber
     \begin{cases}
-      1, & \text{if}\ unit = East\ Centennial \\
-      0, & \text{otherwise}
+      1, & \text{if}\ unit = East\ Centennial\nonumber \\
+      0, & \text{otherwise} \nonumber
     \end{cases}
   \end{align}
 \begin{align}
-    I_{unit =WI} =
+    I_{unit =WI} =\nonumber
     \begin{cases}
-      1, & \text{if}\ unit = Wind\ River \\
-      0, & \text{otherwise}
+      1, & \text{if}\ unit = Wind\ River\nonumber \\
+      0, & \text{otherwise}\nonumber
     \end{cases}
-    I_{unit = WY} =
+    I_{unit = WY} =\nonumber
     \begin{cases}
-      1, & \text{if}\ unit = West\ Yellowstone \\
-      0, & \text{otherwise}
+      1, & \text{if}\ unit = West\ Yellowstone \nonumber\\
+      0, & \text{otherwise}\nonumber
     \end{cases}
 \end{align}
+
 ```
 
 $\beta_1$ and $\beta_2$ will allow us to answer the research question of how AET and CWD affect WBP seedling growth. $\beta_3-\beta_6$ help get at the question of what variability exists in WBP seedling growth between platning units. 
