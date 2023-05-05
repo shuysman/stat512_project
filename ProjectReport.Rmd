@@ -152,10 +152,10 @@ Using backwards selection, the most parsimonious model included a random effect 
 ```{=latex}
 \begin{align*}
   log(growth\_rate)_{ij} &= \hat{\mu}_{ij} + Site_i + \epsilon_{ij} \\
-  Site_i &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{Site}) \\
-  \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{error}) \\
+  Site_i &\overset{iid}{\sim} \mathcal{N}(0, \hat{\sigma}^2_{Site}) \\
+  \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \hat{\sigma}^2_{error}) \\
   \begin{split}
-    \mu_{ij} &= 0.22 + 0.0014*AET - 0.000094* CWD + 0.15 * I_{Unit = EC} + 0.14*I_{Unit = WC} \\
+    \hat{\mu}_{ij} &= 0.22 + 0.0014*AET - 0.000094* CWD + 0.15 * I_{Unit = EC} + 0.14*I_{Unit = WC} \\
     &+ 0.18*I_{Unit = WI} + 0.36*I_{Unit = WY} + 0.0084 * comp\_number
   \end{split}
 \end{align*}
