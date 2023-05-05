@@ -62,6 +62,8 @@ In the 5 larger planting units, no data aside from name of the unit, were collec
 At each site, climate data like elevation, aspect, water deficit, number of competitors, and amount of evapotranspiration were collected. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. Then, specific data were taken for each individual tree, including height, number of competitors, and climatic variables. Sampling individual seedling growth occurred from May 2018 to October 2018. A grid cell matrix of 10 meters x 10 meters was overlaid on the study site or unit. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling WBP in 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data. Researchers were most interested in the annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth. 
 
 A variety of data were collected at different scales. The variables that are most pertinent to the research question are: 
+
+##NEED TO INCLUDE UNITS FOR EACH OF THESE METRICS###
 \singlespacing
 - WBP seedling height: This is a continuous response variable and is used as a proxy for seedling growth. 
 - AET: This is a continuous predictor variable for annual evapotranspiration, which indicates the usable amount of energy in the system available for seedlings to use. This is collected at each seedling. 
@@ -77,16 +79,14 @@ Climate and water balance predictor variables were tested for colinearity with a
 corr_plot
 ```
 
-After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)). From examination of the raw data, there is a little variance in growth rate by planting unit, which we will account for with a fixed effect of unit.
+After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)). We then looked at variance between sites (Figure \@ref(fig:site_var)), which confirmed the need to include a random effect of site. 
 
 ```{r pairsEDA, echo = FALSE, eval = TRUE, message = FALSE, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center'}
 pairs_plot
 ```
 
 
-From examination of the raw data, growth rate appears to be similar across each planting unit, suggesting that no transformation is needed (Figure \@ref(fig:fig4)).
-
-```{r fig4, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate compared with AET by each site", fig.height = 3}
+```{r site_var, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate compared with AET by each site", fig.height = 3}
 aet_x_growthrt
 ```
 
@@ -154,9 +154,10 @@ Using backwards selection, the most parsimonious model included a random effect 
 \end{align*}
 ```
 
-After accounting for AET, water deficit, and number of competitors, the estimated correlation between any two seedlings in the same site $\hat{ICC}$ = `r round(0.1019/(0.1019 +0.3679),3)`.
+The final model suggests that WBP seedling growth is most correlated with the annual evapotranpiration and the number of competitors around the seedling. For a one **UNIT** change in AET, there is a multiplicative change in the median seedling growth rate by `r exp(0.001446)` **UNIT** (95% CI: -2.64e-05 to 2.94e-03, profile-likelihood CI) and for a one **UNIT** change in CWD, there is a multiplicative change in the median seedling growth rate by `r exp(-9.446e-05)` **UNIT** (95% CI: -5.25e-04 to 3.373e-04, profile-likelihood CI), after accounting for number of competitors, unit, and a random effect of site. After accounting for AET, water deficit, and number of competitors, the estimated correlation between any two seedlings in the same site $\hat{ICC}$ = `r round(0.1019/(0.1019 +0.3679),3)`.
 
-The final model suggests the WBP seedling growth is most correlated with the annual evapotranspiration, the potential evapotranspirtaion, the number of competitors around the seedling, annual precipitation, and max temperature while accounting for the random effect of planting unit.
+**WHAT DOES THIS MEAN FOR WATER WBP RESTORATION***
+
 
 Going forward, we would like to look into the following things:
  - We get the error "fixed-effect model matrix is rank deficient so dropping 14 columns / coefficients" and need to look at what that means.  

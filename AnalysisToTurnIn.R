@@ -66,7 +66,8 @@ fig4_combined <- ggarrange(fig4, fig4_logged)
 aet_x_growthrt <- df %>%
     ggplot(aes(x = aet, y = growth_rt)) +
     geom_point() +
-    facet_wrap(~site)
+    facet_wrap(~site)+
+    theme_bw()
 
 #look for correlations within variables of question
 interested_var<-df %>%
