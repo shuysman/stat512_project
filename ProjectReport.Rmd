@@ -133,6 +133,8 @@ The theoretical model for our full model analyzed is as follows:
 \end{align}
 ```
 
+$\beta_1$ and $\beta_2$ will allow us to answer the research question of how AET and CWD affect WBP seedling growth. $\beta_3-\beta_6$ help get at the question of what variability exists in WBP seedling growth between platning units. 
+
 We ran the saturated cubic model without interactions (Equation \@ref(eq:full)), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. After running the model initially, we found that the residuals had a lot of funneling (Figure \@ref(fig:diagnostics)), and we found that log transforming the response variable ($growth\_rate$) reduced this skew. However, log transforming does result in a non-random distribution of residuals, so we tried a variety of different functional transformations to both the response and predictor variables but were unable to reduce this violation. All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
 
 ```{r diagnostics, fig.cap="Diagnostic plots for saturated model before and after log transformation of response variable"}
@@ -156,38 +158,26 @@ Using backwards selection, the most parsimonious model included a random effect 
 
 The final model suggests that WBP seedling growth is most correlated with the annual evapotranpiration and the number of competitors around the seedling. For a one **UNIT** change in AET, there is a multiplicative change in the median seedling growth rate by `r exp(0.001446)` **UNIT** (95% CI: -2.64e-05 to 2.94e-03, profile-likelihood CI) and for a one **UNIT** change in CWD, there is a multiplicative change in the median seedling growth rate by `r exp(-9.446e-05)` **UNIT** (95% CI: -5.25e-04 to 3.373e-04, profile-likelihood CI), after accounting for number of competitors, unit, and a random effect of site. After accounting for AET, water deficit, and number of competitors, the estimated correlation between any two seedlings in the same site $\hat{ICC}$ = `r round(0.1019/(0.1019 +0.3679),3)`.
 
-**WHAT DOES THIS MEAN FOR WATER WBP RESTORATION***
-
-
-Going forward, we would like to look into the following things:
- - We get the error "fixed-effect model matrix is rank deficient so dropping 14 columns / coefficients" and need to look at what that means.  
- - Better understand the variable selection process and why certain variables were included.  
- - Look for a more parsimonious model, perhaps dropping cubic forms.  
- - Creating diagnostic plots for mixed models 
- - Interpreting the coefficients and the 95% CI in the context of WPB restoration  
- - Insert model table 
- - Effects plot/model estimate
- - Random effect for sample site? 
- - Better define initial model and which betas are important
- 
+**WHAT DOES THIS MEAN FOR WATER WBP RESTORATION**
 
 ## Scope of Inference
 Because there was random sampling of the WPB within each site, the inferences can be applied to the larger WBP population at that site, but because the sites and units were not randomly selected, no further inferences can be drawn. Furthermore, there was no treatment applied since this was an observational study, so inferences are only correlative, not causative.
 
 ## Critique
-Trying to follow and reproduce what Laufenberg et al. 2020 did in the paper proved to be extremely complicated. There appeared to have been extensive data cleaning and manipulation, which was not communicated in the paper. We know that they chose the "more ecologically relevant" variable when looking at correlation, but there was no clear instructions on what that was. Furthermore, the paper had no clear model selection processes, making it difficult to reproduce. Many of their choices, such as using a cubic form for AET or log transforming growth rate, were not explained and the reasoning behind was unclear. The paper itself is fishing for an explanation. 
+Trying to follow and reproduce what Laufenberg et al. 2020 did in the paper proved to be extremely complicated. There appeared to have been extensive data cleaning and manipulation, which was not communicated in the paper. We know that they chose the "more ecologically relevant" variable when looking at correlation, but there was no clear instructions on what that was. Furthermore, the paper had no clear model selection processes, making it difficult to reproduce. Many of their choices, such as using a cubic form for AET or log transforming growth rate, were not explained and the reasoning behind was unclear. The paper itself is fishing for an explanation. Furthermore, the models selected in the paper severely violate many of the assumptions of linear models, specifically normality. Unfortunately, our simplified model also violated the normality assumption, suggesting that perhaps the dataset is missing an important climatic variable that may help explain WBP seedling growth rate. 
 
 After trying and failing to reproduce the results from the paper, we streamline our research question and attempted to just use the data collected to answer what we were interested in. However, even that proved to be challenging. 
 
 ## Group Work Statement
-Steve spearheaded the data wrangling and analysis, while Parker took lead on the write-up and formatting. Both people contributed to the model selection, interpretation, discussion, and critique. 
+Steve understands the ecological implications of this work as it closely mirrors his thesis research, and thus he has a very good understanding of the types of data and how to analyze them. He spearheaded the data wrangling and analysis. While Parker does not understand the study system as well, she is quite comfortable in R and in communicate results, so  Parker took lead on the write-up and formatting. Both people contributed to the model selection, interpretation, discussion, and critique. We mostly worked remotely, sharing our progress via GitHub so we could track the changes that were made. We met once or twice a week to discuss variable and model selection. 
+
+We allocate 10 points to each person, because this was a true collaboration. Steve was integral in handling this messy dataset, figuring out which variables were ecologically important, and in interpreting results. Parker was crucial in writing and formatting the report, in thinking of alternative analyses we could do, and in diagnosing issues. We worked closely to figure out how we wanted to do our model selection.
 
 ## References
+- Douglas Bates, Martin Maechler, Ben Bolker, Steve Walker (2015). Fitting Linear  Mixed-Effects Models Using lme4. Journal of Statistical Software, 67(1), 1-48. doi:10.18637/jss.v067.i01.
+- H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
 - Laufenberg, David, et al. "Biophysical gradients and performance of whitebark pine plantings in the Greater Yellowstone Ecosystem." Forests 11.1 (2020): 119.
 - R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
-- H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
-- Douglas Bates, Martin Maechler, Ben Bolker, Steve Walker (2015). Fitting Linear  Mixed-Effects Models Using lme4. Journal of Statistical Software, 67(1), 1-48. doi:10.18637/jss.v067.i01.
-
 
 ## Appendix
 - Must include a compiled RMarkdown with all of our results
