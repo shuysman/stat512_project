@@ -61,8 +61,6 @@ In the 5 larger planting units, no data aside from name of the unit, were collec
 At each site, climate data like elevation, aspect, water deficit, number of competitors, and amount of evapotranspiration were collected. Water balance variables were estimated using Daymet devices as inputs for temperature and precipitation. Then, specific data were taken for each individual tree, including height, number of competitors, and climatic variables. Sampling individual seedling growth occurred from May 2018 to October 2018. A grid cell matrix of 10 meters x 10 meters was overlaid on the study site or unit. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling WBP in 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data. Researchers were most interested in the annual growth rate. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth. 
 
 A variety of data were collected at different scales. The variables that are most pertinent to the research question are: 
-
-##NEED TO INCLUDE UNITS FOR EACH OF THESE METRICS###
 \singlespacing
 - $growth\_rate$ (*cm/year*): WBP seedling height is used as a proxy for growth rate. This is a continuous response variable and is used as a proxy for seedling growth.  
 
@@ -70,7 +68,7 @@ A variety of data were collected at different scales. The variables that are mos
 
 - $CWD$ (*mm*): This is a continuous predictor variable for climatic water deficit, which measures the evaporative water demand that is not met the water supply at a site.  It reflects the drought stress experienced by plants.  It was esimated using the same climate modeling techniques used to estimate AET for coordinates taken at each seedling.
 
-- $Micro$ - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.  
+- $Micro$ (*1/0*) - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.  
 \doublespacing
 
 Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We ultimately decided to create an annual evapotranspiration rate, given that it is extremely pertinent to our research question. To get this annual evapotranspiration (AET), we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for mean water deficit (grow_dmean) to get climatic water deficit (CWD). 
