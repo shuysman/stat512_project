@@ -84,7 +84,7 @@ pairs_plot
 ```
 
 
-```{r site_var, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate compared with AET by each site", fig.height = 3}
+```{r site_var, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate compared with AET for each study site, by planting unit"}
 aet_x_growthrt
 ```
 
