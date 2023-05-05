@@ -142,6 +142,22 @@ dotplot(ranef(model_of_interest, condVar = T)) #looks relatively linear here, i 
 step(null_model, scope = formula(full_cubic), direction = "forward")
 
 
+#create effects plot### 
+model_effect<-ggpredict(reduced_model_of_interest, terms = c("aet", "unit"))%>%
+  as_tibble()%>%
+  mutate(predicted_back = 10^(predicted), conf.low.back = 10^(conf.low), conf.high.back = 10^(conf.high), unit = group)
+
+
+effect_plot<-ggplot(model_effect)+ 
+  geom_line(aes(x, predicted_back, color = unit))+ 
+  geom_ribbon(colour = NA, alpha = 0.3, aes(x, predicted_back, ymin = conf.low.back, ymax = conf.high.back, color = unit, fill = group))+
+  geom_point(data = df, aes(y = 0, x = aet, fill = unit, color = unit), alpha = 0.2)+
+  facet_wrap(vars(unit))+
+  labs(y = "Annual Growth Rate (cm)", x= "AET (mm)")+
+  guides(fill = guide_legend(title = "Unit"), color = FALSE)+
+  theme_bw()
+
+
 #trying without cubic
 full_first <- lmer(log_growth_rt ~ aet + pet + annual_p  +  annual_tmax+ micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
 step(full_first, direction = "backward")

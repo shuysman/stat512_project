@@ -163,14 +163,12 @@ Using backwards selection, the most parsimonious model included a random effect 
 \end{align*}
 ```
 
-The final model suggests that WBP seedling growth is most correlated with the annual evapotranspiration and the number of competitors around the seedling. For a one **UNIT** change in AET, there is a multiplicative change in the median seedling growth rate by `r exp(0.001446)` **UNIT** (95% CI: -2.64e-05 to 2.94e-03, profile-likelihood CI) and for a one **UNIT** change in CWD, there is a multiplicative change in the median seedling growth rate by `r exp(-9.446e-05)` **UNIT** (95% CI: -5.25e-04 to 3.373e-04, profile-likelihood CI), after accounting for number of competitors, unit, and a random effect of site. 
+The final model suggests that WBP seedling growth is most correlated with the annual evapotranspiration and the number of competitors around the seedling. For a one **UNIT** change in AET, there is a multiplicative change in the median seedling growth rate by `r 10^(0.001446)` **UNIT** (95% CI: -2.64e-05 to 2.94e-03, profile-likelihood CI **NEED TO UPDATE TO 10^)** and for a one **UNIT** change in CWD, there is a multiplicative change in the median seedling growth rate by `r 10^(-9.446e-05)` **UNIT** (95% CI: -5.25e-04 to 3.373e-04, profile-likelihood CI), after accounting for number of competitors, unit, and a random effect of site. 
 ```{r effects, fig.caption = "Mean log growth on effects"}
-library(ggeffects)
-model_effect<-ggpredict(reduced_model_of_interest, terms = c("aet", "unit"))
-plot(model_effect, add.data = TRUE, facet = TRUE)
+effect_plot
 ```
 
-There is a difference in growth rate by unit, which can be visualized in the effects plot. After accounting for AET, water deficit, and number of competitors, the estimated correlation between any two seedlings in the same site $\hat{ICC}$ = `r round(0.1019/(0.1019 +0.3679),3)`.
+There is a difference in growth rate by unit, which can be visualized in the effects plot ((Figure \@ref(fig:effects)). After accounting for AET, water deficit, and number of competitors, the estimated correlation between any two seedlings in the same site $\hat{ICC}$ = `r round(0.1019/(0.1019 +0.3679),3)`.
 
 
 **WHAT DOES THIS MEAN FOR WATER WBP RESTORATION**
