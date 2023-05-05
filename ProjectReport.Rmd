@@ -64,11 +64,11 @@ A variety of data were collected at different scales. The variables that are mos
 
 ##NEED TO INCLUDE UNITS FOR EACH OF THESE METRICS###
 \singlespacing
-- $growth\_rate$: WBP seedling height is used as a proxy for growth rate. This is a continuous response variable and is used as a proxy for seedling growth.  
+- $growth\_rate$ (*cm/year*): WBP seedling height is used as a proxy for growth rate. This is a continuous response variable and is used as a proxy for seedling growth.  
 
-- $AET$: This is a continuous predictor variable for annual evapotranspiration, which indicates the usable amount of energy in the system available for seedlings to use. This is collected at each seedling.   
+- $AET$ (*mm*): This is a continuous predictor variable for annual evapotranspiration, the water loss through transpiration by plants on a site, given prevailing water availability. This measurement indicates the magnitude and duration of conditions favorable for plant growth on a site.  This was estimated using a water balance model using historical climate data from Daymet (Thornton et al. 2016) for coordinates taken at each seedling.   
 
-- $CWD$: This is a continuous predictor variable for climatic water deficit, which indicates how much more water a plant could use. This is collected at each seedling.   
+- $CWD$ (*mm*): This is a continuous predictor variable for climatic water deficit, which measures the evaporative water demand that is not met the water supply at a site.  It reflects the drought stress experienced by plants.  It was esimated using the same climate modeling techniques used to estimate AET for coordinates taken at each seedling.
 
 - $Micro$ - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.  
 \doublespacing
@@ -183,6 +183,7 @@ We allocate 10 points to each person, because this was a true collaboration. Ste
 - H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
 - Laufenberg, David, et al. "Biophysical gradients and performance of whitebark pine plantings in the Greater Yellowstone Ecosystem." Forests 11.1 (2020): 119.
 - R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+- Thornton, P.E.; Thornton, M.M.; Mayer, B.W.; Wei, Y.; Devarakonda, R.; Vose, R.S.; Cook, R.B. Daymet: Daily Surface Weather Data on a 1-km Grid for North America; Version 3; ORNL DAAC: Oak Ridge, TN, USA, 2016.
 
 ## Appendix
 - Must include a compiled RMarkdown with all of our results
