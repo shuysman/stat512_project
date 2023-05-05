@@ -76,7 +76,7 @@ aet_x_growthrt <- plot_grid(gridded, ncol = 1,  rel_heights = c(0.1, 1))
 
 #look for correlations within variables of question
 interested_var<-df %>%
-        select(growth_rt, annual_tmax, annual_p, spring_snow, spring_rain, cwd, monthly_dmax, max_dsum, aet, pet, grow_gdd, annual_tmean)
+        select(annual_tmax, annual_p, spring_snow, spring_rain, cwd, monthly_dmax, max_dsum, aet, pet, grow_gdd, annual_tmean, growth_rt)
 ## I misunderstood something here, we need to pass all variables from table 5 into the corr matrix, then select the more "biologically meaningful" variable from pairs that exceed 0.6 collinearity threshold.
 ## This should just be the full model they used in the model evaluation then.  For example, we choose AET over D for IGR model because it is more biologically relevant - see discussion section for physiological basis.
 ## however, many of these other columns likely have the same data cleanup issues as the other monthly/annual values.
@@ -89,9 +89,9 @@ interested_var.cor <- interested_var %>% cor()
 corr_plot<-ggcorrplot(interested_var.cor, hc.order = TRUE, outline.col = "white", type = "lower", lab = TRUE, lab_size = 3, digits = 1, colors = c("#6D9EC1", "white", "maroon"),  ggtheme = ggplot2::theme_bw)
 
 ##$T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA
-selected_vars <- df %>% select(log_growth_rt, annual_tmax, annual_p, aet, pet, cwd, comp_number, micro, PICO, PIEN, ABLA)
+selected_vars <- df %>% select(annual_tmax, annual_p, aet, pet, cwd, comp_number, micro, PICO, PIEN, ABLA, log_growth_rt)
 
-pairs_plot<-ggpairs(data = interested_var, upper = "blank")
+pairs_plot<-ggpairs(data = selected_vars, upper = "blank")
 
 full_cubic <- lmer(log_growth_rt ~ poly(aet,3) + poly(pet,3) + poly(aet,2) + poly(pet,2) + poly(comp_number,3) + poly(comp_number,2) + aet + pet + poly(annual_p, 3) + poly(annual_p) + annual_p + poly(annual_tmax,3) + poly(annual_tmax, 2) +  annual_tmax+ micro + comp_number +PICO  + PIEN +ABLA +  (1 | unit), df)
 
@@ -124,6 +124,14 @@ reduced_model_of_interest <-lmer(log_growth_rt ~ aet + cwd+comp_number + unit + 
 
 AICc(reduced_model_of_interest) #AICc 1148.384
 
+### LRT
+reduced_model_of_interest_no_site <- lm(log_growth_rt ~ aet + cwd + comp_number + unit, df)
+anova(reduced_model_of_interest, reduced_model_of_interest_no_site)
+
+reduced_model_of_interest_minus_cwd <-lmer(log_growth_rt ~ aet + comp_number + unit + (1 | site), df)
+
+AICc(reduced_model_of_interest_minus_cwd)
+##  1131.569 , delta AIC =  16.815
 
 model_no_log <-lmer(growth_rt ~ aet +age + cwd+comp_number + unit +annual_p+annual_tmax+PICO+ABLA+PIEN +micro+ (1 | site), df)
 
@@ -141,6 +149,8 @@ dotplot(ranef(model_of_interest, condVar = T)) #looks relatively linear here, i 
 
 step(null_model, scope = formula(full_cubic), direction = "forward")
 
+
+10^confint(reduced_model_of_interest)
 
 #create effects plot### 
 model_effect<-ggpredict(reduced_model_of_interest, terms = c("aet", "unit"))%>%
