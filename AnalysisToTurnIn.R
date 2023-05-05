@@ -69,7 +69,7 @@ aet_x_growthrt <- df %>%
 
 #look for correlations within variables of question
 interested_var<-df %>%
-        select(growth_rt, annual_tmax, annual_p, spring_snow, spring_rain, grow_dmean, monthly_dmax, max_dsum, aet, pet, grow_gdd, annual_tmean)
+        select(growth_rt, annual_tmax, annual_p, spring_snow, spring_rain, cwd, monthly_dmax, max_dsum, aet, pet, grow_gdd, annual_tmean)
 ## I misunderstood something here, we need to pass all variables from table 5 into the corr matrix, then select the more "biologically meaningful" variable from pairs that exceed 0.6 collinearity threshold.
 ## This should just be the full model they used in the model evaluation then.  For example, we choose AET over D for IGR model because it is more biologically relevant - see discussion section for physiological basis.
 ## however, many of these other columns likely have the same data cleanup issues as the other monthly/annual values.
@@ -82,7 +82,7 @@ interested_var.cor <- interested_var %>% cor()
 corr_plot<-ggcorrplot(interested_var.cor, hc.order = TRUE, outline.col = "white", type = "lower", lab = TRUE, lab_size = 3, digits = 1, colors = c("#6D9EC1", "white", "maroon"),  ggtheme = ggplot2::theme_bw)
 
 ##$T_{max}$, PPT, PET, AET, comp_number, micro, PICO, PIEN, ABLA
-selected_vars <- df %>% select(log_growth_rt, annual_tmax, annual_p, aet, pet, comp_number, micro, PICO, PIEN, ABLA)
+selected_vars <- df %>% select(log_growth_rt, annual_tmax, annual_p, aet, pet, cwd, comp_number, micro, PICO, PIEN, ABLA)
 
 pairs_plot<-ggpairs(data = interested_var, upper = "blank")
 
