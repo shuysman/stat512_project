@@ -1,0 +1,11 @@
+---
+title: 'Critique of Laufenberg Paper'
+subtitle: 'Stat 512:Final Project'
+author: "Steve Huysman & Parker Levinson"
+date: "Friday, May 5, 2023"
+---
+
+## Group Work Statement
+Steve understands the ecological implications of this work as it closely mirrors his thesis research, and thus he has a very good understanding of the types of data and how to analyze them. He spearheaded the data wrangling and analysis. While Parker does not understand the study system as well, she is quite comfortable in R and in communicate results, so  Parker took lead on the write-up and formatting. Both people contributed to the model selection, interpretation, discussion, and critique. We mostly worked remotely, sharing our progress via GitHub so we could track the changes that were made. We met once or twice a week to discuss variable and model selection. 
+
+We allocate 10 points to each person, because this was a true collaboration. Steve was integral in handling this messy dataset, figuring out which variables were ecologically important, and in interpreting results. Parker was crucial in writing and formatting the report, in thinking of alternative analyses we could do, and in diagnosing issues. We worked closely to figure out how we wanted to do our model selection.
