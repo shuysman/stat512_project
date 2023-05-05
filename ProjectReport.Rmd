@@ -30,7 +30,6 @@ source("./AnalysisToTurnIn.R")
 library(bookdown)
 ```
 
-
 \doublespacing
 
 ## Introduction
@@ -65,21 +64,22 @@ A variety of data were collected at different scales. The variables that are mos
 
 ##NEED TO INCLUDE UNITS FOR EACH OF THESE METRICS###
 \singlespacing
-- WBP seedling height: This is a continuous response variable and is used as a proxy for seedling growth. 
-- AET: This is a continuous predictor variable for annual evapotranspiration, which indicates the usable amount of energy in the system available for seedlings to use. This is collected at each seedling. 
-- CWD: This is a continuous predictor variable for climatic water deficit, which indicates how much more water a plant could use. This is collected at each seedling. 
-- Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
+- $growth\_rate$: WBP seedling height is used as a proxy for growth rate. This is a continuous response variable and is used as a proxy for seedling growth.  
+
+- $AET$: This is a continuous predictor variable for annual evapotranspiration, which indicates the usable amount of energy in the system available for seedlings to use. This is collected at each seedling.   
+
+- $CWD$: This is a continuous predictor variable for climatic water deficit, which indicates how much more water a plant could use. This is collected at each seedling.   
+
+- $Micro$ - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.  
 \doublespacing
 
 Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We ultimately decided to create an annual evapotranspiration rate, given that it is extremely pertinent to our research question. To get this annual evapotranspiration (AET), we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for mean water deficit (grow_dmean) to get climatic water deficit (CWD). 
 
-Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (Figure \@ref(fig:corr). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which are $AET$ and $WD$. Following this process, our list of environmental components we would like to account for in the model are comp_number and microsite status. 
-
-```{r corr, echo = FALSE, eval = TRUE, warnings = FALSE, fig.caption = "Correlation matrix of predictor variables. Darker squares indicate a higher degree of correlation. For variables that were at least 0.6 correlated, the most ecologically relevant one was selected"}
+```{r correlation, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Correlation matrix of predictor variables. Darker squares indicate a higher degree of correlation. For variables that were at least 0.6 correlated, the most ecologically relevant one was selected", out.width = "100%", fig.align='center'}
 corr_plot
 ```
 
-After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)). We then looked at variance between sites (Figure \@ref(fig:site_var)), which confirmed the need to include a random effect of site. 
+Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (Figure \@ref(fig:correlation)). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which are $AET$ and $WD$. Following this process, our list of environmental components we would like to account for in the model are comp_number and microsite status. 
 
 ```{r pairsEDA, echo = FALSE, eval = TRUE, message = FALSE, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center'}
 pairs_plot
@@ -90,12 +90,12 @@ pairs_plot
 aet_x_growthrt
 ```
 
+After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)). We then looked at variance between sites (Figure \@ref(fig:site_var)), which confirmed the need to include a random effect of site. 
 
 ### Statistical Procedures Used
 Mixed effects models were used to study what covariates were correlated with WBP performance. Random effects were always used for the site and fixed units were used for the study unit, due to only having 5 units. A variety of linear and polynomial functions, and fixed effects were explore. Cubic forms were explored due to the biological idea that WBP seedling establishment may vary drastically depending on the conditions. In below average conditions, we expect low growth rate. We expect there to be an average growth rate in average conditions, and then for high quality conditions, we expect a much higher growth rate - therefore following a cubic form. A corrected AIC was used to compare models. We aimed to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incorporating environmental variables related to the research questions (AET and CWD). 
 
 The theoretical model for our full model analyzed is as follows:
-
 ```{=latex}
 \begin{align}
   log(growth\_rate)_{ij} &= \mu_{ij} + Site_i + \epsilon_{ij} \\
@@ -110,24 +110,24 @@ The theoretical model for our full model analyzed is as follows:
 \begin{align}
     I_{unit =WC} =
     \begin{cases}
-      1, & \text{if}\ unit = West Centennial \\
+      1, & \text{if}\ unit = West\ Centennial \\
       0, & \text{otherwise}
     \end{cases}
      I_{unit =EC} =
     \begin{cases}
-      1, & \text{if}\ unit = East Centennial \\
+      1, & \text{if}\ unit = East\ Centennial \\
       0, & \text{otherwise}
     \end{cases}
   \end{align}
 \begin{align}
     I_{unit =WI} =
     \begin{cases}
-      1, & \text{if}\ unit = Wind River \\
+      1, & \text{if}\ unit = Wind\ River \\
       0, & \text{otherwise}
     \end{cases}
     I_{unit = WY} =
     \begin{cases}
-      1, & \text{if}\ unit = West Yellowstone \\
+      1, & \text{if}\ unit = West\ Yellowstone \\
       0, & \text{otherwise}
     \end{cases}
 \end{align}
@@ -135,15 +135,20 @@ The theoretical model for our full model analyzed is as follows:
 
 $\beta_1$ and $\beta_2$ will allow us to answer the research question of how AET and CWD affect WBP seedling growth. $\beta_3-\beta_6$ help get at the question of what variability exists in WBP seedling growth between platning units. 
 
-We ran the saturated cubic model without interactions (Equation \@ref(eq:full)), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. After running the model initially, we found that the residuals had a lot of funneling (Figure \@ref(fig:diagnostics)), and we found that log transforming the response variable ($growth\_rate$) reduced this skew. However, log transforming does result in a non-random distribution of residuals, so we tried a variety of different functional transformations to both the response and predictor variables but were unable to reduce this violation. All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
+We ran the saturated cubic model without interactions (Equation \@ref(eq:full)), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. 
 
-```{r diagnostics, fig.cap="Diagnostic plots for saturated model before and after log transformation of response variable"}
-diagnostic_combined
+```{r diagnostics, echo = FALSE, out.width = "50%", fig.show="hold", fig.cap="Diagnostic plots of saturated model before and after log transformation of growth rate"}
+par(mar = c(4, 4, .1, .1))
+#residual plot before log transformation
+residplot(model_no_log, newwd=F)
+#residual plot after transformation
+residplot(model_of_interest, newwd=F)
 ```
+
+After running the model initially, we found that the residuals had a lot of funneling (Figure \@ref(fig:diagnostics)), and we found that log transforming the response variable ($growth\_rate$) reduced this skew. However, log transforming does result in a non-random distribution of residuals, so we tried a variety of different functional transformations to both the response and predictor variables but were unable to reduce this violation. All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
 
 ## Results/Summary of Statistical Findings
 Using backwards selection, the most parsimonious model included a random effect of site and fixed effects for unit, aet, and number of competitors. Although water deficit was not selected, we included it as it directly helps us answer our research question. The select model had an AICc of `r round(AICc(reduced_model_of_interest ),2)`. The full estimation is below: 
-
 ```{=latex}
 \begin{align*}
   log(growth\_rate)_{ij} &= \hat{\mu}_{ij} + Site_i + \epsilon_{ij} \\

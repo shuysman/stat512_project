@@ -21,8 +21,6 @@ library(predictmeans)
 library(lattice)
 
 
-
-
 #read the dataframe ####
 df_raw <- read.csv('./laufenberg-df.csv')
 
@@ -124,7 +122,7 @@ model_no_log <-lmer(growth_rt ~ aet +age + cwd+comp_number + unit +annual_p+annu
 
 #diagnostic plots####
 diagnostic_log<-residplot(model_of_interest, newwd=F)
-diagnostic<-residplot(model_no_long, newwd=F)
+diagnostic<-residplot(model_no_log, newwd=F)
 diagnostic_combined <- ggarrange(diagnostic, diagnostic_log)
 
 #CookD(model_of_interest, newwd=T) # this won't run on the model
