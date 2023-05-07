@@ -1,12 +1,10 @@
 ---
-title: 'Critique of Laufenberg Paper'
+title: 'Critique of Laufenberg et al. 2020'
 subtitle: 'Stat 512:Final Project'
 author: "Steve Huysman & Parker Levinson"
 date: "Friday, May 5, 2023"
 output:
   bookdown::pdf_document2: default
-  html_document:
-    df_print: paged
 fontsize: 12pt
 header-includes:
 - \usepackage{setspace}
@@ -32,71 +30,66 @@ library(bookdown)
 
 \doublespacing
 
-## Introduction
-Whitebark pine (*Pinus albicaulis* Engelm.; abbreviation: WBP) is a conifer tree native to the mountains of the western United States and Canada. It inhabits subalpine areas where it can be found growing up to the tree line, at a higher elevation than other tree species found with it. Whitebark pine is an early successional species that is often the first to establish after disturbance such as wildfire.  Whitebark pine is a keystone species of subalpine environments where it plays important ecological roles such as providing food for wildlife such as Clark's Nutcracker and the threatened Grizzly Bear.
+\pagebreak
+# Introduction
+Whitebark pine (*Pinus albicaulis* Engelm.; abbreviation: WBP) is a conifer tree native to the mountains of the western United States and Canada. It inhabits subalpine areas where it can be found growing up to the tree line, often at a higher elevation than other tree species found in the same area. Whitebark pine is an early successional species that is often the first to establish after disturbance such as wildfire.  It is a keystone species of subalpine environments where it plays important ecological roles such as providing food for wildlife such as Clark's Nutcracker and the threatened Grizzly Bear.
 
-Due to threats from climate change, mountain pine beetle, and the invasive white pine blister rust, Whitebark pine has undergone a rapid and widespread decline.  It was recently estimated that over half of all standing WBP in the United States are dead.  This decline has lead to its recent listing as Threatened under the Endangered Species Act.  Future climate projections indicate further deterioration of WBP's habitat. Strategies to conserve this species involve planting WBP seedlings for restoration of high-elevation forests.  Successful plantings in the face of climate change require an understanding of the relationship between climate and seedling establishment and growth in this species. Competition from other tree species also plays a role in seedling establishment and was investigated here.
+Due to threats from climate change, mountain pine beetle, and the invasive white pine blister rust, WBP has undergone a rapid and widespread decline.  It was recently estimated that over half of all standing WBP in the United States are dead.  This decline has lead to its recent listing as Threatened under the Endangered Species Act.  Future climate projections indicate further deterioration of WBP's habitat. Strategies to conserve this species involve planting WBP seedlings for restoration of high-elevation forests.  Successful plantings in the face of climate change require an understanding of the relationship between climate and seedling establishment and growth in this species. Climate can be investigate with a water balance model which incorporates the simultaneous availability of energy and water to plants in the form of measurements such as Actual Evapotranspiration (AET) and Climatic Water Deficit (CWD). Competition from other tree species also plays a role in seedling establishment and was investigated here.
 
-Laufenberg et al. (2020) investigated USFS plantings of WBP seedlings in the Greater Yellowstone Ecosystem (GYE) to answer two research questions:    
-1) What is the relationship between climate/competition and WBP seedling establishment, measured by individual growth rate?    
-2) What is the relationship between climate/competition and WBP seedling survival, measured by density change?    
+Laufenberg et al. 2020 attempted to identify what climate variables were related to WBP seedling growth rates. Instead, we address a directed research question: How do growing season (April - October) actual evapotranspiration (AET) and growing season climatic water deficit (CWD) affect planted WBP seedling growth after accounting for location (planting unit and site), competition, and climatic variables? In addition, we are interested in the variation between planting sites. 
 
-However, we chose to focus on a simplified question. We are interested in how annual evapotranspiration and water availability affect planted WBP seedling growth after accounting for location, competition, and climatic variables.
+# Methods
 
-## Methods
+## Field Methods/Study design 
 
-### Field Methods/Study design 
+Over the past 40 years, the US Forest Service and National Park Service has planted more than 1,500 acres of WBP in the GYE. This study used a hierarchical sampling design including 5 planting units (Appendix Figure \@ref(fig:fig1)) with a total of 29 planting sites across units. Whitebark seedlings were randomly sampled from the thousands of whitebark pine seedlings planted at each planting site. (See Figure \@ref(fig:fig2) for sampling design.)
 
-```{r fig1, fig.cap = "Map of planting units included in study in the Greater Yellowstone Ecosystem. Yellowstone National Park is outlined in purple, the greater yelowstone ecosystem is outlined in red, and the five whitebark pine planting units run by the Forest Service and National Park service are circled in red. The two-letter abbreviation denotes the name: BT = Beartooth, EC = East Centennial, WC = West Centennial, WI =Wind River, WY =West Yellowstone", echo = FALSE, out.width = '75%', fig.align='center'}
-knitr::include_graphics("Figure1.png")
-```
-
-Over the past 40 years, the US Forest Service and National Park Service has planted more than 1500 acres of WBP in the GYE. This study investigated five planting units (Figure \@ref(fig:fig1)) that each contained between two and eight planting sites. This study used a hierarchical sampling design including 5 planting units, with a total of 29 planting sites across units, and thousands of whitebark pine seedlings planted at each planting site, from which a proprionate number of tree seedlings was sampled based on planting site size. (See Figure \@ref(fig:fig2) for model design.)
-
-```{r fig2, fig.cap = "Hierarchical study design with fixed and random effects.  Only variables included in our reserach question are addressed here.  The original study collected additional data, see original paper for details (Laufenberg et al. 2020)", echo = FALSE, out.width = '100%', fig.align='center'}
+```{r fig2, fig.cap = "Hierarchical study design with fixed and random effects.  Only variables addressed in our reserach question are included here.", echo = FALSE, out.width = '100%', fig.align='center'}
 knitr::include_graphics("measurement_structure_diagram.png")
 ```
 
-For the 5 larger planting units, name of unit was recorded.  Due to The 29 sites sampled were unevenly spread across those units, in an unbalanced study design.  For each site, a historical gridded daily climate data set (Daymet, Thornton et al. 2016) was used to estimate temperature and precipitation values, which were aggregated into season and annual averages (annual_tmax, annual_tmean, spring_snow, spring_rain).  
+The 29 sites sampled were unevenly spread across the 5 planting units, in an unbalanced study design. For each site, historical temperature and precipitation values were estimated using data from Daymet (Thornton et al. 2016), which were aggregated into seasonal and annual averages (annual_tmax, annual_tmean, spring_snow, spring_rain).  A total of 1244 trees were sampled.
 
-Seedlings within each sample site were then sampled for annual growth rate.  A grid cell matrix of 10 meters x 10 meters was overlaid on the study site or unit. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling WBP in 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth.
+Seedlings within each sample site were then sampled for annual growth rate.  A grid cell matrix of 10 meters x 10 meters was overlaid on the study site. A random starting point was decided and then every 20th grid cell from that was sampled, equating to sampling WBP in 2-15% of each site. Each seedling within that grid cell was digitally tagged, and Survey123 was used to collect field data. Seedlings were too small to measure growth rings via coring, so height was used as a proxy for growth rate. Specifically, growth rate was calculated as the change in height between the study year (2018) to the relative planted height when the seedling was first planted. This was divided by the number of years since planting minus 2.5 years to account for the period of time when seedlings sequester carbon instead of focusing on their own growth.
 
-At each seedling, data was collected on the physical and topographic characteristics of the growing environment (point coordinates, elevation, aspect, and slope) as well as on the competition with other tree species (number of competitors, presence/absence of specific competitor species).  Topographic data was used with the site-level climate data to model water balance variables at the tree-level (aet, pet, cwd).  (For a full list of data collected at each location, see Figure \@ref(fig:fig2)
+For each seedling, data was collected on the physical and topographic characteristics of the growing environment (point coordinates, elevation, aspect, and slope) as well as on the competition with other tree species (number of competitors, presence/absence of specific competitor species).  Topographic data was used with the site-level climate data to model water balance variables at the tree-level (aet, pet, cwd).  (For a full list of data collected at each location, see Figure \@ref(fig:fig2)
 
 A variety of data were collected at different scales. The variables that are most pertinent to the research question are: 
+
 \singlespacing
-- $growth\_rate$ (*cm/year*): WBP seedling height is used as a proxy for growth rate. This is a continuous response variable and is used as a proxy for seedling growth.  
 
-- $AET$ (*mm*): This is a continuous predictor variable for annual evapotranspiration, the water loss through transpiration by plants on a site, given prevailing water availability. This measurement indicates the magnitude and duration of conditions favorable for plant growth on a site.  This was estimated using a water balance model using historical climate data from Daymet (Thornton et al. 2016) for coordinates taken at each seedling.   
+- $growth\_rate$ (*cm/year*): WBP seedling height is used as a proxy for growth rate. This is a continuous response variable.
 
-- $CWD$ (*mm*): This is a continuous predictor variable for climatic water deficit, which measures the evaporative water demand that is not met the water supply at a site.  It reflects the drought stress experienced by plants.  It was esimated using the same climate modeling techniques used to estimate AET for coordinates taken at each seedling.
+- $AET$ (*mm*): This is a continuous predictor variable for growing season actual evapotranspiration: the water loss through transpiration by plants on a site, given prevailing water availability. This measurement indicates the magnitude and duration of conditions favorable for plant growth on a site.  
 
-- $Micro$ (*1/0*) - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.  
+- $CWD$ (*mm*): This is a continuous predictor variable for growing season climatic water deficit, which measures the evaporative water demand that is not met by the water supply at a site.  It reflects the drought stress experienced by plants. 
+
+For the full list of variables that were collected, see appendix section 'Full list of variables analyzed in study'.
+
 \doublespacing
 
-Data were provided by Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. We ultimately decided to create an annual evapotranspiration rate, given that it is extremely pertinent to our research question. To get this annual evapotranspiration (AET), we multiplied the average monthly evapotranspiration by 7 for the 7 months of the growing season. The same was done for mean water deficit (grow_dmean) to get climatic water deficit (CWD). 
+Data were provided by David Laufenberg, but the process of cleaning and structuring the data were not explicit in the paper. As such, we had to experiment to figure out how data were cleaned. Values for AET and CWD appeared to have been provided as an average for one month of the growing season (April - October: 7 months), as multiplying them by 7 resulted in the values reported for the growing season in Laufenberg et al. 2020.  Thus, we multiplied the provided grow_dmean and grow_aetmean values by 7 to obtain values for the growing season sums for CWD and AET, respectively, which were used in our analysis.
 
-```{r correlation, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Correlation matrix of predictor variables. Darker squares indicate a higher degree of correlation. For variables that were at least 0.6 correlated, the most ecologically relevant one was selected", out.width = "100%", fig.align='center'}
+
+## Statistical Procedures Used
+
+```{r correlation, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Correlation matrix of predictor variables. Darker squares indicate a higher degree of correlation. For variables that were at least 0.6 correlated, the most ecologically relevant one was selected.", out.width = "100%", fig.align='center'}
 corr_plot
 ```
 
-Climate and water balance predictor variables were tested for colinearity with a cutoff of r >= +/- 0.6 (Figure \@ref(fig:correlation)). A parsimonious list of water balance variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was then combined with the variables pertinent to the research question, which are $AET$ and $WD$. Following this process, our list of environmental components we would like to account for in the model are comp_number and microsite status. 
+Climate and water balance predictor variables were tested for colinearity with a cutoff of $r \geq \pm 0.6$ (Figure \@ref(fig:correlation)). A parsimonious list of variables was selected by choosing the more biologically relevant variable from pairs that exceeded this threshold. This list of variables was combined with competition and microsite covariates to include in our model selection process. These variables were assessed for linearity (Figure \@ref(fig:pairsEDA)). We then looked at variation between sites (Figure \@ref(fig:site)), which confirmed the need to include a random effect of site. 
 
-```{r pairsEDA, echo = FALSE, eval = TRUE, message = FALSE, fig.cap = "Raw data visualization of variables of interest", out.width = '60%', fig.align='center'}
+```{r pairsEDA, echo = FALSE, eval = TRUE, message = FALSE, fig.cap = "Raw data visualization of selected predictor variables", out.width = '75%', fig.align='center'}
 pairs_plot
 ```
 
-
-```{r site_var, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate compared with AET for each study site, by planting unit"}
+```{r site, echo = FALSE, eval = TRUE, warnings = FALSE, fig.cap="Growth rate compared with AET for each study site, by planting unit"}
 aet_x_growthrt
 ```
 
-After data were selected based on their correlation, we looked at linearity and potential other polynomial forms (Figure \@ref(fig:pairsEDA)). We then looked at variance between sites (Figure \@ref(fig:site_var)), which confirmed the need to include a random effect of site. 
+Mixed effects models were used to investigate the relationship between WBP seedling growth and AET and CWD, after accounting for competition, other climatic variables, and planting location. Site was included as a random effect.  Unit was included as a fixed effect varying at the site level, due a small sample size ($n_{unit}$ = 5). Corrected AIC (AICc) was used to compare models. While the original study (Laufenberg et al. 2020) assessed cubic forms of AET, CWD, and comp_number in their model selection process, the biological reasoning behind this inclusion of higher-order terms and methodology for their assessment in model selection was unclear. Due to a lack of reasoning for their inclusion, we analyzed only first order terms in our model selection process here.
 
-### Statistical Procedures Used
-Mixed effects models were used to study what covariates were correlated with WBP performance. Random effects were always used for the site and fixed units were used for the study unit, due to only having 5 units. A variety of linear and polynomial functions, and fixed effects were explore. Cubic forms were explored due to the biological idea that WBP seedling establishment may vary drastically depending on the conditions. In below average conditions, we expect low growth rate. We expect there to be an average growth rate in average conditions, and then for high quality conditions, we expect a much higher growth rate - therefore following a cubic form. A corrected AIC was used to compare models. We aimed to find the most parsimonious set of water balance variables while still incorporating the biologically relevant variables and incorporating environmental variables related to the research questions (AET and CWD). 
-
-The theoretical model for our full model analyzed is as follows:
+The theoretical full model is below:
 ```{=latex}
 \begin{align}
   log(growth\_rate)_{ij} &= \mu_{ij} + Site_i + \epsilon_{ij}    (\#eq:full)
@@ -105,7 +98,7 @@ The theoretical model for our full model analyzed is as follows:
   \epsilon_{ij} &\overset{iid}{\sim} \mathcal{N}(0, \sigma^2_{error})  \nonumber \\
   \begin{split}
     \mu_{ij} &= \beta_0 + \beta_1*AET + \beta_2* CWD + \beta_3 * I_{Unit = EC} + \beta_4*I_{Unit = WC} \nonumber \\
-    &+ \beta_5*I_{Unit = WI} + \beta_6*I_{Unit = WY} + ....\beta_i*climate\ variables \nonumber
+    &+ \beta_5*I_{Unit = WI} + \beta_6*I_{Unit = WY} + ....\beta_p*climate\ variable_p \nonumber
   \end{split}
 \end{align}
 \begin{align}
@@ -135,9 +128,9 @@ The theoretical model for our full model analyzed is as follows:
 
 ```
 
-$\beta_1$ and $\beta_2$ will allow us to answer the research question of how AET and CWD affect WBP seedling growth. $\beta_3-\beta_6$ help get at the question of what variability exists in WBP seedling growth between platning units. 
+$\beta_1$ and $\beta_2$ will allow us to answer the research question of how AET and CWD affect WBP seedling growth. $\beta_3-\beta_6$ help get at the question of what variability exists in WBP seedling growth between planting units. 
 
-We ran the saturated cubic model without interactions (Equation \@ref(eq:full)), and then refined it using backwards selection from the $step()$ function and a AIC cutoff of AIC<2. 
+We ran the saturated model without interactions (Equation \@ref(eq:full)), and then refined it using backwards selection from the $step()$ function and an AIC cutoff of AIC<2. 
 
 ```{r diagnostics, echo = FALSE, out.width = "50%", fig.show="hold", fig.cap="Diagnostic plots of saturated model before and after log transformation of growth rate"}
 par(mar = c(4, 4, .1, .1))
@@ -147,10 +140,10 @@ residplot(model_no_log, newwd=F)
 residplot(model_of_interest, newwd=F)
 ```
 
-After running the model initially, we found that the residuals had a lot of funneling (Figure \@ref(fig:diagnostics)), and we found that log transforming the response variable ($growth\_rate$) reduced this skew. However, log transforming does result in a non-random distribution of residuals, so we tried a variety of different functional transformations to both the response and predictor variables but were unable to reduce this violation. Following the original study (Laufenberg et al. 2020), log transformations were performed with base 10.  All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
+After running the model initially, we found that the residuals showed a funnel pattern (Figure \@ref(fig:diagnostics)), and we found that log transforming the response variable ($growth\_rate$) resulted in more constant variance. However, log transforming does result in a non-normal distribution of residuals, so we tried a variety of different functional transformations to both the response and predictor variables but were unable to reduce this violation. Ultimately, we decided that maintaining constant variance, especially with our large sample size, was more important so we proceeded with the log transformed response. Following the original study (Laufenberg et al. 2020), log transformations were performed with base 10.  Measurements for individual seedlings are assumed to be independent due to spatial separation between seedlings and due to the fact that both site-to-site and unit-to-unit variation were incorporated into the model. There were no apparent violations of linearity from the raw data plot (Figure \@ref(fig:pairsEDA)), and colinearity was addressed by removing highly correlated values. All analysis was done use R statistical software (v4.2.2; R Core Team 2021). 
 
-## Results/Summary of Statistical Findings
-Using backwards selection, the most parsimonious model included a random effect of site and fixed effects for unit, aet, and number of competitors. Although water deficit was not selected, we included it as it directly helps us answer our research question. The select model had an AICc of `r round(AICc(reduced_model_of_interest ),2)`. The full estimation is below: 
+# Results/Summary of Statistical Findings
+Using backwards selection, the most parsimonious model included a random effect of site and fixed effects for unit, AET, and number of competitors (For full step selection process refer to code included in the appendix.). Although water deficit (CWD) was not included based on these model selection criteria ($\Delta$AICc = 16.815), we included it because it directly helps us answer our research question. The select model had an AICc of `r round(AICc(reduced_model_of_interest ),2)`. The estimated model is below: 
 ```{=latex}
 \begin{align*}
   log(growth\_rate)_{ij} &= \hat{\mu}_{ij} + Site_i + \epsilon_{ij} \\
@@ -163,31 +156,181 @@ Using backwards selection, the most parsimonious model included a random effect 
 \end{align*}
 ```
 
-The final model suggests that WBP seedling growth is most correlated with the annual evapotranspiration and the number of competitors around the seedling. For a one mm change in AET, there is a multiplicative change in the median seedling growth rate by `r 10^(0.001446)` cm/year (95% CI: 1.000 to 1.007 cm/year, profile-likelihood CI)** and for a one mm change in CWD, there is a multiplicative change in the median seedling growth rate by `r 10^(-9.446e-05)` cm/year (95% CI: 0.999 to 1.001 cm/year, profile-likelihood CI), after accounting for number of competitors, unit, and a random effect of site. 
-```{r effects, fig.caption = "Mean log growth on effects"}
+The final model suggests that WBP seedling growth is most correlated with the annual evapotranspiration and the number of competitors around the seedling. For a one mm change in growing season AET, there is a multiplicative change in the median seedling growth rate by `r 10^(0.001446)` cm/year (95% CI: 1.000 to 1.007 cm/year, profile-likelihood CI) after accounting for CWD, number of competitors, unit, and site-to-site variability in seedling log growth rates. For a one mm change in CWD, there is a multiplicative change in the median seedling growth rate by `r 10^(-9.446e-05)` cm/year (95% CI: 0.999 to 1.001 cm/year, profile-likelihood CI), after accounting for AET, number of competitors, unit, and site-to-site variability in seedling log growth rates.
+
+```{r effects, echo = F, message = F, eval = T, fig.cap = "Predicted impact of AET of WBP seedling growth rate by planting unit", fig.height = 3}
 effect_plot
 ```
 
-There is a difference in growth rate by unit, which can be visualized in the effects plot ((Figure \@ref(fig:effects)). After accounting for AET, water deficit, and number of competitors, the estimated correlation between any two seedlings in the same site $\hat{ICC}$ = `r round(0.1019/(0.1019 +0.3679),3)`.
+There is a difference in growth rate by unit, which can be visualized in the effects plot (Figure \@ref(fig:effects)). After accounting for AET, water deficit, and number of competitors, the estimated correlation between any two seedlings in the same site is $\hat{ICC}$ = `r round(0.1019/(0.1019 +0.3679),3)`. We found strong evidence that there is site-to-site variability in seedling log growth rates after accounting for the impact of AET, CWD, competition number, and unit ($\chi^2_1$ = 39.925, p = 2.638e-10). The estimated variation between sampled sites is $\sigma^2_{site}$ = 0.01039 (95% CI 3.096e-03 to 1.715e-02).
 
+# Scope of Inference
+Because there was random sampling of the WPB within each site, the relationship between AET/CWD and WBP seedling growth rate can be applied to the larger WBP population at that site, but because the sites and units were not randomly selected, no further inferences can be drawn to the larger populations of planting sites or planting units. Furthermore, this was an observational study with no random assignment of treatments, so inferences about the relationships between seedling growth rates and AET, CWD, competition, and planting unit are only correlative, not causative.
 
-**WHAT DOES THIS MEAN FOR WATER WBP RESTORATION**
+These findings can be used to identify planting locations for WBP that optimize growth rates based on modeled AET and CWD values from available climate data.  Planting objectives should be considered on a unit-to-unit or site-to-site basis as there is variation in growth rates between sites and between unit.  
 
-## Scope of Inference
-Because there was random sampling of the WPB within each site, the inferences can be applied to the larger WBP population at that site, but because the sites and units were not randomly selected, no further inferences can be drawn. Furthermore, there was no treatment applied since this was an observational study, so inferences are only correlative, not causative.
+# Critique
+Trying to follow and reproduce what Laufenberg et al. 2020 did in the paper proved to be extremely complicated. There appeared to have been extensive data cleaning and manipulation, which was not communicated in the paper. We know that they chose the "more ecologically relevant" variable when looking at correlation, but there was no clear instructions on what that was. Furthermore, the paper had no clear model selection processes, making it difficult to reproduce. Many of their choices, such as using a cubic form for AET and comp_number, were not explained and the reasoning behind was unclear. The objectives of Laufenberg et al. 2020 are unclear, and seem to combine directed questions about the role of climate and seedling environment on seedling growth rate with fishing for an explanation. Furthermore, the models selected in the paper severely violate many of the assumptions of linear models, specifically normality. Unfortunately, our simplified model also violated the normality assumption, suggesting that perhaps the dataset is missing a covariate that may help explain WBP seedling growth rate. 
 
-## Critique
-Trying to follow and reproduce what Laufenberg et al. 2020 did in the paper proved to be extremely complicated. There appeared to have been extensive data cleaning and manipulation, which was not communicated in the paper. We know that they chose the "more ecologically relevant" variable when looking at correlation, but there was no clear instructions on what that was. Furthermore, the paper had no clear model selection processes, making it difficult to reproduce. Many of their choices, such as using a cubic form for AET or log transforming growth rate, were not explained and the reasoning behind was unclear. The paper itself is fishing for an explanation. Furthermore, the models selected in the paper severely violate many of the assumptions of linear models, specifically normality. Unfortunately, our simplified model also violated the normality assumption, suggesting that perhaps the dataset is missing an important climatic variable that may help explain WBP seedling growth rate. 
+After trying and failing to reproduce the results from the paper, we streamlined our research question and attempted to just use the data collected to answer what we were interested in. However, even that proved to be challenging. 
 
-After trying and failing to reproduce the results from the paper, we streamline our research question and attempted to just use the data collected to answer what we were interested in. However, even that proved to be challenging. 
-
-## References
+# References
 - Douglas Bates, Martin Maechler, Ben Bolker, Steve Walker (2015). Fitting Linear  Mixed-Effects Models Using lme4. Journal of Statistical Software, 67(1), 1-48. doi:10.18637/jss.v067.i01.
 - H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
 - Laufenberg, David, et al. "Biophysical gradients and performance of whitebark pine plantings in the Greater Yellowstone Ecosystem." Forests 11.1 (2020): 119.
 - R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
 - Thornton, P.E.; Thornton, M.M.; Mayer, B.W.; Wei, Y.; Devarakonda, R.; Vose, R.S.; Cook, R.B. Daymet: Daily Surface Weather Data on a 1-km Grid for North America; Version 3; ORNL DAAC: Oak Ridge, TN, USA, 2016.
 
-## Appendix
-- Must include a compiled RMarkdown with all of our results
-- All code is in currently in an R script, will attach for final paper
+# Appendix
+## Full list of variables analyzed in study
+ - Age - Years since planting
+  - $T_{mean}$ - Mean annual temperature ($\degree$C)
+  - $T_{max}$ - Max monthly temperature ($\degree$C)
+  - PPT (mm) - Mean annual precipitation.
+  - Snowpack (mm) - Mean spring (March-May) snowpack
+  - $WD_{annual\_mean}$ (mm)
+  - $WD_{annual\_max}$ (mm)
+  - $WD_{month\_max}$ (mm)
+  - AET - Mean actual evapotranspiration (mm) during growing season (April–October)
+  - PET - Mean potential evapotranspiration (mm) during growing season (April–October)
+  - GDD - Mean annual growing degree days (April-October)
+  - Micro - This was a binary variable indicating presence of favorable microsite conditions. 1 if there was a rock or other topographical feature that changed the environmental conditions where the seedling lived.
+  - $Micro_{prop}$ - Proportion of WBP with a microsite at the site-level 
+  - Comp\_number - number of competitors within a 3.59m radius
+  - PICO - Presence of Lodgepole pine (*Pinus contorta*) within 3.59m radius of WBP. 1 if PICO is present, 0 otherwise.
+  - PIEN - Presence of Apache pine (*Pinus engelmannii*) within 3.59m radius of WBP. 1 if PIEN is present, 0 otherwise.
+  - ABLA - Presence of subalpine fir (*Abies lasiocarpa*) within 3.59m radius of WBP. 1 if ABLA is present, 0 otherwise.
+
+## Figures
+```{r fig1, fig.cap = "Map of planting units included in study in the Greater Yellowstone Ecosystem. Yellowstone National Park is outlined in purple, the greater yelowstone ecosystem is outlined in red, and the five whitebark pine planting units run by the Forest Service and National Park service are circled in red. The two-letter abbreviation denotes the name: BT = Beartooth, EC = East Centennial, WC = West Centennial, WI =Wind River, WY =West Yellowstone", echo = FALSE, out.width = '75%', fig.align='center'}
+knitr::include_graphics("Figure1.png")
+```
+
+
+## Code used in Analysis
+
+```{r eval = T, echo = T}
+#this is the code script with our final data cleaning and analysis
+#Steve Huysman and Parker Levinson
+#Stat 512
+#April 14, 2023
+
+#load required packages ####
+#library(raster)
+library(tidyverse)
+library(lme4)
+library(effects)
+#library(sf)
+library(ggplot2)
+library(kableExtra)
+#library(stars)
+library(lmerTest)
+library(MuMIn)
+library(GGally)
+library(ggpubr)
+library(ggcorrplot)
+library(predictmeans)
+library(lattice)
+library(cowplot)
+
+#read the dataframe ####
+df_raw <- read.csv('./laufenberg-df.csv')
+
+#clean it up ####
+df<-df_raw%>%
+  group_by(unit) %>%
+  #we're not entirely sure why we have to do all these adjustements, probably because the growing season is 7 months long
+    mutate(aet = grow_aetmean * 7,
+           cwd = grow_dmean * 7,
+           pet = grow_petmean * 7,
+           p = annual_p * 12) %>%
+  ungroup()%>%
+  mutate(PICO = as.factor(PICO), micro = as.factor(micro), ABLA = as.factor(ABLA), PIEN = as.factor(PIEN))
+
+
+### From Katie's comments, the above graph reproducing fig4 is not the
+### right raw data plot to include there is no reason to visualize by
+### planting unit.  Since we are including site in the model as a
+### fixed effect, I think we should include of a plot of aet x growth
+### rate, visualized by planting site.  We can do this either by
+### faceting on site or col = site in the aes(), both are visually
+### noisy but the facet_wrap seems easier to read.  from this plot, I
+### can't see any reason to log transform growth rate.
+## title <- ggplot() +
+##     labs(title = "AET (mm) vs Growth Rate (cm/year) for all study sites by planting unit") +
+##     theme_bw()
+gridded <- df %>%
+    group_split(unit) %>%
+    map(
+        ~ggplot(., aes(x = aet, y = growth_rt, col = site)) +
+            geom_point() +
+            theme_bw() +
+            theme(legend.text=element_text(size=6),
+                  legend.title=element_text(size=6)) +
+            ggtitle(.$unit)
+    ) %>% plot_grid(plotlist = ., align = 'hv', ncol = 2)
+aet_x_growthrt <- plot_grid(gridded, ncol = 1,  rel_heights = c(0.1, 1))
+
+#look for correlations within variables of question
+interested_var<-df %>%
+        select(annual_tmax, annual_p, spring_snow, spring_rain, cwd, monthly_dmax, max_dsum, aet, pet, grow_gdd, annual_tmean, growth_rt)
+
+interested_var.cor <- interested_var %>% cor()
+
+corr_plot<-ggcorrplot(interested_var.cor, hc.order = TRUE, outline.col = "white", type = "lower", lab = TRUE, lab_size = 3, digits = 1, colors = c("#6D9EC1", "white", "maroon"),  ggtheme = ggplot2::theme_bw)
+
+selected_vars <- df %>% select(annual_tmax, annual_p, aet, pet, cwd, comp_number, micro, PICO, PIEN, ABLA, log_growth_rt)
+
+pairs_plot<-ggpairs(data = selected_vars, upper = "blank")
+
+
+
+#model selection with simplified model####
+model_of_interest <-lmer(log_growth_rt ~ aet +age + cwd+comp_number + unit +annual_p+annual_tmax+PICO+ABLA+PIEN +micro+ (1 | site), df)
+null_interest<-lmer(growth_rt ~ aet +unit  + (1 | site), df)
+step(model_of_interest, direction = "backwards")
+
+AICc(model_of_interest) #AICc  1195.074
+
+#no indication for CWD but must keep in model because it's our research question
+reduced_model_of_interest <-lmer(log_growth_rt ~ aet + cwd+comp_number + unit + (1 | site), df)
+
+AICc(reduced_model_of_interest) #AICc 1148.384
+
+### LRT
+reduced_model_of_interest_no_site <- lm(log_growth_rt ~ aet + cwd + comp_number + unit, df)
+anova(reduced_model_of_interest, reduced_model_of_interest_no_site)
+
+reduced_model_of_interest_minus_cwd <-lmer(log_growth_rt ~ aet + comp_number + unit + (1 | site), df)
+
+AICc(reduced_model_of_interest_minus_cwd)
+##  1131.569 , delta AIC =  16.815
+
+model_no_log <-lmer(growth_rt ~ aet +age + cwd+comp_number + unit +annual_p+annual_tmax+PICO+ABLA+PIEN +micro+ (1 | site), df)
+
+#diagnostic plots####
+diagnostic_log<-residplot(model_of_interest, newwd=F)
+diagnostic<-residplot(model_no_log, newwd=F)
+diagnostic_combined <- ggarrange(diagnostic, diagnostic_log)
+
+#CookD(model_of_interest, newwd=T) # this won't run on the model
+#this is a slow function so commented out for now, point 1231, 1157, and 848 are major outliers
+
+dotplot(ranef(model_of_interest, condVar = T)) #looks relatively linear here, i don't think we should transform
+
+#create effects plot### 
+model_effect<-ggpredict(reduced_model_of_interest, terms = c("aet", "unit"))%>%
+  as_tibble()%>%
+  mutate(predicted_back = 10^(predicted), conf.low.back = 10^(conf.low), conf.high.back = 10^(conf.high), unit = group)
+
+
+effect_plot<-ggplot(model_effect)+ 
+  geom_line(aes(x, predicted_back, color = unit))+ 
+  geom_ribbon(colour = NA, alpha = 0.3, aes(x, predicted_back, ymin = conf.low.back, ymax = conf.high.back, color = unit, fill = group))+
+  geom_point(data = df, aes(y = 0, x = aet, fill = unit, color = unit), alpha = 0.2)+
+  facet_wrap(vars(unit))+
+  labs(y = "Annual Growth Rate (cm)", x= "AET (mm)")+
+  guides(fill = guide_legend(title = "Unit"), color = FALSE)+
+  theme_bw()
+
+```

@@ -70,6 +70,8 @@ gridded <- df %>%
         ~ggplot(., aes(x = aet, y = growth_rt, col = site)) +
             geom_point() +
             theme_bw() +
+            theme(legend.text=element_text(size=6),
+                  legend.title=element_text(size=6)) +
             ggtitle(.$unit)
     ) %>% plot_grid(plotlist = ., align = 'hv', ncol = 2)
 aet_x_growthrt <- plot_grid(gridded, ncol = 1,  rel_heights = c(0.1, 1))
